@@ -51,26 +51,50 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         url: '/500',
         templateUrl: "assets/views/utility_500.html",
     })
+    //Start: routes for login and signup ========================
+    .state('home', {
+        url: '/home',
+        templateUrl: 'assets/views/home.html'
+    }).state('login', {
+        url: '/login',
+        templateUrl: 'assets/views/login_login.html',
+        controller: 'businessCtrl'
+    }).state('signup', {
+        url: '/signup',
+        templateUrl: 'assets/views/login_signup.html',
+        controller: 'businessCtrl'
+    }).state('login.lockscreen', {
+        url: '/lock',
+        templateUrl: "assets/views/login_lock_screen.html"
+    }).state('login.forgot', {
+        url: '/forgot',
+        templateUrl: "assets/views/login_forgot.html"
+    }).state('signup_wizard', {
+        url: '/signup_wizard',
+        templateUrl: 'assets/views/signup_wizard.html'
+    })
+     //End: routes for login and signup ========================
+
 
 	// Login routes
 
-	.state('login', {
-	    url: '/login',
-	    template: '<div ui-view class="fade-in-right-big smooth"></div>',
-	    abstract: true
-	}).state('login.signin', {
-	    url: '/signin',
-	    templateUrl: "assets/views/login_login.html"
-	}).state('login.forgot', {
-	    url: '/forgot',
-	    templateUrl: "assets/views/login_forgot.html"
-	}).state('login.registration', {
-	    url: '/registration',
-	    templateUrl: "assets/views/login_registration.html"
-	}).state('login.lockscreen', {
-	    url: '/lock',
-	    templateUrl: "assets/views/login_lock_screen.html"
-	});
+	// .state('login', {
+	//     url: '/login',
+	//     template: '<div ui-view class="fade-in-right-big smooth"></div>',
+	//     abstract: true
+	// }).state('login.signin', {
+	//     url: '/signin',
+	//     templateUrl: "assets/views/login_login.html"
+	// }).state('login.forgot', {
+	//     url: '/forgot',
+	//     templateUrl: "assets/views/login_forgot.html"
+	// }).state('login.registration', {
+	//     url: '/registration',
+	//     templateUrl: "assets/views/login_registration.html"
+	// }).state('login.lockscreen', {
+	//     url: '/lock',
+	//     templateUrl: "assets/views/login_lock_screen.html"
+	// });
 
     // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
     function loadSequence() {

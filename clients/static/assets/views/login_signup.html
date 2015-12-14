@@ -1,0 +1,122 @@
+
+<div class="main-content" >
+  <div class="wrap-content container" id="container">
+    <section id="page-title" class="padding-top-15 padding-bottom-15">
+      <div class="row">
+        <div class="col-sm-10">
+          <h1 class="mainTitle">Are you a business? Signup here.</h1>
+          <!-- <span class="mainDescription">overview &amp; stats </span> -->
+            <div class="row">
+              <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8">
+                <!-- start: REGISTER BOX -->
+                <div class="box-register">
+                  <form class="form-register">
+                    <fieldset>
+                      <legend>
+                        Sign Up
+                      </legend>
+                      <p>
+                        Enter your business acount details below:
+                      </p>
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="business_name" placeholder="Business Name" ng-model="business.name">
+                      </div>
+                      <div class="form-group">
+                        <span class="input-icon">
+                          <input type="email" class="form-control" name="email" placeholder="Email" ng-model="business.email">
+                          <i class="fa fa-envelope"></i> </span>
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="business_number" placeholder="Current business phone number" ng-model="business.number">
+                      </div>
+
+                      <!-- <div class="form-group">
+                        <input type="password" class="form-control" name="business_password" placeholder="Password" ng-model="business.password">
+                      </div> -->
+                      <div class="form-group" ng-class="{'has-error':Form.password.$dirty && Form.password.$invalid, 'has-success':Form.password.$valid}">
+                        <label class="control-label">
+                          Password <span class="symbol required"></span>
+                        </label>
+                        <input type="password" placeholder="Enter a Password" class="form-control" name="password" ng-model="business.password" required/>
+                        <span class="error text-small block" ng-if="Form.password.$dirty && Form.password.$error.required">Password is required.</span>
+                        <span class="success text-small block" ng-if="Form.password.$valid">Ok!</span>
+                      </div>
+
+                      <!-- <div class="form-group" ng-class="{'has-error':Form.password_again.$dirty && Form.password_again.$error.compareTo || Form.password_again.$dirty && Form.password_again.$invalid, 'has-success':Form.password_again.$valid}">
+                        <label class="control-label">
+                          Repeat Password <span class="symbol required"></span>
+                        </label>
+                        <input type="password" placeholder="Repeat Password" class="form-control" name="password_again" ng-model="business.password_again" compare-to="business.password" required/>
+                        <span class="error text-small block" ng-if="Form.password_again.$dirty && Form.password2.$error.required">Repeat password is required!</span>
+                        <span class="error text-small block" ng-if="Form.password_again.$dirty && Form.password2.$error.compareTo">Passwords do not match!</span>
+                        <span class="success text-small block" ng-if="Form.password_again.$valid">Passwords match!</span>
+                      </div> -->
+
+                      <div class="form-group">
+                        <label class="block">
+                          Business Role:
+                        </label>
+                        <div class="clip-radio radio-primary">
+                          <input type="radio" id="rg-owner" name="owner" value="owner" ng-model='business.value'>
+                          <label for="rg-owner">
+                            Admin/Owner
+                          </label>
+                          <input type="radio" id="rg-employee" name="employee" value="employee" ng-model='business.value'>
+                          <label for="rg-employee">
+                            Employee
+                          </label>
+                        </div>
+                      </div>
+
+                      <!-- <div class="form-group">
+                        <div class="checkbox clip-check check-primary">
+                          <input type="checkbox" id="agree" value="agree">
+                          <label for="agree">
+                            I agree
+                          </label>
+                        </div>
+                      </div> -->
+                      <div class="form-actions">
+                        <p>
+                          Already have an account?
+                          <a href="#/login">
+                            Log-in
+                          </a>
+                        </p>
+                        <button type="submit" class="btn btn-primary pull-right" ng-click="signup_business(business)">
+                          Submit <i class="fa fa-arrow-circle-right"></i>
+                        </button>
+                      </div>
+                    </fieldset>
+                  </form>
+                </div>
+                <!-- end: REGISTER BOX -->
+              </div>
+            </div>
+            <!-- end: REGISTRATION -->
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<nav class="deep-purple darken-4" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Tabbs</a>
+
+      <ul class="right hide-on-med-and-down">
+        <li><a href="">Navbar Link</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="">Navbar Link</a></li>
+      </ul>
+
+<button ng-click="test()"></button>
+
+
+
+
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+</nav>
+

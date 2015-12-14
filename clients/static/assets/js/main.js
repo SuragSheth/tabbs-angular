@@ -1,4 +1,4 @@
-var app = angular.module('clipApp', ['clip-two']);
+var app = angular.module('tabbs_app', ['clip-two']);
 app.run(['$rootScope', '$state', '$stateParams',
 function ($rootScope, $state, $stateParams) {
 
@@ -34,9 +34,7 @@ function ($rootScope, $state, $stateParams) {
         }
     };
     $rootScope.user = {
-        name: 'Surag',
-        job: 'ng-Dev',
-        picture: 'app/img/user/02.jpg'
+
     };
 }]);
 // translate config
@@ -56,7 +54,7 @@ function ($translateProvider) {
 
     // Store the language in the local storage
     $translateProvider.useLocalStorage();
-    
+
     // Enable sanitize
     $translateProvider.useSanitizeValueStrategy('sanitize');
 
