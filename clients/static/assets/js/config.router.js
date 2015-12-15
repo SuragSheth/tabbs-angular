@@ -41,6 +41,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         ncyBreadcrumb: {
             label: 'Dashboard'
         }
+
     })
     .state('app.pages', {
         url: '/pages',
@@ -59,6 +60,26 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         },
         resolve: loadSequence('flow', 'userCtrl')
 
+    }).state('app.messages', {
+        url: "/messages",
+        templateUrl: "assets/views/pages_messages.html",
+        resolve: loadSequence('truncate', 'htmlToPlaintext', 'inboxCtrl'),
+        title: 'Dashboard',
+        ncyBreadcrumb: {
+            label: 'Dashboard'
+        }
+    }).state('app.tabbs', {
+        url: "/tabbs",
+        templateUrl: "assets/views/pages_messages.html",
+        resolve: loadSequence('truncate', 'htmlToPlaintext', 'inboxCtrl'),
+        title: 'Dashboard',
+        ncyBreadcrumb: {
+            label: 'Dashboard'
+        }
+    }).state('app.settings', {
+        url: '/settings',
+        template: '<div ui-view class="fade-in-up"></div>',
+        title: 'Settings'
     }).state('error', {
         url: '/error',
         template: '<div ui-view class="fade-in-up"></div>'
@@ -93,26 +114,6 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     })
      //End: routes for login and signup ========================
 
-
-	// Login routes
-
-	// .state('login', {
-	//     url: '/login',
-	//     template: '<div ui-view class="fade-in-right-big smooth"></div>',
-	//     abstract: true
-	// }).state('login.signin', {
-	//     url: '/signin',
-	//     templateUrl: "assets/views/login_login.html"
-	// }).state('login.forgot', {
-	//     url: '/forgot',
-	//     templateUrl: "assets/views/login_forgot.html"
-	// }).state('login.registration', {
-	//     url: '/registration',
-	//     templateUrl: "assets/views/login_registration.html"
-	// }).state('login.lockscreen', {
-	//     url: '/lock',
-	//     templateUrl: "assets/views/login_lock_screen.html"
-	// });
 
     // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
     function loadSequence() {
