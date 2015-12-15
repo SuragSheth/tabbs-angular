@@ -41,7 +41,34 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         ncyBreadcrumb: {
             label: 'Dashboard'
         }
-    }).state('error', {
+    }).state('app.messages', {
+        url: "/messages",
+        templateUrl: "assets/views/pages_messages.html",
+        resolve: loadSequence('truncate', 'htmlToPlaintext', 'inboxCtrl'),
+        title: 'Dashboard',
+        ncyBreadcrumb: {
+            label: 'Dashboard'
+        }
+    }).state('app.tabbs', {
+        url: "/tabbs",
+        templateUrl: "assets/views/pages_messages.html",
+        resolve: loadSequence('truncate', 'htmlToPlaintext', 'inboxCtrl'),
+        title: 'Dashboard',
+        ncyBreadcrumb: {
+            label: 'Dashboard'
+        }
+    }).state('app.settings', {
+        url: '/settings',
+        template: '<div ui-view class="fade-in-up"></div>',
+        title: 'Settings'
+    })
+        
+
+
+
+
+
+    .state('error', {
         url: '/error',
         template: '<div ui-view class="fade-in-up"></div>'
     }).state('error.404', {

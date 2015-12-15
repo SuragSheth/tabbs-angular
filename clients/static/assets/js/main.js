@@ -13,9 +13,9 @@ function ($rootScope, $state, $stateParams) {
     // set below basic information
     $rootScope.app = {
         name: 'Tabbs', // name of your project
-        author: 'ClipTheme', // author's name or company name
-        description: 'Angular Bootstrap Admin Template', // brief description
-        version: '2.0', // current version
+        author: 'Steven Lam & Surag Sheth', // author's name or company name
+        description: 'Real-time messaging for businesses & consumers', // brief description
+        version: '0.1', // current version
         year: ((new Date()).getFullYear()), // automatic current year (for copyright information)
         isMobile: (function () {// true if the browser is a mobile device
             var check = false;
@@ -29,7 +29,7 @@ function ($rootScope, $state, $stateParams) {
             isSidebarFixed: true, // true if you want to initialize the template with fixed sidebar
             isSidebarClosed: false, // true if you want to initialize the template with closed sidebar
             isFooterFixed: false, // true if you want to initialize the template with fixed footer
-            theme: 'theme-3', // indicate the theme chosen for your project
+            theme: 'theme-2', // indicate the theme chosen for your project
             logo: 'assets/images/logo.png', // relative path of the project logo
         }
     };
@@ -66,6 +66,6 @@ function ($translateProvider) {
 app.config(['cfpLoadingBarProvider',
 function (cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeBar = true;
-    cfpLoadingBarProvider.includeSpinner = false;
+    cfpLoadingBarProvider.includeSpinner = true;
 
 }]);
