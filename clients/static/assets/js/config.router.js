@@ -41,6 +41,24 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         ncyBreadcrumb: {
             label: 'Dashboard'
         }
+    })
+    .state('app.pages', {
+        url: '/pages',
+        template: '<div ui-view class="fade-in-up"></div>',
+        title: 'Pages',
+        ncyBreadcrumb: {
+            label: 'Pages'
+        }
+    })
+    .state('app.pages.user', {
+        url: '/user',
+        templateUrl: "assets/views/pages_user_profile.html",
+        title: 'User Profile',
+        ncyBreadcrumb: {
+            label: 'User Profile'
+        },
+        resolve: loadSequence('flow', 'userCtrl')
+
     }).state('error', {
         url: '/error',
         template: '<div ui-view class="fade-in-up"></div>'
