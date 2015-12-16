@@ -21,22 +21,22 @@ module.exports = function(app, passport, client) {
     }))
 // End: routes for businesses =========================
 // Start: routes for twilio ============================
-    app.get('/test_twilio', function(req, res){
-        client.sendMessage({
-            to:'+14084600740',
-            from:'+14156897280',
-            body:'message from nodejs'
-        }, function(error, message) {
-            if (!error) {
-                console.log('Success! The SID for this SMS message is:', message);
-                console.log(message.sid);
-                console.log('Message sent on:');
-                console.log(message.dateCreated);
-            } else {
-                console.log('Oops! There was an error.');
-            }
-        });
-    });
+    // app.get('/test_twilio', function(req, res){
+    //     client.sendMessage({
+    //         to:'+14084600740',
+    //         from:'+14156897280',
+    //         body:'message from nodejs'
+    //     }, function(error, message) {
+    //         if (!error) {
+    //             console.log('Success! The SID for this SMS message is:', message);
+    //             console.log(message.sid);
+    //             console.log('Message sent on:');
+    //             console.log(message.dateCreated);
+    //         } else {
+    //             console.log('Oops! There was an error.');
+    //         }
+    //     });
+    // });
     app.post('/get_message', function(req, res){
 
         var twiml = new twilio.TwimlResponse();
