@@ -9,13 +9,29 @@ var morgan 				= require('morgan');
 var cookieParser 	= require('cookie-parser');
 var session 			= require('express-session');
 
+
+
+var client = require('twilio')('AC670d3df5dd79de701231ba87193b2784', '660c8a5b153bcaf1c047a215601fce63');
+// console.log("twilio client", client);
+
+
+var twilioAPI = require('twilio-api');
+console.log("twilioAPI server:", twilioAPI);
+var cli = new twilioAPI.Client('AC670d3df5dd79de701231ba87193b2784', '660c8a5b153bcaf1c047a215601fce63');
+console.log("server twilio object:", cli)
+
+//OK... good so far. Now tell twilio-api to intercept incoming HTTP requests.
+var test = app.use(cli.middleware() );
+console.log("test", test);
+
+
 hostname = process.env.HOSTNAME || 'localhost', port = 8080;
 
 // We are requiring mongoose.js which links all of the the mongo schemas or models
 require('./server/config/mongoose.js');
+require('./server/config/twilio.js');
 
 var passport = require('./server/config/passport.js');
-
 
 app.use(express.static(path.join(__dirname, "./clients/static")));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -28,7 +44,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-require('./server/config/routes.js')(app, passport);
+require('./server/config/routes.js')(app, passport, client);
 
 var messages = [];
 var users = {};
