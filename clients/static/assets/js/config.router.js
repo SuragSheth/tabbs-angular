@@ -33,7 +33,12 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         templateUrl: "assets/views/app.html",
         resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl', 'truncate', 'htmlToPlaintext', 'angular-notification-icons'),
         abstract: true
-    }).state('app.dashboard', {
+    })
+
+    // Admin ROUTES
+    // -----------------------------------
+
+    .state('app.dashboard', {
         url: "/dashboard",
         templateUrl: "assets/views/dashboard.html",
         resolve: loadSequence('jquery-sparkline', 'dashboardCtrl'),
@@ -41,17 +46,46 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         ncyBreadcrumb: {
             label: 'Dashboard'
         }
+    })
+
+    .state('app.tabbs', {
+        url: '/tabbs',
+        templateUrl: "assets/views/tabbs.html",
 
     })
-    .state('app.pages', {
-        url: '/pages',
-        template: '<div ui-view class="fade-in-up"></div>',
-        title: 'Pages',
+
+    .state('app.messages', {
+        url: "/messages",
+        templateUrl: "assets/views/pages_messages.html",
+        resolve: loadSequence('truncate', 'htmlToPlaintext', 'inboxCtrl'),
+        title: 'Dashboard',
         ncyBreadcrumb: {
-            label: 'Pages'
+            label: 'Dashboard'
         }
     })
-    .state('app.pages.user', {
+
+    .state('app.contacts', {
+        url: '/contacts',
+        templateUrl: "assets/views/contacts.html",
+        resolve: loadSequence('dynamicTableCtrl')
+
+    })
+
+    .state('app.settings', {
+        url: '/settings',
+        template: '<div ui-view class="fade-in-up"></div>',
+        title: 'Settings'
+    })
+
+
+    .state('app.settings.manage', {
+        url: '/manage',
+        templateUrl: "assets/views/employeemanage.html",
+        title: 'Settings'
+    })
+
+
+    .state('app.settings.user', {
         url: '/user',
         templateUrl: "assets/views/pages_user_profile.html",
         title: 'User Profile',
@@ -60,36 +94,29 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         },
         resolve: loadSequence('flow', 'userCtrl')
 
-    }).state('app.messages', {
-        url: "/messages",
-        templateUrl: "assets/views/pages_messages.html",
-        resolve: loadSequence('truncate', 'htmlToPlaintext', 'inboxCtrl'),
-        title: 'Dashboard',
-        ncyBreadcrumb: {
-            label: 'Dashboard'
-        }
-    }).state('app.tabbs', {
-        url: "/tabbs",
-        templateUrl: "assets/views/pages_messages.html",
-        resolve: loadSequence('truncate', 'htmlToPlaintext', 'inboxCtrl'),
-        title: 'Dashboard',
-        ncyBreadcrumb: {
-            label: 'Dashboard'
-        }
-    }).state('app.settings', {
-        url: '/settings',
-        template: '<div ui-view class="fade-in-up"></div>',
-        title: 'Settings'
-    }).state('error', {
-        url: '/error',
-        template: '<div ui-view class="fade-in-up"></div>'
-    }).state('error.404', {
-        url: '/404',
-        templateUrl: "assets/views/utility_404.html",
-    }).state('error.500', {
-        url: '/500',
-        templateUrl: "assets/views/utility_500.html",
     })
+
+
+
+
+
+
+
+    // .state('error', {
+    //     url: '/error',
+    //     template: '<div ui-view class="fade-in-up"></div>'
+    // }).state('error.404', {
+    //     url: '/404',
+    //     templateUrl: "assets/views/utility_404.html",
+    // }).state('error.500', {
+    //     url: '/500',
+    //     templateUrl: "assets/views/utility_500.html",
+    // })
+
+
+
+
+
     //Start: routes for login and signup ========================
     .state('home', {
         url: '/home',

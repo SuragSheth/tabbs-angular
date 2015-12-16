@@ -130,25 +130,9 @@ app.controller('AlertDemoCtrl', ["$scope", function ($scope) {
         $event.stopPropagation();
         $scope.status.isopen = !$scope.status.isopen;
     };
-}]).controller('TabsDemoCtrl', ["$scope", "SweetAlert", function ($scope, SweetAlert) {
-    $scope.tabs = [{
-        title: 'Dynamic Title 1',
-        content: 'Dynamic content 1'
-    }, {
-        title: 'Dynamic Title 2',
-        content: 'Dynamic content 2',
-        disabled: false
-    }];
+}])
 
-    $scope.alertMe = function () {
-        setTimeout(function () {
-            SweetAlert.swal({
-	        	title: 'You\'ve selected the alert tab!',
-	        	confirmButtonColor: '#007AFF'
-        	});
-        });
-    };
-}]).controller('AccordionDemoCtrl', ["$scope", function ($scope) {
+.controller('AccordionDemoCtrl', ["$scope", function ($scope) {
     $scope.oneAtATime = true;
 
     $scope.groups = [{
