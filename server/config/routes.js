@@ -44,7 +44,7 @@ module.exports = function(app, passport, client) {
          // console.log(req.method, req.url);
 
 
-        res.redirect('/business_message')
+        //res.redirect('/business_message')
         // var twiml = new twilio.TwimlResponse();
         // console.log("inside receive_message");
         // twiml.message(function() {
