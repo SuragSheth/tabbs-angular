@@ -5,13 +5,12 @@
 			<h1 class="mainTitle">Manage Employees</h1>
 			<span class="mainDescription">Add & Manage Your Employees</span>
 		</div>
-		<div ncy-breadcrumb></div>
 	</div>
 </section>
 <!-- end: PAGE TITLE -->
 <!-- start: FIELDSET -->
-<div class="container-fluid container-fullw bg-white">
-	<div class="row">
+<div ng-controller="employeeCtrl" class="container-fluid container-fullw bg-white">
+	<div class="row" ng-form="myForm"> 
 		<div class="col-md-12">
 			<h5 class="over-title">Add <span class="text-bold">Employee</span></h5>
 			<div class="row">
@@ -25,7 +24,12 @@
 								E-mail <span class="symbol required"></span>
 							</label>
 							<div class="form-group">
-								<input type="email" placeholder="Text Field" name="email" id="email" class="form-control">
+								<span class="input-icon">
+									<input type="email" name="email" required ng-model="add_employee.email" placeholder="Email" id="form-field-14" class="form-control" required>
+									<i class="ti-email"></i> 
+									<span style="padding-top:10px" ng-show="myForm.email.$error.required && !myForm.email.$pristine">Email is required.</span>
+									<span ng-show="myForm.email.$error.email">Invalid email address.</span>
+								</span>
 							</div>
 						</div>
 					</fieldset>
@@ -37,13 +41,18 @@
 							<label>
 								Password
 							</label>
-							<input type="text" class="form-control" placeholder="Repeat Password">
+								<span class="input-icon">
+									<input type="password" name="password" required ng-model="add_employee.password" ng-minlength="3" placeholder="Password" id="form-field-14" class="form-control underline">
+									<p ng-show="myForm.password.$error.minlength">Password is too short.</p>
+								</span>
 						</div>
 						<div class="form-group">
 							<label>
 								Repeat Password <span class="symbol required"></span>
 							</label>
-							<input type="email" placeholder="Text Field" name="email" id="email" class="form-control">
+							<span class="input-icon">
+									<input type="password" required ng-model="add_employee.confirmpassword" placeholder="Confirm Password" id="form-field-14" class="form-control">
+							</span>
 						</div>
 					</fieldset>
 				</div>
@@ -58,7 +67,10 @@
 									<label>
 										First Name
 									</label>
-									<input type="text" name="firstName" class="form-control" placeholder="Enter your First Name">
+									<span class="input-icon">
+										<input type="text" required ng-model="add_employee.first_name" placeholder="First Name" id="form-field-14" class="form-control">
+										<i class="fa fa-user"></i>
+									</span>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -66,7 +78,10 @@
 									<label class="control-label">
 										Last Name
 									</label>
-									<input type="text" name="lastName" class="form-control" placeholder="Enter your Last Name">
+									<span class="input-icon">
+										<input type="text" required ng-model="add_employee.last_name" placeholder="Last Name" id="form-field-14" class="form-control">
+										<i class="fa fa-user"></i> 
+									</span>
 								</div>
 							</div>
 						</div>
@@ -74,14 +89,14 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="block">
-										Gender
+										Account Type: 
 									</label>
 									<div class="clip-radio radio-danger radio-primary">
-										<input type="radio" id="female" name="accounttype" value="employee">
+										<input type="radio" id="employee" name="employee" value="employee">
 										<label for="employee">
 											Employee
 										</label>
-										<input type="radio" id="admin" name="accounttype" value="male">
+										<input type="radio" id="admin" name="admin" value="admin">
 										<label for="admin">
 											Admin
 										</label>
@@ -94,8 +109,10 @@
 										Phone Number
 									</label>
 									<span class="input-icon">
-										<input type="text" placeholder="Phone Number" id="form-field-14" class="form-control">
+										<input type="text" required placeholder="Phone Number" ng-minlength="3"  ng-model="add_employee.phone" id="form-field-14" name="phone" class="form-control">
 										<i class="fa fa-phone"></i> </span>
+										<p ng-show="myForm.phone.$error.minlength">Phone is too short.</p>
+
 								</div>
 								
 							</div>
@@ -113,8 +130,8 @@
 										<i></i>
 										I read and accept the terms and conditions
 									</label>
-									<button class="btn btn-wide btn-light-azure pull-right">Add Employee</button>
 								</div>
+								<a ng-click="addEmployee()"  ng-disabled="myForm.$invalid" class="btn btn-wide btn-blue"><i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</fieldset>

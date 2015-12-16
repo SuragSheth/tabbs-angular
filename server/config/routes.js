@@ -1,6 +1,7 @@
-var admin = require('../controllers/admin.js');
-var businesses = require('../controllers/businesses.js');
-var twilio = require('twilio')
+var admin       = require('../controllers/admin.js');
+var businesses  = require('../controllers/businesses.js');
+var messages    = require('../controllers/messages.js');
+var twilio      = require('twilio')
 
 module.exports = function(app, passport, client) {
 // Start: routes for businesses =========================
@@ -37,18 +38,19 @@ module.exports = function(app, passport, client) {
     //         }
     //     });
     // });
-    app.post('/get_message', function(req, res){
 
-        var twiml = new twilio.TwimlResponse();
-        console.log("inside receive_message");
-        twiml.message(function() {
-        this.body('Trust Pound!');
-        });
+    //incoming text from consumer
+    app.post('/get_message', function(req, res, next){
+        messages.add_message(req, res);
+         // console.log(req.method, req.url);
 
-        // Render an XML response
-        res.type('text/xml');
-        res.send(twiml.toString());
+
     })
+
+    // app.post('/business_message', function(req, res){
+    //      console.log(req.method, req.url, req.body);
+
+    // })
 // End: routes for twilio ============================
 
 }

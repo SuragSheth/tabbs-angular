@@ -16,13 +16,13 @@ var client = require('twilio')('AC670d3df5dd79de701231ba87193b2784', '660c8a5b15
 
 
 var twilioAPI = require('twilio-api');
-console.log("twilioAPI server:", twilioAPI);
+// console.log("twilioAPI server:", twilioAPI);
 var cli = new twilioAPI.Client('AC670d3df5dd79de701231ba87193b2784', '660c8a5b153bcaf1c047a215601fce63');
 console.log("server twilio object:", cli)
 
 //OK... good so far. Now tell twilio-api to intercept incoming HTTP requests.
 var test = app.use(cli.middleware() );
-console.log("test", test);
+
 
 
 hostname = process.env.HOSTNAME || 'localhost', port = 8080;

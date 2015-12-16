@@ -1,5 +1,8 @@
-app.controller('TabsDemoCtrl', ["$scope", "SweetAlert", function ($scope, SweetAlert) {
-    $scope.tabs = [{
+
+
+app.controller('TabbsChatCtrl', ["$scope", function ($scope) {
+
+        $scope.tabs = [{
         title: '1(510)-557-2282',
         content: '1(510)-557-2282'
     }, {
@@ -7,18 +10,6 @@ app.controller('TabsDemoCtrl', ["$scope", "SweetAlert", function ($scope, SweetA
         content: '1(408)-460-0404',
         disabled: false
     }];
-
-    $scope.alertMe = function () {
-        setTimeout(function () {
-            SweetAlert.swal({
-	        	title: 'You\'ve selected the alert tab!',
-	        	confirmButtonColor: '#007AFF'
-        	});
-        });
-    };
-}])
-
-app.controller('TabbsChatCtrl', ["$scope", function ($scope) {
 
     $scope.selfIdUser = 50223456;
     $scope.otherIdUser = 50223457;

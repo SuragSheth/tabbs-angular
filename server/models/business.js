@@ -8,7 +8,9 @@ var BusinessSchema = new mongoose.Schema({
     email: String,
     number: Number,
     password: String,
-    accounttype: String
+    accounttype: String,
+    messages: [{type: Schema.Types.ObjectId, ref: 'Message'}],
+    employees: [{type: Schema.Types.ObjectId, ref: 'Employee'}]
   }
 })
 
