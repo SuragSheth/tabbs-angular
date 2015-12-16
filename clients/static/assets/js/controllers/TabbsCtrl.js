@@ -1,4 +1,4 @@
-app.controller('TabsDemoCtrl', ["$scope", "SweetAlert", function ($scope, SweetAlert) {
+app.controller('TabbsChatCtrl', ["$scope", function ($scope) {
     $scope.tabs = [{
         title: '1(510)-557-2282',
         content: '1(510)-557-2282'
@@ -8,51 +8,17 @@ app.controller('TabsDemoCtrl', ["$scope", "SweetAlert", function ($scope, SweetA
         disabled: false
     }];
 
-    $scope.alertMe = function () {
-        setTimeout(function () {
-            SweetAlert.swal({
-	        	title: 'You\'ve selected the alert tab!',
-	        	confirmButtonColor: '#007AFF'
-        	});
-        });
-    };
-}])
-
-app.controller('TabbsChatCtrl', ["$scope", function ($scope) {
-
     $scope.selfIdUser = 50223456;
     $scope.otherIdUser = 50223457;
     $scope.setOtherId = function (value) {
 
         $scope.otherIdUser = value;
     };
+
     var exampleDate = new Date().setTime(new Date().getTime() - 240000 * 60);
 
-    $scope.chat = [{
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": exampleDate,
-        "content": "Hi, Nicole",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
-        "content": "How are you?",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Nicole Bell",
-        "avatar": "assets/images/avatar-2.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
-        "content": "Hi, i am good",
-        "idUser": 50223457,
-        "idOther": 50223456
-    }];
+    $scope.chat = [];
+
 
     $scope.sendMessage = function () {
         var newMessage = {
@@ -64,7 +30,13 @@ app.controller('TabbsChatCtrl', ["$scope", function ($scope) {
             "idOther": $scope.otherIdUser
         };
         $scope.chat.push(newMessage);
+        console.log("newmessage", newMessage)
         $scope.chatMessage = '';
 
     };
 }]);
+
+
+app.factory('tabbSocketFactory', function(socketFactory){
+    return socketFactory();
+})

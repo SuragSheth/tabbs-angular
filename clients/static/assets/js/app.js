@@ -1,4 +1,4 @@
-/** 
+/**
   * declare 'clip-two' module with dependencies
 */
 'use strict';
@@ -15,4 +15,5 @@ angular.module("clip-two", [
 	'ncy-angular-breadcrumb',
 	'duScroll',
 	'pascalprecht.translate',
+	'btford.socket-io'
 ]);

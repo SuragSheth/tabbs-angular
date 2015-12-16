@@ -9,7 +9,9 @@ var morgan 				= require('morgan');
 var cookieParser 	= require('cookie-parser');
 var session 			= require('express-session');
 
-
+var io 						= require('socket.io')(server);
+console.log("io", io);
+//Start: Twilio====================================================
 
 var client = require('twilio')('AC670d3df5dd79de701231ba87193b2784', '660c8a5b153bcaf1c047a215601fce63');
 // console.log("twilio client", client);
@@ -18,16 +20,17 @@ var client = require('twilio')('AC670d3df5dd79de701231ba87193b2784', '660c8a5b15
 var twilioAPI = require('twilio-api');
 // console.log("twilioAPI server:", twilioAPI);
 var cli = new twilioAPI.Client('AC670d3df5dd79de701231ba87193b2784', '660c8a5b153bcaf1c047a215601fce63');
-console.log("server twilio object:", cli)
+// console.log("server twilio object:", cli)
 
-//OK... good so far. Now tell twilio-api to intercept incoming HTTP requests.
+//tell twilio-api to intercept incoming HTTP requests.
 var test = app.use(cli.middleware() );
 
+//End: Twilio====================================================
 
 
 hostname = process.env.HOSTNAME || 'localhost', port = 8080;
 
-// We are requiring mongoose.js which links all of the the mongo schemas or models
+//requiring mongoose.js which links all of the the mongo schemas or models
 require('./server/config/mongoose.js');
 require('./server/config/twilio.js');
 
@@ -46,6 +49,17 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 require('./server/config/routes.js')(app, passport, client);
 
+
+
+
+
+
+//Start: Socket.io ===========================================
+
+//listen for connection
+io.on('connection', function(socket){
+
+})
 var messages = [];
 var users = {};
 
@@ -84,3 +98,4 @@ io.sockets.on('connection', function (socket) {
 })
 
 
+//End: Socket.io ===========================================
