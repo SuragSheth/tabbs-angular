@@ -7,7 +7,9 @@ var AdminSchema = new mongoose.Schema({
 	company: String,
 	phone: Number,
 	tabbsphone: Number, 
-	plan: String
+	plan: String,
+	// _employees: {type: Schema.ObjectId, ref: 'Employee'},
+	created_at: {type: Date, default: new Date}
 
 });
 

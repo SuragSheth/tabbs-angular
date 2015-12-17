@@ -20,7 +20,7 @@
 					<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
 
 
-					<div style="width:60%">
+					<div ng-controller="TabbsChatCtrl" style="width:60%">
 						<div class="panel panel-white no-radius">
 							<div class="panel-heading border-bottom">
 								<h4 class="panel-title">{{tab.content}}</h4>

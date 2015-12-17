@@ -14,6 +14,5 @@ angular.module("clip-two", [
 	'cfp.loadingBar',
 	'ncy-angular-breadcrumb',
 	'duScroll',
-	'pascalprecht.translate',
-	'btford.socket-io'
+	'pascalprecht.translate'
 ]);
