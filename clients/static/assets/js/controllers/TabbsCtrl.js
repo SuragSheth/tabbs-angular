@@ -2,7 +2,7 @@
 
 app.controller('TabbsChatCtrl', ["$scope", function ($scope) {
 
-        $scope.tabs = [{
+    $scope.tabs = [{
         title: '1(510)-557-2282',
         content: '1(510)-557-2282'
     }, {
