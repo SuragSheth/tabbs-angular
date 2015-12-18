@@ -49,7 +49,7 @@ module.exports = function(app, passport, client, io) {
 
     //incoming text from consumer
     app.post('/get_message', function(req, res, next){
-        socket.emit("twilio_test", req.body);
+        socket.emit("from_twilio", req.body);
         console.log("get_message", req.body);
 
         messages.add_message(req, res);
@@ -76,11 +76,5 @@ module.exports = function(app, passport, client, io) {
         })
     })
 // End: routes for twilio ============================
-
-// Start: Socket connection ============================
-
     })
-
-
-// End: Socket connection ============================
 }

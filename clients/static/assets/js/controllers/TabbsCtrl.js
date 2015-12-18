@@ -3,9 +3,9 @@
 app.controller('TabbsChatCtrl', ["$scope", "socket", function ($scope, socket) {
 
     //destroy listeners
-    // $scope.$on('$destroy', function(even){
-    //     socket.removeAllListeners();
-    // })
+    $scope.$on('$destroy', function(event){
+        socket.removeAllListeners();
+    })
 
         $scope.tabs = [{
 
@@ -35,8 +35,9 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", function ($scope, socket) {
             "avatar": "assets/images/avatar-1.jpg",
             "date": new Date(),
             "content": $scope.chatMessage,
-            "idUser": $scope.selfIdUser,
-            "idOther": $scope.otherIdUser
+            //swap IDS for testing
+            "idOther": $scope.selfIdUser,
+            "idUser": $scope.otherIdUser
         };
         $scope.chat.push(newMessage);
         console.log("newmessage", newMessage)
@@ -45,24 +46,21 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", function ($scope, socket) {
 
     };
 
-    //testing receiving message from twilio and pushing it to chat
-    console.log("tabbs controller socket:", socket);
-        socket.on('twilio_test', function(data){
-            console.log('hello', data);
-            $scope.chat.push(data);
-            socket.emit("client_resonse", "response");
-        })
+    socket.on("from_twilio", function(data){
+        console.log("user_to_business", data);
+        var newMessage = {
+            "user": "customer",
+            "avatar": "assets/images/avatar-1.jpg",
+            "date": new Date(),
+            "content": data.Body,
+            "idUser": $scope.selfIdUser,
+            "idOther": $scope.otherIdUser
+        };
+        console.log("user to business:", newMessage);
+        $scope.chat.push(newMessage);
+        $scope.chatMessage = '';
+
+        socket.emit("client_resonse", "response");
+    });
 
 }]);
-
-
-// app.factory('tabbSocketFactory', function(socketFactory){
-//     console.log("tabbs factory sockets:", socket);
-//         socket.on('twilio_test', function(data){
-//             console.log("twilio controller:", data)
-//              socket.emit('hello', "test");
-//         })
-
-//     return socketFactory();
-// })
-
