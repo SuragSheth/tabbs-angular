@@ -13,7 +13,7 @@ module.exports = (function() {
 
     // editprofile
 
-    addemployee: function(req, res) {
+    add_employee: function(req, res) {
       // send the admin id and then send the employee info
     	Post.findOne({_id: req.params.id}, function(err, post){
         // data from form on the front end
@@ -34,7 +34,7 @@ module.exports = (function() {
     });
   },
 
-    deleteemployee: function(req, res){
+    delete_employee: function(req, res){
     	Employee.remove({_id: req.body._id}, function(err, Data){
     		if(err){
     			console.log(err);

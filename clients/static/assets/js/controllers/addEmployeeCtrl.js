@@ -1,6 +1,7 @@
 //Start: Add & Manage Employees =================================
 
-app.controller('employeeCtrl', ['$scope', 'employeeFactory', '$location', '$rootScope', function($scope, employeeFactory, $location, $rootScope){
+app.controller('employeeCtrl', ['$scope', 'EmployeeFactory', '$location', '$rootScope', function($scope, EmployeeFactory, $location, $rootScope){
+
   $scope.addEmployee = function(isValid) {
       if (isValid) { 
           alert('our form is amazing');
@@ -13,28 +14,39 @@ app.controller('employeeCtrl', ['$scope', 'employeeFactory', '$location', '$root
           phone: $scope.add_employee.phone
       };
       console.log(newemployee_repack);
-      // employeeFactory.addEmployee(newemployee_repack, function(data){
-      //     alert(reponse recieved);   
-      // }
+      EmployeeFactory.addEmployee(newemployee_repack, function(data){
+        // load them back into scope in the navbar and also the table      
+      })
+  }
 
+  $scope.deleteEmployee = function(employee){
+    EmployeeFactory.deleteEmployee(employee, function(data){
+      // load new list them back into scope in the navbar and also the table.
+    })
   }
 
 }])
 
-app.factory('employeeFactory', function($http){
+app.factory('EmployeeFactory', function($http){
   var factory = {};
-  factory.new = function(business_info, callback){
-    console.log("inside businessFactory", business_info);
-    $http.post('/business/new', business_info).success(function(output){
+
+  factory.addEmployee = function(employee_info, callback){
+    console.log("inside employee factory", employee_info);
+    $http.post("/add_employee", employee_info).success(function(output){
       callback(output);
     })
   }
-  factory.login = function(business_info, callback) {
-    console.log("inside businessfactory login", business_info);
-    $http.post('/business/login', business_info).success(function(output){
-      callback(output);
-    })
-  }
+
+   factory.deleteEmployee = function(info, callback) {
+      $http.post("/delete_employee", info).success(function(output){
+          callback(output);
+      })    
+    };
+  
+
+
+
+
 
   return factory;
 })

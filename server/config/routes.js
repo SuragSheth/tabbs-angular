@@ -29,6 +29,21 @@ module.exports = function(app, passport, client, io) {
         failureFlash : true // allow flash messages
     }))
 // End: routes for businesses =========================
+
+// Start: routes for employees =========================
+ app.post('/add_employee', function(req, res){
+    admin.add_employee(req, res);
+})
+
+ app.post('/delete_employee', function(req, res){
+    admin.delete_employee(req, res);
+})
+
+
+
+// Start: routes for employees =========================
+
+
 // Start: routes for twilio ============================
     // app.get('/test_twilio', function(req, res){
     //     client.sendMessage({
@@ -49,16 +64,12 @@ module.exports = function(app, passport, client, io) {
 
     //incoming text from consumer
     app.post('/get_message', function(req, res, next){
-<<<<<<< HEAD
-        socket.emit("from_twilio", req.body);
-=======
         //Check if message is sent to existing business
         //Save message to database.
 
 
         //emit message to angular controller
         socket.emit("user_to_business", req.body);
->>>>>>> 4efa4797c087d082323b48d8661c116e0ab29137
         console.log("get_message", req.body);
 
         messages.add_message(req, res);
