@@ -32,6 +32,7 @@ module.exports = function(app, passport, client, io) {
 
 // Start: routes for employees =========================
  app.post('/add_employee', function(req, res){
+    console.log("____________________", req)
     admin.add_employee(req, res);
 })
 
