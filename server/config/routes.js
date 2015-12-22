@@ -49,7 +49,16 @@ module.exports = function(app, passport, client, io) {
 
     //incoming text from consumer
     app.post('/get_message', function(req, res, next){
+<<<<<<< HEAD
         socket.emit("from_twilio", req.body);
+=======
+        //Check if message is sent to existing business
+        //Save message to database.
+
+
+        //emit message to angular controller
+        socket.emit("user_to_business", req.body);
+>>>>>>> 4efa4797c087d082323b48d8661c116e0ab29137
         console.log("get_message", req.body);
 
         messages.add_message(req, res);

@@ -10,7 +10,11 @@ var EmployeeSchema = new mongoose.Schema({
 	zip: Number,
 	city: String,
 	accounttype: String,
+<<<<<<< HEAD
   	_business: {type: Schema.Types.ObjectId, ref: 'Business'}
+=======
+  _business: {type: Schema.Types.ObjectId, ref: 'Business'}
+>>>>>>> 4efa4797c087d082323b48d8661c116e0ab29137
 
 });
 

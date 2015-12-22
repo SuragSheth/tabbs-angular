@@ -9,7 +9,8 @@ var MessageSchema = new mongoose.Schema({
   fromCity: String,
   fromState: String,
   sid: String,
-  _message: {type: Schema.Types.ObjectId, ref: 'Message'}
+  _message: {type: Schema.Types.ObjectId, ref: 'Message'},
+  _tabb: {type: Schema.Types.ObjectId, ref: 'Tabb'}
 
 });
 

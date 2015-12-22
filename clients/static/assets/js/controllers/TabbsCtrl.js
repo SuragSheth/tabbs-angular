@@ -2,6 +2,7 @@
 
 app.controller('TabbsChatCtrl', ["$scope", "socket", function ($scope, socket) {
 
+
     //destroy listeners
     $scope.$on('$destroy', function(event){
         socket.removeAllListeners();
@@ -45,8 +46,12 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", function ($scope, socket) {
 
     };
 
-    socket.on("from_twilio", function(data){
+
+
+    //Incoming message from /get_message route
+    socket.on("user_to_business", function(data){
         console.log("user_to_business", data);
+
         var newMessage = {
             "user": "customer",
             "avatar": "assets/images/avatar-1.jpg",
