@@ -10,8 +10,7 @@ var cookieParser 	= require('cookie-parser');
 var session 			= require('express-session');
 var socket 				= require('socket.io');
 
-// var io 						= require('socket.io')(server);
-// console.log("io", io);
+
 //Start: Twilio====================================================
 
 var client = require('twilio')('AC670d3df5dd79de701231ba87193b2784', '660c8a5b153bcaf1c047a215601fce63');
