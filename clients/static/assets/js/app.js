@@ -1,4 +1,4 @@
-/** 
+/**
   * declare 'clip-two' module with dependencies
 */
 'use strict';
@@ -14,5 +14,5 @@ angular.module("clip-two", [
 	'cfp.loadingBar',
 	'ncy-angular-breadcrumb',
 	'duScroll',
-	'pascalprecht.translate',
+	'pascalprecht.translate'
 ]);

@@ -1,6 +1,11 @@
 
 
-app.controller('TabbsChatCtrl', ["$scope", function ($scope) {
+app.controller('TabbsChatCtrl', ["$scope", "socket", function ($scope, socket) {
+
+    //destroy listeners
+    $scope.$on('$destroy', function(event){
+        socket.removeAllListeners();
+    })
 
     $scope.tabs = [{
         title: '1(510)-557-2282',
@@ -17,33 +22,11 @@ app.controller('TabbsChatCtrl', ["$scope", function ($scope) {
 
         $scope.otherIdUser = value;
     };
+
     var exampleDate = new Date().setTime(new Date().getTime() - 240000 * 60);
 
-    $scope.chat = [{
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": exampleDate,
-        "content": "Hi, Nicole",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
-        "content": "How are you?",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Nicole Bell",
-        "avatar": "assets/images/avatar-2.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
-        "content": "Hi, i am good",
-        "idUser": 50223457,
-        "idOther": 50223456
-    }];
+    $scope.chat = [];
+
 
     $scope.sendMessage = function () {
         var newMessage = {
@@ -51,11 +34,32 @@ app.controller('TabbsChatCtrl', ["$scope", function ($scope) {
             "avatar": "assets/images/avatar-1.jpg",
             "date": new Date(),
             "content": $scope.chatMessage,
-            "idUser": $scope.selfIdUser,
-            "idOther": $scope.otherIdUser
+            //swap IDS for testing
+            "idOther": $scope.selfIdUser,
+            "idUser": $scope.otherIdUser
         };
         $scope.chat.push(newMessage);
+        console.log("newmessage", newMessage)
+        socket.emit("test_new_client", newMessage)
         $scope.chatMessage = '';
 
     };
+
+    socket.on("from_twilio", function(data){
+        console.log("user_to_business", data);
+        var newMessage = {
+            "user": "customer",
+            "avatar": "assets/images/avatar-1.jpg",
+            "date": new Date(),
+            "content": data.Body,
+            "idUser": $scope.selfIdUser,
+            "idOther": $scope.otherIdUser
+        };
+        console.log("user to business:", newMessage);
+        $scope.chat.push(newMessage);
+        $scope.chatMessage = '';
+
+        socket.emit("client_resonse", "response");
+    });
+
 }]);

@@ -3,7 +3,15 @@ var businesses  = require('../controllers/businesses.js');
 var messages    = require('../controllers/messages.js');
 var twilio      = require('twilio')
 
-module.exports = function(app, passport, client) {
+
+
+module.exports = function(app, passport, client, io) {
+    io.sockets.on('connection', function (socket) {
+        console.log("WE ARE USING SOCKETS!");
+        console.log(socket.id);
+        //all the socket code goes in here!
+
+
 // Start: routes for businesses =========================
     app.get('/dashboard', function(req, res){
         console.log("routes succesful add:", req.user)
@@ -41,16 +49,32 @@ module.exports = function(app, passport, client) {
 
     //incoming text from consumer
     app.post('/get_message', function(req, res, next){
+        socket.emit("from_twilio", req.body);
+        console.log("get_message", req.body);
+
         messages.add_message(req, res);
+        socket.on("client_resonse", function(data){
+            console.log("cylce done");
+        })
          // console.log(req.method, req.url);
-
-
     })
-
-    // app.post('/business_message', function(req, res){
-    //      console.log(req.method, req.url, req.body);
-
-    // })
+    socket.on('test_new_client', function(data){
+        console.log("in routes, message from client", data);
+        client.sendMessage({
+            to: '+15105572282',
+            from: '+14156897280',
+            body: data.content
+            }, function(error, message){
+            if(!error) {
+                console.log('Success! The SID for this SMS message is:', message);
+                console.log(message.sid);
+                console.log('Message sent on:');
+                console.log(message.dateCreated);
+            } else {
+                console.log("error with sending message");
+            }
+        })
+    })
 // End: routes for twilio ============================
-
+    })
 }
