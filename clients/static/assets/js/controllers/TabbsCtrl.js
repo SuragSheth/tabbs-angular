@@ -48,7 +48,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", function ($scope, socket) {
     //Incoming message from /get_message route
     socket.on("user_to_business", function(data){
         console.log("user_to_business", data);
-        //
+        //get stored messages from DB
         var newMessage = {
             "user": "customer",
             "avatar": "assets/images/avatar-1.jpg",

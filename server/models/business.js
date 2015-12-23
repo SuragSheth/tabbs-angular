@@ -6,7 +6,7 @@ var BusinessSchema = new mongoose.Schema({
   local: {
     name: String,
     email: String,
-    number: Number,
+    number: String,
     password: String,
     accounttype: String,
     tabbs: [{type: Schema.Types.ObjectId, ref: 'Tabb'}],

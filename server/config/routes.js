@@ -50,14 +50,16 @@ module.exports = function(app, passport, client, io) {
     //incoming text from consumer
     app.post('/get_message', function(req, res, next){
         //Check if message is sent to existing business
+        //Create Tabb
         //Save message to database.
-
+        messages.incoming_message(req, res);
+        // messages.add_message(req, res);
 
         //emit message to angular controller
         socket.emit("user_to_business", req.body);
         console.log("get_message", req.body);
 
-        messages.add_message(req, res);
+
         socket.on("client_resonse", function(data){
             console.log("cylce done");
         })
@@ -66,7 +68,7 @@ module.exports = function(app, passport, client, io) {
     socket.on('test_new_client', function(data){
         console.log("in routes, message from client", data);
         client.sendMessage({
-            to: '+15105572282',
+            to: '+14084600740/',
             from: '+14156897280',
             body: data.content
             }, function(error, message){
