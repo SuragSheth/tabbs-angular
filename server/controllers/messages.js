@@ -41,7 +41,7 @@ module.exports = (function(){
                       sid: req.body.MessageSid,
                       _tabb: result._id
                     })
-
+                    tabb.tabb_business_id = req.body.To;
                     tabb.messages.push(new_message);
                     //save both updated tabb and new message
                     new_message.save(function(err){
@@ -72,6 +72,7 @@ module.exports = (function(){
                   sid: req.body.MessageSid,
                   _tabb: tabb._id
                 })
+                tabb.tabb_business_id = req.body.To;
                 tabb.messages.push(new_message);
                 //save both updated tabb and new message
                 new_message.save(function(err){
@@ -91,8 +92,11 @@ module.exports = (function(){
       })
     },
     get_business_messages: function(req, res){
-      console.log("backend controller", req.user.local.number);
-      Tabb.findOne({tabb_user_id: req.user.local.number}, function(err, result){
+      console.log("backend controller", req.params);
+      // business_number = String(req.user.local.number);
+      console.log(typeof req.params.id);
+      Tabb.findOne({tabb_business_id: req.params.id}, function(err, result){
+        console.log("result", result)
         res.json(result);
       })
     },

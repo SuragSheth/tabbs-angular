@@ -57,19 +57,4 @@ require('./server/config/routes.js')(app, passport, client, io);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //End: Socket.io ===========================================

@@ -59,8 +59,8 @@ module.exports = function(app, passport, client, io) {
          // console.log(req.method, req.url);
     })
 
-    app.post('/business_tabbs', function(req, res){
-        console.log("IN ROUTES", req.body);
+    app.get('/business_tabbs/:id', function(req, res){
+        console.log("IN ROUTES", req.params);
         messages.get_business_messages(req, res);
     })
 
