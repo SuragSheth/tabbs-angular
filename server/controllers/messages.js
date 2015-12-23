@@ -15,8 +15,10 @@ module.exports = (function(){
         else{
           console.log("valid business number - check if tabb exists");
           //check if conversation tabb already exists
+          //add if statement for FROM and TO business ++++++++++
           Tabb.findOne({tabb_user_id: req.body.From}, function(err, tabb){
             if(tabb == null){ //tabb does not exist yet
+              console.log("check tabb", tabb);
               var new_tabb = new Tabb ({
                 tabb_user_id: req.body.From
               });
@@ -86,6 +88,12 @@ module.exports = (function(){
             }
           })
         }
+      })
+    },
+    get_business_messages: function(req, res){
+      console.log("backend controller", req.user.local.number);
+      Tabb.findOne({tabb_user_id: req.user.local.number}, function(err, result){
+        res.json(result);
       })
     },
     add_message: function(req, res){

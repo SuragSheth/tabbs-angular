@@ -1,4 +1,4 @@
-app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", function ($scope, socket, tabbsFactory) {
+app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope", function ($scope, socket, tabbsFactory, $rootScope) {
 
     //destroy listeners
     // $scope.$on('$destroy', function(event){
@@ -44,22 +44,29 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", function ($
 
     };
     //Incoming message from /get_message route
-    socket.on("user_to_business", function(data){
-        console.log("user_to_business", data);
-        //get stored messages from DB based on incoming user number
-        tabbsFactory.all_tabb_messages(data, function(messages){
-            console.log(messages);
-        })
-
-
-    });
+    // socket.on("user_to_business", function(data){
+    //     console.log("user_to_business", data);
+    //     console.log("rootscope user", $rootScope.user)
+    //     //get stored messages from DB based on incoming user number
+    //     tabbsFactory.all_tabb_messages($rootScope.user, function(messages){
+    //         console.log(messages);
+    //     })
+    // });
+    console.log("rootscope user", $rootScope.user)
+    //get stored messages from DB based on incoming user number
+    tabbsFactory.all_tabb_messages($rootScope.user, function(messages){
+        console.log(messages);
+    })
 
 }]);
 
 app.factory('tabbsFactory', function($http){
     var factory = {};
     factory.all_tabb_messages = function(data, callback){
-        console.log("inside factory", data);
+        console.log(data.number);
+        $http.post('/business_tabbs', {data: data}).success(function(data){
+            console.log("business tabs on success", data);
+        })
 
     }
     return factory;

@@ -17,6 +17,8 @@ app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$root
     businessFactory.login(business_info, function(data){
       console.log("callback business controller login", data);
       $rootScope.user = {
+        id: data._id,
+        number: data.local.number,
         name: data.local.name,
         email: data.local.email
       }
