@@ -49,20 +49,13 @@ module.exports = function(app, passport, client, io) {
 
     //incoming text from consumer
     app.post('/get_message', function(req, res, next){
-        //Check if message is sent to existing business
-        //Create Tabb
-        //Save message to database.
+        //Check if incoming message is to existing business. Check if tabb is already created.
+        //Create Tabb and save message to database.
         messages.incoming_message(req, res);
-        // messages.add_message(req, res);
-
         //emit message to angular controller
         socket.emit("user_to_business", req.body);
         console.log("get_message", req.body);
 
-
-        socket.on("client_resonse", function(data){
-            console.log("cylce done");
-        })
          // console.log(req.method, req.url);
     })
     socket.on('test_new_client', function(data){

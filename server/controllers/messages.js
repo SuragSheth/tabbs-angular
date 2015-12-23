@@ -6,7 +6,7 @@ var Business  = mongoose.model('Business');
 module.exports = (function(){
   return {
     incoming_message: function(req, res){
-      //check if business exists
+      //check if business exists by phone number
       //console.log("new_tabb", typeof req.body.To)
       Business.findOne({"local.number": req.body.To}, function(err, result){
         if(result == null){
@@ -26,7 +26,7 @@ module.exports = (function(){
                 }
                 else {
                   console.log("tabb saved successfully", result);
-                  //save message and update tabb document
+                  //save message and update tabb document by id
                   Tabb.findOne({_id: result._id}, function(err, tabb){
                     //data from the message
                     var new_message = new Message ({
@@ -68,7 +68,7 @@ module.exports = (function(){
                   fromCity: req.body.FromCity,
                   fromState: req.body.FromState,
                   sid: req.body.MessageSid,
-                  _tabb: result._id
+                  _tabb: tabb._id
                 })
                 tabb.messages.push(new_message);
                 //save both updated tabb and new message

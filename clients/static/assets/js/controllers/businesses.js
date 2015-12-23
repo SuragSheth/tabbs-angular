@@ -1,4 +1,4 @@
-//Start: Business controller and factory =================================
+//Start: Business controller  =================================
 
 app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$rootScope', function($scope, businessFactory, $location, $rootScope){
   $scope.signup_business = function(business_info){
@@ -25,7 +25,9 @@ app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$root
   }
 
 }])
+//End: Business controller =================================
 
+//Start: Business Factory =================================
 app.factory('businessFactory', function($http){
   var factory = {};
   factory.new = function(business_info, callback){
@@ -44,6 +46,7 @@ app.factory('businessFactory', function($http){
   return factory;
 })
 
-//End: Business controller and factory =================================
+//End: Business Factory =================================
+
 
 

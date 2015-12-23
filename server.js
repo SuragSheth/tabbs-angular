@@ -8,7 +8,7 @@ var flash 				= require('connect-flash');
 var morgan 				= require('morgan');
 var cookieParser 	= require('cookie-parser');
 var session 			= require('express-session');
-var socket 				= require('socket.io');
+// var socket 				= require('socket.io');
 
 
 //Start: Twilio====================================================
