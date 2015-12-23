@@ -34,6 +34,7 @@ module.exports = (function() {
     });
   },
 
+    
     delete_employee: function(req, res){
     	Employee.remove({_id: req.body._id}, function(err, Data){
     		if(err){
