@@ -8,15 +8,15 @@ var flash 				= require('connect-flash');
 var morgan 				= require('morgan');
 var cookieParser 	= require('cookie-parser');
 var session 			= require('express-session');
-var socket 				= require('socket.io');
+// var socket 				= require('socket.io');
 
 //Start: Twilio====================================================
-var client = require('twilio')('AC670d3df5dd79de701231ba87193b2784', '660c8a5b153bcaf1c047a215601fce63');
+var client = require('twilio')('AC504375ef36ecd1dc24af33f4b184022a', '5bb9215c1bba75ebbdc5ebdbed483fb8');
 // console.log("twilio client", client);
 
 var twilioAPI = require('twilio-api');
 // console.log("twilioAPI server:", twilioAPI);
-var cli = new twilioAPI.Client('AC670d3df5dd79de701231ba87193b2784', '660c8a5b153bcaf1c047a215601fce63');
+var cli = new twilioAPI.Client('AC504375ef36ecd1dc24af33f4b184022a', '5bb9215c1bba75ebbdc5ebdbed483fb8');
 // console.log("server twilio object:", cli)
 
 //tell twilio-api to intercept incoming HTTP requests.

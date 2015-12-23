@@ -30,22 +30,10 @@
 	</head>
 
 
-
-
-
-
-
 	<body ng-controller="AppCtrl">
 		<div ui-view id="app" ng-class="{'app-mobile' : app.isMobile, 'app-navbar-fixed' : app.layout.isNavbarFixed, 'app-sidebar-fixed' : app.layout.isSidebarFixed, 'app-sidebar-closed':app.layout.isSidebarClosed, 'app-footer-fixed':app.layout.isFooterFixed}"></div>
 
-
-
-
-
-
-
-
-
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js"></script>
 
 		<!-- jQuery -->
 		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
@@ -118,7 +106,6 @@
 		<!-- TABBS CONTROLLERS END HERE -->
 
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js"></script>
 
 		<script src="assets/js/controllers/mainCtrl.js"></script>
 		<script src="assets/js/controllers/inboxCtrl.js"></script>

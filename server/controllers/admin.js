@@ -1,4 +1,6 @@
 var mongoose = require("mongoose");
+var Employee  = mongoose.model('Employee');
+var Business  = mongoose.model('Business');
 
 // add all of methods that interact with the 
 module.exports = (function() {
@@ -15,17 +17,28 @@ module.exports = (function() {
 
     add_employee: function(req, res) {
       // send the admin id and then send the employee info
-    	Post.findOne({_id: req.params.id}, function(err, post){
+      console.log("YEEEEAAAABUDDYYYYY_________________", req.body);
+      var employee_repack = {
+          first_name: req.body.first,
+          last_name: req.body.last,
+          email: req.body.email,
+          password: req.body.password
+      }
+
+
+    	Business.findOne({_id: req.body.admin}, function(err, business){
         // data from form on the front end
-        var employee = new Employee(req.body);
+        var employee = new Employee(employee_repack);
+        console.log("__________NEW EMPLOYEE", employee);
+        console.log("_____________________BUSINESS ADDED TO", business)
         //  set the reference like this:
-        employee._post = post._id;
-        post.employees.push(employee);
+        employee._business = business._id;
+        business.local.employees.push(employee);
         // now save both to the DB
         employee.save(function(err){
-            post.save(function(err){
+            business.save(function(err){
         if(err) {
-                   console.log('Error');
+                   console.log('Could not save the employee');
        } else {
               res.redirect('/');
               }

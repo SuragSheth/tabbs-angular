@@ -3,16 +3,20 @@
 app.controller('employeeCtrl', ['$scope', 'EmployeeFactory', '$location', '$rootScope', function($scope, EmployeeFactory, $location, $rootScope){
 
   $scope.addEmployee = function(isValid) {
-      if (isValid) { 
-          alert('our form is amazing');
-      }
+      // if (isValid) { 
+      //     alert('our form is amazing');
+      // }
+      console.log("___________rootscop user", $rootScope.user)
+
       var newemployee_repack = {
+          admin: $rootScope.user.id,
           email: $scope.add_employee.email,
           password: $scope.add_employee.password,
           first: $scope.add_employee.first_name,
           last: $scope.add_employee.last_name,
           phone: $scope.add_employee.phone
       };
+
       console.log(newemployee_repack);
       EmployeeFactory.addEmployee(newemployee_repack, function(data){
         // load them back into scope in the navbar and also the table      
