@@ -15,8 +15,7 @@ module.exports = (function(){
         else{
           console.log("valid business number - check if tabb exists");
           //check if conversation tabb already exists
-          //add if statement for FROM and TO business ++++++++++
-          Tabb.findOne({tabb_user_id: req.body.From}, function(err, tabb){
+          Tabb.findOne({tabb_user_id: req.body.From, tabb_business_id: req.body.To}, function(err, tabb){
             if(tabb == null){ //tabb does not exist yet
               console.log("check tabb", tabb);
               var new_tabb = new Tabb ({
@@ -91,33 +90,15 @@ module.exports = (function(){
         }
       })
     },
+    //find tabb by business number and populate messages
     get_business_messages: function(req, res){
       console.log("backend controller", req.params);
       // business_number = String(req.user.local.number);
-      console.log(typeof req.params.id);
-      Tabb.findOne({tabb_business_id: req.params.id}, function(err, result){
-        console.log("result", result)
+      Tabb.findOne({tabb_business_id: req.params.id})
+        .populate('messages')
+        .exec(function(err, result){
         res.json(result);
       })
-    },
-    add_message: function(req, res){
-      var new_message = new Message ({
-            to: req.body.To,
-            from: req.body.From,
-            body: req.body.Body,
-            created_at: new Date(),
-            fromCity: req.body.FromCity,
-            fromState: req.body.FromState,
-            sid: req.body.MessageSid
-        })
-        new_message.save(function(err, result){
-          if(err){
-              console.log("did not save message");
-          } else{
-              console.log("message saved");
-              res.json(result);
-          }
-        })
-      }
     }
+  }
 })();

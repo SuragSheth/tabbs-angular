@@ -5,10 +5,10 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
     //     socket.removeAllListeners();
     // })
 
-        $scope.tabs = [{
+    $scope.tabs = [{
+        title: '1(510)-557-2282',
+        content: '1(510)-557-2282'
 
-        title: '1(510)-648-3326',
-        content: '1(510)-648-3326'
     }, {
         title: '1(408)-460-0404',
         content: '1(408)-460-0404',
@@ -49,34 +49,44 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
         $scope.chatMessage = '';
 
     };
-    //Incoming message from /get_message route
-    // socket.on("user_to_business", function(data){
-    //     console.log("user_to_business", data);
-    //     console.log("rootscope user", $rootScope.user)
-    //     //get stored messages from DB based on incoming user number
-    //     tabbsFactory.all_tabb_messages($rootScope.user, function(messages){
-    //         console.log(messages);
-    //     })
-    // });
-    console.log("rootscope user", $rootScope.user)
-    //get stored messages from DB based on incoming user number
-    tabbsFactory.all_tabb_messages($rootScope.user, function(messages){
-        console.log(messages);
-
-        var incoming = {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": exampleDate,
-        "content": messages,
-        "idUser": 50223456,
-        "idOther": 50223457
+    //get tabbs/messages after any broadcast
+    socket.on("user_to_business", function(data){
+        console.log("user_to_business", data);
+        console.log("rootscope user", $rootScope.user)
+        //get stored messages from DB based on incoming user number
+        tabbsFactory.all_tabb_messages($rootScope.user, function(messages){
+            for(var message in data.messages){
+                var incoming = {
+                "user": "Peter Clark",
+                "avatar": "assets/images/avatar-1.jpg",
+                "to": "Nicole Bell",
+                "date": exampleDate,
+                "content": data.messages[message],
+                "idUser": 50223456,
+                "idOther": 50223457
+                }
+                $scope.chat.push(incoming);
+            }
+            $scope.chatMessage = '';
+        })
+    });
+    //get messages when controller loads
+    tabbsFactory.all_tabb_messages($rootScope.user, function(data){
+        for(var message in data.messages){
+            // console.log("messages", data.messages[message])
+            var incoming = {
+            "user": "Peter Clark",
+            "avatar": "assets/images/avatar-1.jpg",
+            "to": "Nicole Bell",
+            "date": exampleDate,
+            "content": data.messages[message],
+            "idUser": 50223456,
+            "idOther": 50223457
+            }
+            $scope.chat.push(incoming);
         }
-        console.log("incoming", incoming);
-        $scope.chat.push(incoming);
         $scope.chatMessage = '';
     })
-
 
 }]);
 
@@ -85,8 +95,10 @@ app.factory('tabbsFactory', function($http){
     factory.all_tabb_messages = function(data, callback){
         console.log("adsfadsf", data);
         $http.get('/business_tabbs/'+data.number).success(function(data){
-            console.log("business tabs on success", data);
-            callback(data);
+        console.log(data.number);
+
+        console.log("business tabs on success", data);
+        callback(data);
         })
 
     }

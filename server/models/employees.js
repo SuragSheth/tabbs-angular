@@ -6,11 +6,7 @@ var EmployeeSchema = new mongoose.Schema({
 	last_name: String,
 	email: String,
 	password: String,
-	organization: String,
-	zip: Number,
-	city: String,
-	accounttype: String,
-  _business: {type: Schema.Types.ObjectId, ref: 'Business'}
+	_business: {type: Schema.ObjectId, ref: 'Business'}
 
 });
 

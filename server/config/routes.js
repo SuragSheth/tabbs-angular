@@ -29,6 +29,18 @@ module.exports = function(app, passport, client, io) {
         failureFlash : true // allow flash messages
     }))
 // End: routes for businesses =========================
+
+// Start: routes for employees =========================
+    app.post('/add_employee', function(req, res){
+        console.log("____________________", req.body)
+        admin.add_employee(req, res);
+    })
+
+    app.post('/delete_employee', function(req, res){
+        admin.delete_employee(req, res);
+    })
+// End: routes for employees =========================
+
 // Start: routes for twilio ============================
     // app.get('/test_twilio', function(req, res){
     //     client.sendMessage({
@@ -53,14 +65,14 @@ module.exports = function(app, passport, client, io) {
         //Create Tabb and save message to database.
         messages.incoming_message(req, res);
         //emit message to angular controller
-        socket.broadcast.emit("user_to_business", req.body);
+        socket.broadcast.emit("user_to_business");
         console.log("get_message", req.body);
 
          // console.log(req.method, req.url);
     })
 
     app.get('/business_tabbs/:id', function(req, res){
-        console.log("IN ROUTES", req.params);
+        // console.log("IN ROUTES", req.params);
         messages.get_business_messages(req, res);
     })
 

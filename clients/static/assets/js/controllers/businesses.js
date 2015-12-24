@@ -4,7 +4,6 @@ app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$root
   $scope.signup_business = function(business_info){
     console.log("Business controller:", business_info);
     businessFactory.new(business_info, function(data){
-      console.log("callback business controller signup");
       $rootScope.user = {
         name: data.local.name,
         email: data.local.email
@@ -22,6 +21,7 @@ app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$root
         name: data.local.name,
         email: data.local.email
       }
+      console.log($rootScope.user);
       $location.path('/dashboard');
     })
   }
