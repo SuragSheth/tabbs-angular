@@ -1,5 +1,7 @@
 app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope", function ($scope, socket, tabbsFactory, $rootScope) {
-
+    socket.on("testing_connection", function(data){
+        console.log("hello");
+    })
     //destroy listeners
     // $scope.$on('$destroy', function(event){
     //     socket.removeAllListeners();
@@ -51,41 +53,50 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
     };
     //get tabbs/messages after any broadcast
     socket.on("user_to_business", function(data){
-        console.log("user_to_business", data);
+        console.log("SOCKET WORKING on GET");
         console.log("rootscope user", $rootScope.user)
         //get stored messages from DB based on incoming user number
-        tabbsFactory.all_tabb_messages($rootScope.user, function(messages){
-            for(var message in data.messages){
+        tabbsFactory.all_tabb_messages($rootScope.user, function(data){
+            for(var tab in data){
+                for(var message in data[tab].messages){
+                     console.log("message", data[tab].messages[message].body);
+                // console.log("messages", data.messages[message])
                 var incoming = {
                 "user": "Peter Clark",
                 "avatar": "assets/images/avatar-1.jpg",
                 "to": "Nicole Bell",
                 "date": exampleDate,
-                "content": data.messages[message],
+                "content": data[tab].messages[message].body,
                 "idUser": 50223456,
                 "idOther": 50223457
                 }
                 $scope.chat.push(incoming);
             }
             $scope.chatMessage = '';
+            }
         })
     });
+
+
+
     //get messages when controller loads
     tabbsFactory.all_tabb_messages($rootScope.user, function(data){
-        for(var message in data.messages){
-            // console.log("messages", data.messages[message])
+        for(var tab in data){
+            for(var message in data[tab].messages){
+                 // console.log("message", data[tab].messages[message].body);
             var incoming = {
             "user": "Peter Clark",
             "avatar": "assets/images/avatar-1.jpg",
             "to": "Nicole Bell",
             "date": exampleDate,
-            "content": data.messages[message],
+            "content": data[tab].messages[message].body,
             "idUser": 50223456,
             "idOther": 50223457
             }
             $scope.chat.push(incoming);
         }
         $scope.chatMessage = '';
+        }
     })
 
 }]);

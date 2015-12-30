@@ -11,7 +11,7 @@
 <!-- end: PAGE TITLE -->
 <!-- start: TABS -->
 <!-- /// controller:  'TabsDemoCtrl' -  localtion: assets/js/controllers/bootstrapCtrl.js /// -->
-<div ng-controller="TabbsChatCtrl">
+<div>
 	<div class="container-fluid container-fullw bg-white">
 		<div class="row">
 			<div class="col-md-12">
@@ -20,7 +20,7 @@
 					<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
 
 
-					<div ng-controller="TabbsChatCtrl" style="width:60%">
+					<div style="width:60%">
 						<div class="panel panel-white no-radius">
 							<div class="panel-heading border-bottom">
 								<h4 class="panel-title">{{tab.content}}</h4>

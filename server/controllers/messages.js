@@ -94,7 +94,7 @@ module.exports = (function(){
     get_business_messages: function(req, res){
       console.log("backend controller", req.params);
       // business_number = String(req.user.local.number);
-      Tabb.findOne({tabb_business_id: req.params.id})
+      Tabb.find({tabb_business_id: req.params.id})
         .populate('messages')
         .exec(function(err, result){
         res.json(result);

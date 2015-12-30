@@ -49,8 +49,9 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     })
 
     .state('app.tabbs', {
-        url: '/tabbs',
+        url: '/tabbs/',
         templateUrl: "assets/views/tabbs.html",
+        controller: 'TabbsChatCtrl'
 
     })
 

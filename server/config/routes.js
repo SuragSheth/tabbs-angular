@@ -65,10 +65,10 @@ module.exports = function(app, passport, client, io) {
         //Create Tabb and save message to database.
         messages.incoming_message(req, res);
         //emit message to angular controller
-        socket.broadcast.emit("user_to_business");
-        console.log("get_message", req.body);
+        socket.emit("testing_connection");
+        io.emit("user_to_business");
 
-         // console.log(req.method, req.url);
+        console.log("get_message", req.body);
     })
 
     app.get('/business_tabbs/:id', function(req, res){
@@ -76,7 +76,7 @@ module.exports = function(app, passport, client, io) {
         messages.get_business_messages(req, res);
     })
 
-
+// End: routes for twilio ============================
 
     socket.on('test_new_client', function(data){
         console.log("in routes, message from client", data);
@@ -95,6 +95,6 @@ module.exports = function(app, passport, client, io) {
             }
         })
     })
-// End: routes for twilio ============================
+
     })
 }
