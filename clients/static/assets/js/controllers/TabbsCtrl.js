@@ -16,7 +16,10 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
 
     $scope.tabs = [];
 
-    $scope.sendMessage = function () {
+    $scope.sendMessage = function (number) {
+
+        console.log("STEVEN IS A LITTLE STULTTLSKDFJSFKDSF", number);
+
         var newMessage = {
             "user": "Peter Clark",
             "avatar": "assets/images/avatar-1.jpg",
