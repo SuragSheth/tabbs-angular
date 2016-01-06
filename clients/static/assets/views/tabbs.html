@@ -20,8 +20,6 @@
 
                     <!-- Dynamic Tabbs-->
                     <uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
-
-
                         <div style="width:60%">
                             <div class="panel panel-white no-radius">
                                 <div class="panel-heading border-bottom">
@@ -37,8 +35,8 @@
                                     <div class="message-bar">
                                         <div class="message-inner"><a href="#" class="link icon-only"><i class="fa fa-camera"></i></a>
                                             <div class="message-area">
-                                                <input placeholder="Message" />
-                                            </div><a translate="offsidebar.chat.SEND" href="#" class="link ng-scope" ng-click="sendMessage(tab)">Send</a>
+                                                <input placeholder="Message" ng-model="business_to_user_message"/>
+                                            </div><a translate="offsidebar.chat.SEND" href="#" class="link ng-scope" ng-click="sendMessage(tab, business_to_user_message)">Send</a>
                                         </div>
                                     </div>
                                 </form>
@@ -50,6 +48,7 @@
         </div>
     </div>
 </div>
+
 </div>
 
 <!-- <uib-tab select="alertMe()">

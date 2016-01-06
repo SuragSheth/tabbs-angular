@@ -16,34 +16,36 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
 
     $scope.tabs = [];
 
-    $scope.sendMessage = function (tab) {
-
-        console.log("STEVEN IS A LITTLE STULTTLSKDFJSFKDSF", tab);
-
+    $scope.sendMessage = function (tab, message) {
         var newMessage = {
-            "user": "Peter Clark",
-            "avatar": "assets/images/avatar-1.jpg",
+            "tabb_id": tab.tabb_id,
+            "to": tab.title,
+            "from": $rootScope.user.number,
             "date": new Date(),
-            "content": $scope.chatMessage,
-            //swap IDS for testing
+            "content": message,
+            //swap IDS for testing other = business, user = user
             "idOther": $scope.selfIdUser,
             "idUser": $scope.otherIdUser
         };
 
         var current_tabs = _.pluck($scope.tabs, 'title');
-        for ( t in current_tabs){
-            if (current_tabs[t] === data[tab].tabb_user_id){
+        for (t in current_tabs){
+            if (current_tabs[t] === tab.title){
                 insert_index = t;
                 console.log("first index set")
                 break
             };
         };
 
-        $scope.tabs.chat[0].push(newMessage);
+
+        $scope.tabs[insert_index].chat.push(newMessage);
         console.log("newmessage", newMessage)
         socket.emit("test_new_client", newMessage)
 
-        $scope.chatMessage = '';
+        tabbsFactory.message_to_user($rootScope.user, newMessage, function(data){
+            console.log("return from message fact success message", data);
+        })
+        $scope.business_to_user_message = '';
     };
 
     //get tabbs/messages after any broadcast
@@ -76,6 +78,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                     $scope.tabs.push({
                         title: data[tab].tabb_user_id,
                         content: data[tab].tabb_user_id,
+                        tabb_id: data[tab]._id,
                         chat:[]
                     })
                     console.log("third index set")
@@ -103,23 +106,6 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
         })
     });
 
-    //send outgoing messages from business to user
-    $scope.send_message_to_user = function(message_info){
-        var test_message = {
-            "tabb_id": "567b1e821b60790d1ea8cb0a",
-            "to": "+14084600740",
-            "from": "+15106483326",
-            "date": new Date(),
-            "content": "testing message from business to user",
-            //swap IDS for testing other = business, user = user
-            "idOther": "",
-            "idUser": ""
-        };
-        tabbsFactory.message_to_user($rootScope.user, test_message, function(data){
-            console.log("return from message fact success message", data);
-        })
-    };
-
     //get messages when controller loads
     tabbsFactory.all_tabb_messages($rootScope.user, function(data){
         var insert_index;
@@ -127,6 +113,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             $scope.tabs.push({
                 title: data[tab].tabb_user_id,
                 content: data[tab].tabb_user_id,
+                tabb_id: data[tab]._id,
                 chat:[]
             })
             for(var message in data[tab].messages){
