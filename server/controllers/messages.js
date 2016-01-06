@@ -5,7 +5,7 @@ var Business  = mongoose.model('Business');
 
 module.exports = (function(){
   return {
-    outgoing_message: function(req, res){
+    outgoing_message: function(req, res, client){
       Tabb.findOne({_id: req.body.message.tabb_id}, function(err, tabb){
         if(tabb == null){
           res.json("can not message a user until they message you");
@@ -28,7 +28,21 @@ module.exports = (function(){
               console.log("unable to save outgoing message")
             }
             else{
-              console.log("outgoing message saved");
+              client.sendMessage({
+                to: req.body.message.to,
+                from: req.body.message.from,
+                body: req.body.message.content
+                },
+                function(error, message) {
+                  if (!error) {
+                    console.log('Success! The SID for this SMS message is:', message);
+                    console.log(message.sid);
+                    console.log('Message sent on:');
+                    console.log(message.dateCreated);
+                  } else {
+                      console.log('Oops! There was an error.');
+                  }
+              });
               res.send("outgoing message saved");
             }
           })

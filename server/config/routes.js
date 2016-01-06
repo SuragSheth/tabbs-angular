@@ -63,7 +63,7 @@ module.exports = function(app, passport, client, io) {
     //sending messages to user from business
     app.post('/send_message_to_user', function(req, res){
         console.log("routes for send message to user:", req.body);
-        messages.outgoing_message(req, res);
+        messages.outgoing_message(req, res, client);
     })
 
     //incoming text from consumer
