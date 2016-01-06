@@ -42,7 +42,7 @@ module.exports = function(app, passport, client, io) {
     })
 // End: routes for employees =========================
 
-// Start: routes for twilio ============================
+// Start: routes for sending and recieving messages ============================
     // app.get('/test_twilio', function(req, res){
     //     client.sendMessage({
     //         to:'+14084600740',
@@ -59,6 +59,12 @@ module.exports = function(app, passport, client, io) {
     //         }
     //     });
     // });
+
+    //sending messages to user from business
+    app.post('/send_message_to_user', function(req, res){
+        console.log("routes for send message to user:", req.body);
+        messages.outgoing_message(req, res);
+    })
 
     //incoming text from consumer
     app.post('/get_message', function(req, res, next){
@@ -79,7 +85,7 @@ module.exports = function(app, passport, client, io) {
         messages.get_business_messages(req, res);
     })
 
-// End: routes for twilio ============================
+
 
     socket.on('test_new_client', function(data){
         console.log("in routes, message from client", data);
@@ -101,3 +107,4 @@ module.exports = function(app, passport, client, io) {
 
     })
 }
+// End: routes for sending and recieving messages ============================

@@ -112,7 +112,23 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
         })
     });
 
+    //send outgoing messages from business to user
+    $scope.send_message_to_user = function(message_info){
+        var test_message = {
+                "tabb_id": "567b1e821b60790d1ea8cb0a",
+                "to": "+14084600740",
+                "from": "+15106483326",
+                "date": new Date(),
+                "content": "testing message from business to user",
+                //swap IDS for testing other = business, user = user
+                "idOther": "",
+                "idUser": ""
+            };
 
+        tabbsFactory.message_to_user($rootScope.user, test_message, function(data){
+            console.log("return from message fact success message", data);
+        })
+    };
 
     //get messages when controller loads
     tabbsFactory.all_tabb_messages($rootScope.user, function(data){
@@ -139,12 +155,17 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
 app.factory('tabbsFactory', function($http){
     var factory = {};
     factory.all_tabb_messages = function(data, callback){
-        console.log("adsfadsf", data);
         $http.get('/business_tabbs/'+data.number).success(function(data){
         console.log("business tabs on success", data);
         callback(data);
         })
+    }
 
+    factory.message_to_user = function(user, message, callback){
+        console.log("inside factory for sending message", user, message);
+        $http.post('/send_message_to_user', {rootuser: user, message: message}).success(function(data){
+            callback(data);
+        })
     }
     return factory;
 })

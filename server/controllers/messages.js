@@ -5,6 +5,36 @@ var Business  = mongoose.model('Business');
 
 module.exports = (function(){
   return {
+    outgoing_message: function(req, res){
+      Tabb.findOne({_id: req.body.message.tabb_id}, function(err, tabb){
+        if(tabb == null){
+          res.json("can not message a user until they message you");
+        }
+        console.log("REEEEQ", req.body.message)
+        var new_message = new Message ({
+          to: req.body.message.to,
+          from: req.body.message.from,
+          body: req.body.message.content,
+          created_at: new Date(),
+          fromCity: "",
+          fromState: "",
+          sid: "",
+          _tabb: req.body.message.tabb_id
+          })
+        tabb.messages.push(new_message);
+        new_message.save(function(err){
+          tabb.save(function(err){
+            if(err){
+              console.log("unable to save outgoing message")
+            }
+            else{
+              console.log("outgoing message saved");
+              res.send("outgoing message saved");
+            }
+          })
+        })
+      })
+    },
     incoming_message: function(req, res){
       //check if business exists by phone number
       //console.log("new_tabb", typeof req.body.To)
@@ -17,7 +47,7 @@ module.exports = (function(){
           //check if conversation tabb already exists
           Tabb.findOne({tabb_user_id: req.body.From, tabb_business_id: req.body.To}, function(err, tabb){
             if(tabb == null){ //tabb does not exist yet
-              console.log("check tabb", tabb);
+              console.log("create tabb first time", tabb);
               var new_tabb = new Tabb ({
                 tabb_user_id: req.body.From
               });

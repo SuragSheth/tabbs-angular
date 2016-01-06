@@ -12,7 +12,6 @@ app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$root
     })
   }
    $scope.login_business = function(business_info){
-    console.log("business controller login:", business_info);
     businessFactory.login(business_info, function(data){
       console.log("callback business controller login", data);
       $rootScope.user = {
@@ -21,7 +20,7 @@ app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$root
         name: data.local.name,
         email: data.local.email
       }
-      console.log($rootScope.user);
+      console.log("rootscope of user logged in user", $rootScope.user);
       $location.path('/dashboard');
     })
   }
@@ -33,13 +32,11 @@ app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$root
 app.factory('businessFactory', function($http){
   var factory = {};
   factory.new = function(business_info, callback){
-    console.log("inside businessFactory", business_info);
     $http.post('/business/new', business_info).success(function(output){
       callback(output);
     })
   }
   factory.login = function(business_info, callback) {
-    console.log("inside businessfactory login", business_info);
     $http.post('/business/login', business_info).success(function(output){
       callback(output);
     })
