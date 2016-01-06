@@ -16,6 +16,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<uib-tabset class="tabbable">
+
+
 					<!-- Dynamic Tabbs-->
 					<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
 
@@ -27,13 +29,15 @@
 								<h4 class="panel-title pull-right">Responce Time: 4:23</h4>
 							</div>
 							<div class="panel-body no-padding">
-								<div class="panel-scroll height-330" id="chatBox" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true">
-									<clip-chat messages="chat" id-self="selfIdUser" id-other="otherIdUser"></clip-chat>
+								<div class="panel-scroll height-330" id="chatBox" perfect-scrollbar wheel-propagation="true" suppress-scroll-x="true">
+									<clip-chat messages="tab.chat" id-self="selfIdUser" id-other="otherIdUser"></clip-chat>
 								</div>
 							</div>
 							<chat-submit submit-function="sendMessage" ng-model="chatMessage" scroll-element="#chatBox"></chat-submit>
 						</div>
 					</div>
+
+
 
 
 					</uib-tab>

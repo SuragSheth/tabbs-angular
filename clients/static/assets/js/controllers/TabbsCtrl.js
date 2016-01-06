@@ -9,30 +9,36 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
 
     $scope.tabs = [{
         title: '1(510)-557-2282',
-        content: '1(510)-557-2282'
-
+        content: '1(510)-557-2282',
+        chat: [{"user": "Peter Clark",
+        "avatar": "assets/images/avatar-1.jpg",
+        "to": "Nicole Bell",
+        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
+        "content": "Hi, Nicole Whats good nigga",
+        "idUser": +15106483326,
+        "idOther": +15105572282}]  
     }, {
-        title: '1(408)-460-0404',
-        content: '1(408)-460-0404',
-        disabled: false
+        title: '1(408)-275-2282',
+        content: '1(510)-557-2282',
+        chat: [{"user": "Peter Clark",
+        "avatar": "assets/images/avatar-1.jpg",
+        "to": "Nicole Bell",
+        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
+        "content": "AYYYYYYY",
+        "idUser": +15106483326,
+        "idOther": +15105572282}]  
     }];
 
-    $scope.selfIdUser = 50223456;
-    $scope.otherIdUser = 50223457;
-    $scope.setOtherId = function (value) {
+    $scope.selfIdUser = $rootScope.user.number;
+    $scope.otherIdUser = +15105572282;
 
+    $scope.setOtherId = function (value) {
         $scope.otherIdUser = value;
     };
 
     var exampleDate = new Date().setTime(new Date().getTime() - 240000 * 60);
 
-    $scope.chat = [{"user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": exampleDate,
-        "content": "Hi, Nicole",
-        "idUser": 50223456,
-        "idOther": 50223457}];
+
 
 
     $scope.sendMessage = function () {
@@ -45,18 +51,43 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             "idOther": $scope.selfIdUser,
             "idUser": $scope.otherIdUser
         };
-        $scope.chat.push(newMessage);
+        $scope.tabs.chat[0].push(newMessage);
         console.log("newmessage", newMessage)
         socket.emit("test_new_client", newMessage)
         $scope.chatMessage = '';
 
     };
+
+
     //get tabbs/messages after any broadcast
     socket.on("user_to_business", function(data){
         console.log("SOCKET WORKING on GET");
         console.log("rootscope user", $rootScope.user)
+
         //get stored messages from DB based on incoming user number
         tabbsFactory.all_tabb_messages($rootScope.user, function(data){
+
+            var insert_index;
+            var current_tabs = _.pluck($scope.tabs, 'title');
+            if (current_tabs != undefined){
+                for (var i = 0; i < current_tabs; i++){
+                    if (i === data[tab].number){
+                        insert_index = i
+                    }
+                } 
+                $scope.tabs.push({
+                    title: data[tab].number,
+                    content: data[tab].number,
+                    chat:[]})
+                insert_index = current_tabs.length;         
+            } else {
+                $scope.tabs.push({
+                    title: data[tab].number,
+                    content: data[tab].number,
+                    chat:[]})
+                insert_index = 0;
+            }
+            
             for(var tab in data){
                 for(var message in data[tab].messages){
                      console.log("message", data[tab].messages[message].body);
@@ -70,9 +101,10 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                 "idUser": 50223456,
                 "idOther": 50223457
                 }
-                $scope.chat.push(incoming);
-            }
-            $scope.chatMessage = '';
+                // if the title(phone number) is not in the scope then create a new tab, if it is then 
+                // push the messsages into the chat array 
+                $scope.tabs[insert_index].chat.push(incoming);
+                }
             }
         })
     });
@@ -94,12 +126,12 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             "idOther": 50223457
             }
             $scope.chat.push(incoming);
-        }
-        $scope.chatMessage = '';
+            }
         }
     })
 
 }]);
+
 
 app.factory('tabbsFactory', function($http){
     var factory = {};
