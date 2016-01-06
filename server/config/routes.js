@@ -84,7 +84,7 @@ module.exports = function(app, passport, client, io) {
     socket.on('test_new_client', function(data){
         console.log("in routes, message from client", data);
         client.sendMessage({
-            to: '+14084600740',
+            to: '+15105572282',
             from: '+15106483326',
             body: data.content
             }, function(error, message){
