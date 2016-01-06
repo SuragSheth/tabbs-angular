@@ -1,7 +1,4 @@
 app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope", function ($scope, socket, tabbsFactory, $rootScope) {
-    socket.on("testing_connection", function(data){
-        console.log("hello");
-    })
     //destroy listeners
     // $scope.$on('$destroy', function(event){
     //     socket.removeAllListeners();
@@ -148,6 +145,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             }
         }
     })
+    //testing to see if I can get socket id
 
 }]);
 

@@ -6,7 +6,7 @@ var twilio      = require('twilio')
 
 
 module.exports = function(app, passport, client, io) {
-     io.sockets.on('connection', function (socket) {
+    io.sockets.on('connection', function (socket) {
         console.log("WE ARE USING SOCKETS!");
         console.log(socket.id);
         //all the socket code goes in here!
@@ -14,9 +14,9 @@ module.exports = function(app, passport, client, io) {
 
 // Start: routes for businesses =========================
     app.get('/dashboard', function(req, res){
-        console.log("routes succesful add:", req.user)
-        req.session.user = "HELLO";
-        res.json(req.user);
+       // console.log("routes succesful add:", req.user)
+        req.session.socket_id = socket.id;
+        res.json({session: req.session, user: req.user});
     })
     app.post('/business/new', passport.authenticate('local-signup', {
         successRedirect : '/dashboard', // redirect to the secure profile section
@@ -43,22 +43,6 @@ module.exports = function(app, passport, client, io) {
 // End: routes for employees =========================
 
 // Start: routes for sending and recieving messages ============================
-    // app.get('/test_twilio', function(req, res){
-    //     client.sendMessage({
-    //         to:'+14084600740',
-    //         from:'+14156897280',
-    //         body:'message from nodejs'
-    //     }, function(error, message) {
-    //         if (!error) {
-    //             console.log('Success! The SID for this SMS message is:', message);
-    //             console.log(message.sid);
-    //             console.log('Message sent on:');
-    //             console.log(message.dateCreated);
-    //         } else {
-    //             console.log('Oops! There was an error.');
-    //         }
-    //     });
-    // });
 
     //sending messages to user from business
     app.post('/send_message_to_user', function(req, res){

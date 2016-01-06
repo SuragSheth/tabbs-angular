@@ -10,7 +10,6 @@ module.exports = (function(){
         if(tabb == null){
           res.json("can not message a user until they message you");
         }
-        console.log("REEEEQ", req.body.message)
         var new_message = new Message ({
           to: req.body.message.to,
           from: req.body.message.from,
@@ -37,8 +36,6 @@ module.exports = (function(){
                   if (!error) {
                     console.log('Success! The SID for this SMS message is:', message);
                     console.log(message.sid);
-                    console.log('Message sent on:');
-                    console.log(message.dateCreated);
                   } else {
                       console.log('Oops! There was an error.');
                   }

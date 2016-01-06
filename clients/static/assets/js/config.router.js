@@ -41,6 +41,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     .state('app.dashboard', {
         url: "/dashboard",
         templateUrl: "assets/views/dashboard.html",
+        controller: 'dashboardController',
         resolve: loadSequence('jquery-sparkline', 'dashboardCtrl'),
         title: 'Dashboard',
 

@@ -15,15 +15,19 @@ app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$root
     businessFactory.login(business_info, function(data){
       console.log("callback business controller login", data);
       $rootScope.user = {
-        id: data._id,
-        number: data.local.number,
-        name: data.local.name,
-        email: data.local.email
+        id: data.user._id,
+        number: data.user.local.number,
+        name: data.user.local.name,
+        email: data.user.local.email
       }
       console.log("rootscope of user logged in user", $rootScope.user);
       $location.path('/dashboard');
     })
   }
+
+  // businessFactory.get_socket_id($rootScope.user, function(data){
+  //   console.log("GOT THE ID", data);
+  // })
 
 }])
 //End: Business controller =================================
@@ -41,6 +45,11 @@ app.factory('businessFactory', function($http){
       callback(output);
     })
   }
+  // factory.get_socket_id = function(rootscope_user, callback){
+  //   console.log(rootscope_user.user)
+  //   // $http.get('/test').success(function(output){
+  //   // })
+  // }
 
   return factory;
 })
