@@ -6,7 +6,7 @@ var twilio      = require('twilio')
 
 
 module.exports = function(app, passport, client, io) {
-    io.sockets.on('connection', function (socket) {
+     io.sockets.on('connection', function (socket) {
         console.log("WE ARE USING SOCKETS!");
         console.log(socket.id);
         //all the socket code goes in here!
@@ -15,6 +15,7 @@ module.exports = function(app, passport, client, io) {
 // Start: routes for businesses =========================
     app.get('/dashboard', function(req, res){
         console.log("routes succesful add:", req.user)
+        req.session.user = "HELLO";
         res.json(req.user);
     })
     app.post('/business/new', passport.authenticate('local-signup', {
@@ -63,6 +64,8 @@ module.exports = function(app, passport, client, io) {
     app.post('/get_message', function(req, res, next){
         //Check if incoming message is to existing business. Check if tabb is already created.
         //Create Tabb and save message to database.
+        console.log("TESTING SESSION", req.session)
+
         messages.incoming_message(req, res);
         //emit message to angular controller
         socket.emit("testing_connection");

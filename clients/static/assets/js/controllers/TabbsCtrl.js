@@ -16,7 +16,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
         content: '1(408)-460-0404',
         disabled: false
     }];
-
+    //selfIdUser == user number
     $scope.selfIdUser = 50223456;
     $scope.otherIdUser = 50223457;
     $scope.setOtherId = function (value) {
@@ -26,13 +26,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
 
     var exampleDate = new Date().setTime(new Date().getTime() - 240000 * 60);
 
-    $scope.chat = [{"user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": exampleDate,
-        "content": "Hi, Nicole",
-        "idUser": 50223456,
-        "idOther": 50223457}];
+    $scope.chat = [];
 
 
     $scope.sendMessage = function () {
@@ -45,15 +39,13 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             "idOther": $scope.selfIdUser,
             "idUser": $scope.otherIdUser
         };
-        $scope.chat.push(newMessage);
-        console.log("newmessage", newMessage)
-        socket.emit("test_new_client", newMessage)
+        $scope.chat.push($scope.chatMessage);
+        console.log("newmessage", $scope.chatMessage)
         $scope.chatMessage = '';
 
     };
     //get tabbs/messages after any broadcast
     socket.on("user_to_business", function(data){
-        console.log("SOCKET WORKING on GET");
         console.log("rootscope user", $rootScope.user)
         //get stored messages from DB based on incoming user number
         tabbsFactory.all_tabb_messages($rootScope.user, function(data){
@@ -62,9 +54,9 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                      console.log("message", data[tab].messages[message].body);
                 // console.log("messages", data.messages[message])
                 var incoming = {
-                "user": "Peter Clark",
+                "user": $rootScope.user.number,
                 "avatar": "assets/images/avatar-1.jpg",
-                "to": "Nicole Bell",
+                "to": data[tab].tabb_business_id,
                 "date": exampleDate,
                 "content": data[tab].messages[message].body,
                 "idUser": 50223456,
@@ -85,9 +77,9 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             for(var message in data[tab].messages){
                  // console.log("message", data[tab].messages[message].body);
             var incoming = {
-            "user": "Peter Clark",
+            "user": $rootScope.user.number,
             "avatar": "assets/images/avatar-1.jpg",
-            "to": "Nicole Bell",
+            "to": data[tab].tabb_business_id,
             "date": exampleDate,
             "content": data[tab].messages[message].body,
             "idUser": 50223456,
@@ -106,8 +98,6 @@ app.factory('tabbsFactory', function($http){
     factory.all_tabb_messages = function(data, callback){
         console.log("adsfadsf", data);
         $http.get('/business_tabbs/'+data.number).success(function(data){
-        console.log(data.number);
-
         console.log("business tabs on success", data);
         callback(data);
         })

@@ -43,6 +43,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         templateUrl: "assets/views/dashboard.html",
         resolve: loadSequence('jquery-sparkline', 'dashboardCtrl'),
         title: 'Dashboard',
+
         ncyBreadcrumb: {
             label: 'Dashboard'
         }
