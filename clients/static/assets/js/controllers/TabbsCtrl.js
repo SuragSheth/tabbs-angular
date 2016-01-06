@@ -1,95 +1,16 @@
 app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope", function ($scope, socket, tabbsFactory, $rootScope) {
-
+    socket.on("testing_connection", function(data){
+        console.log("hello");
+    })
     //destroy listeners
     // $scope.$on('$destroy', function(event){
     //     socket.removeAllListeners();
     // })
-
     $scope.selfIdUser = $rootScope.user.number;
     $scope.otherIdUser = +000;
-
     $scope.setOtherId = function (value) {
         $scope.otherIdUser = value;
     };
-
-    var exampleDate = new Date().setTime(new Date().getTime() - 240000 * 60);
-
-    $scope.tabs = [];
-
-    $scope.sendMessage = function () {
-        var newMessage = {
-            "user": "Peter Clark",
-            "avatar": "assets/images/avatar-1.jpg",
-            "date": new Date(),
-            "content": $scope.chatMessage,
-            //swap IDS for testing
-            "idOther": $scope.selfIdUser,
-            "idUser": $scope.otherIdUser
-        };
-
-        $scope.tabs.chat[0].push(newMessage);
-        console.log("newmessage", newMessage)
-        socket.emit("test_new_client", newMessage)
-
-        $scope.chatMessage = '';
-    };
-
-    //get tabbs/messages after any broadcast
-    socket.on("user_to_business", function(data){
-        console.log("rootscope user", $rootScope.user)
-        //get stored messages from DB based on incoming user number
-        tabbsFactory.all_tabb_messages($rootScope.user, function(data){
-
-            console.log("____________data sndaskd", data);
-
-            var insert_index;
-
-            for(var tab in data){
-
-                var current_tabs = _.pluck($scope.tabs, 'title');
-                if (current_tabs){
-                    console.log("YEAAA BOIIIIIIIIIIIII")
-
-                    for ( t in current_tabs){
-
-                        console.log("GANGGGS!@312312312312312312TAA", current_tabs[t], data[tab].tabb_user_id);
-
-                        if (current_tabs[t] === data[tab].tabb_user_id){
-                            insert_index = t;
-                            console.log("first index set")
-                            break
-                        };
-                    };
-
-                } else {
-                    $scope.tabs.push({
-                        title: data[tab].tabb_user_id,
-                        content: data[tab].tabb_user_id,
-                        chat:[]
-                    })
-                    console.log("third index set")
-                    insert_index = current_tabs.length;
-                }
-
-                    for(var message in data[tab].messages){
-                            console.log("message", data[tab].messages[message].body);
-                            // console.log("messages", data.messages[message])
-                            var incoming = {
-                            "user": "Peter Clark",
-                            "avatar": "assets/images/avatar-1.jpg",
-                            "to": "Nicole Bell",
-                            "date": exampleDate,
-                            "content": data[tab].messages[message].body,
-                            "idUser": $rootScope.user.number,
-                            "idOther": +000
-                            }
-                    // if the title(phone number) is not in the scope then create a new tab, if it is then
-                    // push the messsages into the chat array
-                    console.log("MYYYYYYYIHNDEX", insert_index)
-                }
-            }
-        })
-    });
 
     //send outgoing messages from business to user
     $scope.send_message_to_user = function(message_info){
@@ -108,32 +29,110 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
         })
     };
 
+
+    var exampleDate = new Date().setTime(new Date().getTime() - 240000 * 60);
+    $scope.tabs = [];
+    $scope.sendMessage = function () {
+        var newMessage = {
+            "user": "Peter Clark",
+            "avatar": "assets/images/avatar-1.jpg",
+            "date": new Date(),
+            "content": $scope.chatMessage,
+            //swap IDS for testing
+            "idOther": $scope.selfIdUser,
+            "idUser": $scope.otherIdUser
+        };
+        $scope.tabs.chat[0].push(newMessage);
+        console.log("newmessage", newMessage)
+        socket.emit("test_new_client", newMessage)
+        $scope.chatMessage = '';
+    };
+    //get tabbs/messages after any broadcast
+    socket.on("user_to_business", function(data){
+        console.log("SOCKET WORKING on GET");
+        console.log("rootscope user", $rootScope.user)
+        //get stored messages from DB based on incoming user number
+        tabbsFactory.all_tabb_messages($rootScope.user, function(data){
+            console.log("____________data sndaskd", data);
+            var insert_index;
+            for(var tab in data){
+                var current_tabs = _.pluck($scope.tabs, 'title');
+                if (current_tabs){
+                    console.log("YEAAA BOIIIIIIIIIIIII")
+                    for ( t in current_tabs){
+                        console.log("GANGGGS!@312312312312312312TAA", current_tabs[t], data[tab].tabb_user_id);
+                        if (current_tabs[t] === data[tab].tabb_user_id){
+                            insert_index = t;
+                            console.log("first index set")
+                            break
+                        };
+                    };
+                } else {
+                    $scope.tabs.push({
+                        title: data[tab].tabb_user_id,
+                        content: data[tab].tabb_user_id,
+                        chat:[]
+                    })
+                    console.log("third index set")
+                    insert_index = current_tabs.length;
+                }
+                    for(var message in data[tab].messages){
+                            console.log("message", data[tab].messages[message].body);
+                            // console.log("messages", data.messages[message])
+                            var incoming = {
+                            "user": "Peter Clark",
+                            "avatar": "assets/images/avatar-1.jpg",
+                            "to": "Nicole Bell",
+                            "date": exampleDate,
+                            "content": data[tab].messages[message].body,
+                            "idUser": $rootScope.user.number,
+                            "idOther": +000
+                            }
+                    // if the title(phone number) is not in the scope then create a new tab, if it is then
+                    // push the messsages into the chat array
+                    console.log("MYYYYYYYIHNDEX", insert_index);
+                    $scope.tabs[insert_index].chat.push(incoming);
+                }
+            }
+        })
+    });
     //get messages when controller loads
     tabbsFactory.all_tabb_messages($rootScope.user, function(data){
-        var insert_index;
-        for(var tab in data){
-            $scope.tabs.push({
-                title: data[tab].tabb_user_id,
-                content: data[tab].tabb_user_id,
-                chat:[]
-            })
-            for(var message in data[tab].messages){
-
-                var incoming = {
-                "user": "Peter Clark",
-                "avatar": "assets/images/avatar-1.jpg",
-                "to": "Nicole Bell",
-                "date": exampleDate,
-                "content": data[tab].messages[message].body,
-                "idUser": $rootScope.user.number,
-                "idOther": +000
+            var insert_index;
+            for(var tab in data){
+                    $scope.tabs.push({
+                        title: data[tab].tabb_user_id,
+                        content: data[tab].tabb_user_id,
+                        chat:[]
+                    })
+                    for(var message in data[tab].messages){
+                        var incoming = {
+                        "user": "Peter Clark",
+                        "avatar": "assets/images/avatar-1.jpg",
+                        "to": "Nicole Bell",
+                        "date": exampleDate,
+                        "content": data[tab].messages[message].body,
+                        "idUser": $rootScope.user.number,
+                        "idOther": +000
+                        }
+                    $scope.tabs[tab].chat.push(incoming);
                 }
-            $scope.tabs[tab].chat.push(incoming);
             }
-        }
-    })
+        })
 }]);
 
+
+
+app.factory('tabbsFactory', function($http){
+    var factory = {};
+    factory.all_tabb_messages = function(data, callback){
+        $http.get('/business_tabbs/'+data.number).success(function(data){
+        console.log("business tabs on success", data);
+        callback(data);
+        })
+    }
+    return factory;
+})
 
 app.factory('tabbsFactory', function($http){
     var factory = {};
@@ -153,3 +152,4 @@ app.factory('tabbsFactory', function($http){
     }
     return factory;
 })
+
