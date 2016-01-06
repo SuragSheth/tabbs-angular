@@ -16,9 +16,9 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
 
     $scope.tabs = [];
 
-    $scope.sendMessage = function (number) {
+    $scope.sendMessage = function (tab) {
 
-        console.log("STEVEN IS A LITTLE STULTTLSKDFJSFKDSF", number);
+        console.log("STEVEN IS A LITTLE STULTTLSKDFJSFKDSF", tab);
 
         var newMessage = {
             "user": "Peter Clark",
@@ -28,6 +28,15 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             //swap IDS for testing
             "idOther": $scope.selfIdUser,
             "idUser": $scope.otherIdUser
+        };
+
+        var current_tabs = _.pluck($scope.tabs, 'title');
+        for ( t in current_tabs){
+            if (current_tabs[t] === data[tab].tabb_user_id){
+                insert_index = t;
+                console.log("first index set")
+                break
+            };
         };
 
         $scope.tabs.chat[0].push(newMessage);
@@ -44,7 +53,6 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
         tabbsFactory.all_tabb_messages($rootScope.user, function(data){
 
             console.log("____________data sndaskd", data);
-
             var insert_index;
 
             for(var tab in data){
@@ -89,6 +97,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                     // if the title(phone number) is not in the scope then create a new tab, if it is then
                     // push the messsages into the chat array
                     console.log("MYYYYYYYIHNDEX", insert_index)
+                    $scope.tabs[insert_index].chat.push(incoming);
                 }
             }
         })
