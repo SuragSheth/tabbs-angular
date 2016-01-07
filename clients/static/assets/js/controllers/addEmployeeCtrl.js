@@ -39,7 +39,13 @@ app.factory('EmployeeFactory', function($http){
     $http.post("/add_employee", employee_info).success(function(output){
       callback(output);
     })
-  }
+  };
+
+  factory.getAllEmployees = function(callback){
+    $http.get("/get_all_employees").success(function(output){
+      callback(output);
+    })
+  } 
 
    factory.deleteEmployee = function(info, callback) {
       $http.post("/delete_employee", info).success(function(output){

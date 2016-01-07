@@ -54,6 +54,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
         tabbsFactory.all_tabb_messages($rootScope.user, function(data){
 
             var insert_index;
+            var index_set;
 
             console.log("CHECKKKKK", $scope.tabs.length == 0, data)
             if ($scope.tabs.length == 0){
@@ -63,41 +64,52 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                         tabb_id: data[0]._id,
                         chat:[]
                     })
-                    console.log("third index set")
+                    console.log("first index set")
                     insert_index = 0;
             } 
             
             for(var tab in data){
                 var current_tabs = _.pluck($scope.tabs, 'title');
-                console.log(current_tabs);
                 if (current_tabs){
                     for ( t in current_tabs){
+                        console.log("Found = ", data[tab].tabb_user_id === current_tabs[t]); 
                         if (current_tabs[t] === data[tab].tabb_user_id){
                             insert_index = t;
-                            console.log("first index set")
-                            break
-                        };
-                    };
-                }
-            }                      
-
-                for(var message in data[tab].messages){
-                        console.log("message", data[tab].messages[message].body);
-                        // console.log("messages", data.messages[message])
-                        var incoming = {
-                        "user": "Peter Clark",
-                        "avatar": "assets/images/avatar-1.jpg",
-                        "to": "Nicole Bell",
-                        "date": exampleDate,
-                        "content": data[tab].messages[message].body,
-                        "idUser": $rootScope.user.number,
-                        "idOther": +000
+                            index_set = true;
+                            console.log("first index set", insert_index)
                         }
-                // if the title(phone number) is not in the scope then create a new tab, if it is then
-                // push the messsages into the chat array
-                console.log("MYYYYYYYIHNDEX", insert_index)
-                $scope.tabs[insert_index].chat.push(incoming);
-            }            
+                    }
+                }
+                if (index_set === false){
+                    $scope.tabs.push({
+                        title: data[tab].tabb_user_id,
+                        content: data[tab].tabb_user_id,
+                        tabb_id: data[tab]._id,
+                        chat:[]
+                    })
+                    insert_index = $scope.tabs.length-1;
+                    console.log("third index set sonnnnnnnn", insert_index)
+                }             
+            
+                    for(var message in data[tab].messages){
+                            console.log("message", data[tab].messages[message].body);
+                            // console.log("messages", data.messages[message])
+                            var incoming = {
+                            "user": "Peter Clark",
+                            "avatar": "assets/images/avatar-1.jpg",
+                            "to": "Nicole Bell",
+                            "date": exampleDate,
+                            "content": data[tab].messages[message].body,
+                            "idUser": $rootScope.user.number,
+                            "idOther": +000
+                            }
+                    // if the title(phone number) is not in the scope then create a new tab, if it is then
+                    // push the messsages into the chat array
+                    console.log("MYYYYYYYIHNDEX", insert_index)
+                    $scope.tabs[insert_index].chat.push(incoming);
+                }
+            index_set = false;
+            }
         })
     });
 
