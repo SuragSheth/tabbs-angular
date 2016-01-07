@@ -50,59 +50,54 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
 
     //get tabbs/messages after any broadcast
     socket.on("user_to_business", function(data){
-        console.log("rootscope user", $rootScope.user)
         //get stored messages from DB based on incoming user number
         tabbsFactory.all_tabb_messages($rootScope.user, function(data){
 
-            console.log("____________data sndaskd", data);
             var insert_index;
 
+            console.log("CHECKKKKK", $scope.tabs.length == 0, data)
+            if ($scope.tabs.length == 0){
+                $scope.tabs.push({
+                        title: data[0].tabb_user_id,
+                        content: data[0].tabb_user_id,
+                        tabb_id: data[0]._id,
+                        chat:[]
+                    })
+                    console.log("third index set")
+                    insert_index = 0;
+            } 
+            
             for(var tab in data){
-
                 var current_tabs = _.pluck($scope.tabs, 'title');
+                console.log(current_tabs);
                 if (current_tabs){
-                    console.log("YEAAA BOIIIIIIIIIIIII")
-
                     for ( t in current_tabs){
-
-                        console.log("GANGGGS!@312312312312312312TAA", current_tabs[t], data[tab].tabb_user_id);
-
                         if (current_tabs[t] === data[tab].tabb_user_id){
                             insert_index = t;
                             console.log("first index set")
                             break
                         };
                     };
-
-                } else {
-                    $scope.tabs.push({
-                        title: data[tab].tabb_user_id,
-                        content: data[tab].tabb_user_id,
-                        tabb_id: data[tab]._id,
-                        chat:[]
-                    })
-                    console.log("third index set")
-                    insert_index = current_tabs.length;
                 }
+            }                      
 
-                    for(var message in data[tab].messages){
-                            console.log("message", data[tab].messages[message].body);
-                            // console.log("messages", data.messages[message])
-                            var incoming = {
-                            "user": "Peter Clark",
-                            "avatar": "assets/images/avatar-1.jpg",
-                            "to": "Nicole Bell",
-                            "date": exampleDate,
-                            "content": data[tab].messages[message].body,
-                            "idUser": $rootScope.user.number,
-                            "idOther": +000
-                            }
-                    // if the title(phone number) is not in the scope then create a new tab, if it is then
-                    // push the messsages into the chat array
-                    console.log("MYYYYYYYIHNDEX", insert_index)
-                    $scope.tabs[insert_index].chat.push(incoming);
-                }
-            }
+                for(var message in data[tab].messages){
+                        console.log("message", data[tab].messages[message].body);
+                        // console.log("messages", data.messages[message])
+                        var incoming = {
+                        "user": "Peter Clark",
+                        "avatar": "assets/images/avatar-1.jpg",
+                        "to": "Nicole Bell",
+                        "date": exampleDate,
+                        "content": data[tab].messages[message].body,
+                        "idUser": $rootScope.user.number,
+                        "idOther": +000
+                        }
+                // if the title(phone number) is not in the scope then create a new tab, if it is then
+                // push the messsages into the chat array
+                console.log("MYYYYYYYIHNDEX", insert_index)
+                $scope.tabs[insert_index].chat.push(incoming);
+            }            
         })
     });
 
