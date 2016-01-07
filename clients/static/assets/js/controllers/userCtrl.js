@@ -1,11 +1,13 @@
 'use strict';
-/** 
+/**
   * controller for User Profile Example
 */
 app.controller('UserCtrl', ["$scope", "flowFactory", function ($scope, flowFactory) {
     $scope.removeImage = function () {
         $scope.noImage = true;
     };
+
+    console.log($rootScope.user);
     $scope.obj = new Flow();
 
     $scope.userInfo = {

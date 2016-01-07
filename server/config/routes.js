@@ -70,25 +70,6 @@ module.exports = function(app, passport, client, io) {
     })
 
 
-
-    socket.on('test_new_client', function(data){
-        console.log("in routes, message from client", data);
-        client.sendMessage({
-            to: '+15105572282',
-            from: '+15106483326',
-            body: data.content
-            }, function(error, message){
-            if(!error) {
-                console.log('Success! The SID for this SMS message is:', message);
-                console.log(message.sid);
-                console.log('Message sent on:');
-                console.log(message.dateCreated);
-            } else {
-                console.log("error with sending message");
-            }
-        })
-    })
-
     })
 }
 // End: routes for sending and recieving messages ============================

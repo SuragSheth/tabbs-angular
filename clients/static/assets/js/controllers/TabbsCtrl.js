@@ -39,7 +39,6 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
 
         $scope.tabs[insert_index].chat.push(newMessage);
         console.log("newmessage", newMessage)
-        socket.emit("test_new_client", newMessage)
 
         tabbsFactory.message_to_user($rootScope.user, newMessage, function(data){
             console.log("return from message fact success message", data);
