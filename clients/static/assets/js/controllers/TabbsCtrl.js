@@ -17,6 +17,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
     $scope.tabs = [];
 
     $scope.sendMessage = function (tab, message) {
+        console.log("TABBB for send message", tab, "tabbb id", tab.tabb_id)
         var newMessage = {
             "tabb_id": tab.tabb_id,
             "to": tab.title,
@@ -64,8 +65,8 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                     })
                     console.log("third index set")
                     insert_index = 0;
-            } 
-            
+            }
+
             for(var tab in data){
                 var current_tabs = _.pluck($scope.tabs, 'title');
                 console.log(current_tabs);
@@ -78,7 +79,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                         };
                     };
                 }
-            }                      
+            }
 
                 for(var message in data[tab].messages){
                         console.log("message", data[tab].messages[message].body);
@@ -96,12 +97,13 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                 // push the messsages into the chat array
                 console.log("MYYYYYYYIHNDEX", insert_index)
                 $scope.tabs[insert_index].chat.push(incoming);
-            }            
+            }
         })
     });
 
     //get messages when controller loads
     tabbsFactory.all_tabb_messages($rootScope.user, function(data){
+        console.log("DATAAAA", data);
         var insert_index;
         for(var tab in data){
             $scope.tabs.push({
@@ -110,6 +112,8 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                 tabb_id: data[tab]._id,
                 chat:[]
             })
+            console.log("TABB ID", data[tab]._id)
+            console.log("TABBBBB CONTENT", data[tab].tabb_user_id);
             for(var message in data[tab].messages){
 
                 var incoming = {

@@ -54,11 +54,11 @@ module.exports = function(app, passport, client, io) {
     app.post('/get_message', function(req, res, next){
         //Check if incoming message is to existing business. Check if tabb is already created.
         //Create Tabb and save message to database.
-        console.log("TESTING SESSION", req.session)
+        // console.log("TESTING SESSION", req.session)
 
         messages.incoming_message(req, res);
+        res.send("test");
         //emit message to angular controller
-        socket.emit("testing_connection");
         io.emit("user_to_business");
 
         console.log("get_message", req.body);

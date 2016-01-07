@@ -6,8 +6,6 @@ app.controller('UserCtrl', ["$scope", "flowFactory", function ($scope, flowFacto
     $scope.removeImage = function () {
         $scope.noImage = true;
     };
-
-    console.log($rootScope.user);
     $scope.obj = new Flow();
 
     $scope.userInfo = {
