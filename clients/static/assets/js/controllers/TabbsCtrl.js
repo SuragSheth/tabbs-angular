@@ -50,11 +50,15 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
 
     //get tabbs/messages after any broadcast
     socket.on("user_to_business", function(data){
-        //get stored messages from DB based on incoming user number
-        tabbsFactory.all_tabb_messages($rootScope.user, function(data){
+        console.log("USER TO BUSINESS DATA:", data)
+        //get last added message sent by user
 
+        tabbsFactory.last_incoming_message($rootScope.user, function(data){
+            console.log("SOC", data)
             var insert_index;
             var index_set;
+
+            // data = data[0];
 
             console.log("CHECKKKKK", $scope.tabs.length == 0, data)
             if ($scope.tabs.length == 0){
@@ -113,9 +117,9 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
         })
     });
 
+
     //get messages when controller loads
     tabbsFactory.all_tabb_messages($rootScope.user, function(data){
-        console.log("DATAAAA", data);
         var insert_index;
         for(var tab in data){
             $scope.tabs.push({
@@ -124,8 +128,6 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                 tabb_id: data[tab]._id,
                 chat:[]
             })
-            console.log("TABB ID", data[tab]._id)
-            console.log("TABBBBB CONTENT", data[tab].tabb_user_id);
             for(var message in data[tab].messages){
 
                 var incoming = {
@@ -157,6 +159,12 @@ app.factory('tabbsFactory', function($http){
     factory.message_to_user = function(user, message, callback){
         console.log("inside factory for sending message", user, message);
         $http.post('/send_message_to_user', {rootuser: user, message: message}).success(function(data){
+            callback(data);
+        })
+    }
+    factory.last_incoming_message = function(data, callback){
+        $http.get('/last_incoming_message/' + data.number).success(function(data){
+            console.log("business tabb on success last added message after SORT", data);
             callback(data);
         })
     }

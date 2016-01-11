@@ -59,7 +59,7 @@ module.exports = function(app, passport, client, io) {
         messages.incoming_message(req, res);
         res.send("test");
         //emit message to angular controller
-        io.emit("user_to_business");
+        io.emit("user_to_business", {test: req.body});
 
         console.log("get_message", req.body);
     })
@@ -68,7 +68,9 @@ module.exports = function(app, passport, client, io) {
         // console.log("IN ROUTES", req.params);
         messages.get_business_messages(req, res);
     })
-
+    app.get('/last_incoming_message/:id', function(req, res){
+        messages.get_last_incoming_messages(req, res);
+    })
 
     })
 }

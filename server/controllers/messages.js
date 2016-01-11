@@ -6,7 +6,6 @@ var Business  = mongoose.model('Business');
 module.exports = (function(){
   return {
     outgoing_message: function(req, res, client){
-      console.log("OUTGOING MESSAGE FIND BY TABB ID", req.body.message)
       Tabb.findOne({_id: req.body.message.tabb_id}, function(err, tabb){
         if(tabb == null){
           res.json("can not message a user until they message you");
@@ -48,14 +47,12 @@ module.exports = (function(){
       })
     },
     incoming_message: function(req, res){
-      console.log("STEP 1 check if business exists by phone number", req.body);
       //console.log("new_tabb", typeof req.body.To)
       Business.findOne({"local.number": req.body.To}, function(err, result){
         if(result == null){
           console.log("sorry, business does not exist");
         }
         else{
-          console.log("STEP 2, if valid business number - check if tabb exists");
           //check if conversation tabb already exists
           Tabb.findOne({tabb_user_id: req.body.From, tabb_business_id: req.body.To}, function(err, tabb){
             if(tabb == null){ //tabb does not exist yet
@@ -102,7 +99,6 @@ module.exports = (function(){
             //tabb already exists. Just save message
             else {
               Tabb.findOne({tabb_user_id: req.body.From, tabb_business_id: req.body.To}, function(err, tabb){
-                console.log("STEP 3 TABB already exisits so save message there", tabb)
                 //data from the message
                 var new_message = new Message ({
                   to: req.body.To,
@@ -135,11 +131,20 @@ module.exports = (function(){
     },
     //find tabb by business number and populate messages
     get_business_messages: function(req, res){
-      console.log("backend controller", req.params);
       // business_number = String(req.user.local.number);
       Tabb.find({tabb_business_id: req.params.id})
         .populate('messages')
         .exec(function(err, result){
+        res.json(result);
+      })
+    },
+    //find last added messaged for tabb
+    get_last_incoming_messages: function(req, res){
+      // business_number = String(req.user.local.number);
+      Tabb.find({tabb_business_id: req.params.id})
+        .populate('messages', null, {sort: {'created_at': -1}})
+        .exec(function(err, result){
+          console.log("LAST INCOMING BACKEND", result);
         res.json(result);
       })
     }
