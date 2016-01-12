@@ -1,10 +1,5 @@
 app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope", function ($scope, socket, tabbsFactory, $rootScope) {
 
-    //destroy listeners
-    // $scope.$on('$destroy', function(event){
-    //     socket.removeAllListeners();
-    // })
-
     $scope.selfIdUser = $rootScope.user.number;
     $scope.otherIdUser = +000;
 
@@ -28,12 +23,10 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             "idOther": $scope.selfIdUser,
             "idUser": $scope.otherIdUser
         };
-
         var current_tabs = _.pluck($scope.tabs, 'title');
         for (t in current_tabs){
             if (current_tabs[t] === tab.title){
                 insert_index = t;
-                console.log("first index set")
                 break
             };
         };
@@ -59,13 +52,13 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             console.log("CHECKKKKK", $scope.tabs.length == 0, data)
             if ($scope.tabs.length == 0){
                 $scope.tabs.push({
-                        title: data[0].tabb_user_id,
-                        content: data[0].tabb_user_id,
-                        tabb_id: data[0]._id,
-                        chat:[]
-                    })
-                    console.log("first index set")
-                    insert_index = 0;
+                    title: data[0].tabb_user_id,
+                    content: data[0].tabb_user_id,
+                    tabb_id: data[0]._id,
+                    chat:[]
+                })
+                console.log("first index set")
+                insert_index = 0;
             }
 
             for(var tab in data){
@@ -92,21 +85,25 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                 }
 
                     for(var message in data[tab].messages){
-                       // console.log("message", data[tab].messages[message].body);
+                       console.log("message", data[tab].messages[message]);
                         var incoming = {
-                        "user": "Peter Clark",
+                        "user": "",
                         "avatar": "assets/images/avatar-1.jpg",
-                        "to": "Nicole Bell",
+                        "to": "",
                         "date": exampleDate,
                         "content": data[tab].messages[message].body
                         }
                         //message from user to business
                         if($rootScope.user.number == data[tab].messages[message].to){
-                           incoming.idUser = $rootScope.user.number;
-                           incoming.idOther = +000;
+                            incoming.user = data[tab].messages[message].to;
+                            incoming.to = data[tab].messages[message].from;
+                            incoming.idUser = $rootScope.user.number;
+                            incoming.idOther = +000;
                         }
                         //message from business to user
                         else{
+                            incoming.user = data[tab].messages[message].from;
+                            incoming.to = data[tab].messages[message].to
                             incoming.idUser = +000;
                             incoming.idOther = $rootScope.user.number;
                         }
@@ -129,24 +126,28 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                 tabb_id: data[tab]._id,
                 chat:[]
             })
-            console.log("TABB ID", data[tab]._id)
-            console.log("TABBBBB CONTENT", data[tab].tabb_user_id);
+            // console.log("TABB ID", data[tab]._id)
+            // console.log("TABBBBB CONTENT", data[tab].tabb_user_id);
             for(var message in data[tab].messages){
                 console.log("messages==============", data[tab].messages[message])
                 var incoming = {
-                "user": "Peter Clark",
+                "user": "",
                 "avatar": "assets/images/avatar-1.jpg",
-                "to": "Nicole Bell",
+                "to": "",
                 "date": exampleDate,
                 "content": data[tab].messages[message].body
                 }
                 //message from user to business
                 if($rootScope.user.number == data[tab].messages[message].to){
-                   incoming.idUser = $rootScope.user.number;
-                   incoming.idOther = +000;
+                    incoming.user = data[tab].messages[message].to;
+                    incoming.to = data[tab].messages[message].from;
+                    incoming.idUser = $rootScope.user.number;
+                    incoming.idOther = +000;
                 }
                 //message from business to user
                 else{
+                    incoming.user = data[tab].messages[message].from;
+                    incoming.to = data[tab].messages[message].to
                     incoming.idUser = +000;
                     incoming.idOther = $rootScope.user.number;
                 }
