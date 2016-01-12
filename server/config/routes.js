@@ -50,11 +50,11 @@ module.exports = function(app, passport, client, io) {
         messages.outgoing_message(req, res, client);
     })
 
-    //incoming text from consumer
+    //incoming text from customer
     app.post('/get_message', function(req, res, next){
         //Check if incoming message is to existing business. Check if tabb is already created.
         //Create Tabb and save message to database.
-        // console.log("TESTING SESSION", req.session)
+       // console.log("TESTING SESSION", req.session)
 
         messages.incoming_message(req, res);
         res.send("test");
