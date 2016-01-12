@@ -92,24 +92,30 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                         chat:[]
                     })
                     insert_index = $scope.tabs.length-1;
-                    console.log("third index set sonnnnnnnn", insert_index)
+                 //   console.log("third index set sonnnnnnnn", insert_index)
                 }
 
                     for(var message in data[tab].messages){
-                            console.log("message", data[tab].messages[message].body);
-                            // console.log("messages", data.messages[message])
-                            var incoming = {
-                            "user": "Peter Clark",
-                            "avatar": "assets/images/avatar-1.jpg",
-                            "to": "Nicole Bell",
-                            "date": exampleDate,
-                            "content": data[tab].messages[message].body,
-                            "idUser": $rootScope.user.number,
-                            "idOther": +000
-                            }
+                       // console.log("message", data[tab].messages[message].body);
+                        var incoming = {
+                        "user": "Peter Clark",
+                        "avatar": "assets/images/avatar-1.jpg",
+                        "to": "Nicole Bell",
+                        "date": exampleDate,
+                        "content": data[tab].messages[message].body
+                        }
+                        //message from user to business
+                        if($rootScope.user.number == data[tab].messages[message].to){
+                           incoming.idUser = $rootScope.user.number;
+                           incoming.idOther = +000;
+                        }
+                        //message from business to user
+                        else{
+                            incoming.idUser = +000;
+                            incoming.idOther = $rootScope.user.number;
+                        }
                     // if the title(phone number) is not in the scope then create a new tab, if it is then
                     // push the messsages into the chat array
-                    console.log("MYYYYYYYIHNDEX", insert_index)
                     $scope.tabs[insert_index].chat.push(incoming);
                 }
             index_set = false;
@@ -129,15 +135,23 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                 chat:[]
             })
             for(var message in data[tab].messages){
-
+                console.log("messages==============", data[tab].messages[message])
                 var incoming = {
                 "user": "Peter Clark",
                 "avatar": "assets/images/avatar-1.jpg",
                 "to": "Nicole Bell",
                 "date": exampleDate,
-                "content": data[tab].messages[message].body,
-                "idUser": $rootScope.user.number,
-                "idOther": +000
+                "content": data[tab].messages[message].body
+                }
+                //message from user to business
+                if($rootScope.user.number == data[tab].messages[message].to){
+                   incoming.idUser = $rootScope.user.number;
+                   incoming.idOther = +000;
+                }
+                //message from business to user
+                else{
+                    incoming.idUser = +000;
+                    incoming.idOther = $rootScope.user.number;
                 }
             $scope.tabs[tab].chat.push(incoming);
             }
