@@ -37,9 +37,17 @@ module.exports = function(app, passport, client, io) {
         admin.add_employee(req, res);
     })
 
-    app.post('/delete_employee', function(req, res){
+     app.post('/delete_employee', function(req, res){
+        console.log("____________________", req.body)
         admin.delete_employee(req, res);
+        
     })
+
+    app.get('/get_all_employees/:id', function(req, res){
+        console.log("____________________", req.params);
+        admin.get_all_employees(req, res);
+    })
+
 // End: routes for employees =========================
 
 // Start: routes for sending and recieving messages ============================

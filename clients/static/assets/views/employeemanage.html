@@ -158,17 +158,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td class="center">1</td>
-						<td class="hidden-xs">Surag Sheth</td>
-						<td>Co-Founder</td>
+					<tr ng-repeat="employee in employees">
+						<td class="center">{{$index}}</td>
+						<td class="hidden-xs">{{employee.first_name}} {{employee.last_name}}</td>
+						<td>Employee</td>
 						<td>00:4:35</td>
 						<td class="hidden-xs">12/25/2015 12:00 P.M.</td>
 						<td class="center">
 						<div class="visible-md visible-lg hidden-sm hidden-xs">
 							<a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Edit"><i class="fa fa-pencil"></i></a>
-							<a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Share"><i class="fa fa-share"></i></a>
-							<a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+							<a href="#" ng-click="deleteEmployee(employee._id)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
 						</div>
 						<div class="visible-xs visible-sm hidden-md hidden-lg">
 							<div class="btn-group" uib-dropdown is-open="status.isopen">
@@ -182,12 +181,7 @@
 										</a>
 									</li>
 									<li>
-										<a href="#">
-											Share
-										</a>
-									</li>
-									<li>
-										<a href="#">
+										<a href="#\" ng-click="demo5();" ng-click="deleteEmployee(employee._id)">
 											Remove
 										</a>
 									</li>

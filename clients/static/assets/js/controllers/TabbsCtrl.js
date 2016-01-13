@@ -1,4 +1,26 @@
-app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope", function ($scope, socket, tabbsFactory, $rootScope) {
+app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval", "$rootScope", function ($scope, socket, tabbsFactory, $interval, $rootScope) {
+
+
+ 
+    var autoCounter = function(index, start, steps, delay) {
+        var numIterations = 2;
+        $scope.autoPending[index] = start;
+        $interval(function() {
+            if (++numIterations > steps) {
+                $scope.autoPending[index] = start;
+                numIterations = 0;
+            } else {
+                $scope.autoPending[index] = $scope.autoPending[index] + 1;
+            }
+        }, delay);
+    };
+
+    $scope.autoPending = [0, 0];
+    autoCounter(0, 1, 4, 1000);
+    autoCounter(1, 98, 4, 1000);
+
+
+
 
     $scope.selfIdUser = $rootScope.user.number;
     $scope.otherIdUser = +000;

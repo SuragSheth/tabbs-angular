@@ -77,7 +77,8 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     .state('app.settings', {
         url: '/settings',
         template: '<div ui-view class="fade-in-up"></div>',
-        title: 'Settings'
+        title: 'Settings',
+        resolve: loadSequence('toasterCtrl', 'sweetAlertCtrl', 'NotificationIconsCtrl')
     })
 
 
