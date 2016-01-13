@@ -140,34 +140,24 @@ module.exports = (function(){
       Tabb.find({tabb_business_id: req.params.id})
         .populate('messages')
         .exec(function(err, results){
-          // res.json(result)
-          var lastMessagesForEachResult = [];
+          console.log("testing", results)
+           res.json(results)
+          // var lastMessagesForEachResult = [];
 
 
-          if (results && results[0]) {
-            // console.log("========result", result)
-            console.log("HERE BEGIN OUR RESULTS");
-              for (result in results) {
-                console.log(results[result])
-                for(message in results[result].messages){
-                  console.log("DSF", results[result].messages[message])
-                  // console.log("inside", result[obj].messages[result[obj].messages.length -1]);
-                  // var lastForEach = results[obj].messages[results[obj].messages.length -1];
-                  // lastMessagesForEachResult.push(lastForEach);
-                }
-              }
+          // if (results && results[0]) {
+          //   // console.log("========result", result)
+          //   console.log("HERE BEGIN OUR RESULTS");
+          //     for (result in results) {
+          //       //console.log("last message", results[result].messages[results[result].messages.length -1])
+          //
 
-              console.log("HERE END OUR RESULTS");
-               // console.log(lastMessagesForEachResult);
-          }
+          //     console.log("HERE END OUR RESULTS");
+          //       console.log(lastMessagesForEachResult);
+          // }
 
           // res.json(lastMessagesForEachResult)
 
-            // console.log("BACKEND RESULT", result[0])
-            // console.log("TRST", result[0].messages);
-            // // messages.find(messages).exec(function(err, res){
-            // //   console.log("RESSSSSS", res);
-            // // })
       })
     }
   }
