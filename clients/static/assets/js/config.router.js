@@ -142,7 +142,8 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         templateUrl: "assets/views/login_forgot.html"
     }).state('signup_wizard', {
         url: '/signup_wizard',
-        templateUrl: 'assets/views/signup_wizard.html'
+        templateUrl: 'assets/views/signup_wizard.html',
+        controller: "wizardCtrl"
     })
      //End: routes for login and signup ========================
 
