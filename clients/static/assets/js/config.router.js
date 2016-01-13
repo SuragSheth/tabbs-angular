@@ -70,6 +70,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     .state('app.contacts', {
         url: '/contacts',
         templateUrl: "assets/views/contacts.html",
+        controller: 'contactsCtrl',
         resolve: loadSequence('dynamicTableCtrl')
 
     })
@@ -77,7 +78,8 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     .state('app.settings', {
         url: '/settings',
         template: '<div ui-view class="fade-in-up"></div>',
-        title: 'Settings'
+        title: 'Settings',
+        resolve: loadSequence('toasterCtrl', 'sweetAlertCtrl', 'NotificationIconsCtrl')
     })
 
 
@@ -140,7 +142,8 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         templateUrl: "assets/views/login_forgot.html"
     }).state('signup_wizard', {
         url: '/signup_wizard',
-        templateUrl: 'assets/views/signup_wizard.html'
+        templateUrl: 'assets/views/signup_wizard.html',
+        controller: "wizardCtrl"
     })
      //End: routes for login and signup ========================
 

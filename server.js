@@ -25,8 +25,6 @@ var cli = new twilioAPI.Client('AC504375ef36ecd1dc24af33f4b184022a', '5bb9215c1b
 var test = app.use(cli.middleware() );
 //End: Twilio====================================================
 
-
-
 //requiring mongoose.js which links all of the the mongo schemas or models
 require('./server/config/mongoose.js');
 require('./server/config/twilio.js');
