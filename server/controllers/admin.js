@@ -1,16 +1,26 @@
 var mongoose = require("mongoose");
 var Employee  = mongoose.model('Employee');
 var Business  = mongoose.model('Business');
+var Tabbs = mongoose.model("Tabb")
 
 // add all of methods that interact with the 
 module.exports = (function() {
   return {
+
     get_all_employees: function(req, res){
       Employee.find({_business: req.params.id}, function(err, employees){
         console.log(employees);
         res.json(employees);
       });
     },
+
+    get_all_contacts: function(req, res){
+      Tabbs.find({tabb_business_id: req.params.number}, function(err, employees){
+        console.log(employees);
+        res.json(employees);
+      });
+    },
+
 
     add_employee: function(req, res) {
       // send the admin id and then send the employee info

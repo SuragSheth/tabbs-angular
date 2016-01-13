@@ -48,6 +48,12 @@ module.exports = function(app, passport, client, io) {
         admin.get_all_employees(req, res);
     })
 
+    app.get('/get_all_contacts/:number', function(req, res){
+        console.log("____________________", req.params);
+        admin.get_all_contacts(req, res);
+    })
+
+
 // End: routes for employees =========================
 
 // Start: routes for sending and recieving messages ============================

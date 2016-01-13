@@ -70,6 +70,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     .state('app.contacts', {
         url: '/contacts',
         templateUrl: "assets/views/contacts.html",
+        controller: 'contactsCtrl',
         resolve: loadSequence('dynamicTableCtrl')
 
     })
