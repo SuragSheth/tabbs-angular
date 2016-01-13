@@ -4,6 +4,7 @@ var Schema   = mongoose.Schema;
 var EmployeeSchema = new mongoose.Schema({
 	first_name: String,
 	last_name: String,
+	position: String,
 	email: String,
 	password: String,
 	_business: {type: Schema.ObjectId, ref: 'Business'}
