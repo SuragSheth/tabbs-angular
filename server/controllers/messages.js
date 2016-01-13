@@ -139,9 +139,47 @@ module.exports = (function(){
       // business_number = String(req.user.local.number);
       Tabb.find({tabb_business_id: req.params.id})
         .populate('messages')
-        .exec(function(err, result){
-        res.json(result);
+        .exec(function(err, results){
+          // res.json(result)
+          var lastMessagesForEachResult = [];
+
+
+          if (results && results[0]) {
+            // console.log("========result", result)
+            console.log("HERE BEGIN OUR RESULTS");
+              for (result in results) {
+                console.log(results[result])
+                for(message in results[result].messages){
+                  console.log("DSF", results[result].messages[message])
+                  // console.log("inside", result[obj].messages[result[obj].messages.length -1]);
+                  // var lastForEach = results[obj].messages[results[obj].messages.length -1];
+                  // lastMessagesForEachResult.push(lastForEach);
+                }
+              }
+
+              console.log("HERE END OUR RESULTS");
+               // console.log(lastMessagesForEachResult);
+          }
+
+          // res.json(lastMessagesForEachResult)
+
+            // console.log("BACKEND RESULT", result[0])
+            // console.log("TRST", result[0].messages);
+            // // messages.find(messages).exec(function(err, res){
+            // //   console.log("RESSSSSS", res);
+            // // })
       })
     }
   }
 })();
+
+
+// get_business_messages: function(req, res){
+//       console.log("backend controller", req.params);
+//       // business_number = String(req.user.local.number);
+//       Tabb.find({tabb_business_id: req.params.id})
+//         .populate('messages')
+//         .exec(function(err, result){
+//         res.json(result);
+//       })
+//     }
