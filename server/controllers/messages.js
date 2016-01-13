@@ -134,8 +134,25 @@ module.exports = (function(){
       // business_number = String(req.user.local.number);
       Tabb.find({tabb_business_id: req.params.id})
         .populate('messages')
-        .exec(function(err, result){
-        res.json(result);
+        .exec(function(err, results){
+          console.log("testing", results)
+           res.json(results)
+          // var lastMessagesForEachResult = [];
+
+
+          // if (results && results[0]) {
+          //   // console.log("========result", result)
+          //   console.log("HERE BEGIN OUR RESULTS");
+          //     for (result in results) {
+          //       //console.log("last message", results[result].messages[results[result].messages.length -1])
+          //
+
+          //     console.log("HERE END OUR RESULTS");
+          //       console.log(lastMessagesForEachResult);
+          // }
+
+          // res.json(lastMessagesForEachResult)
+
       })
     },
     //find last added messaged for tabb
@@ -150,3 +167,14 @@ module.exports = (function(){
     }
   }
 })();
+
+
+// get_business_messages: function(req, res){
+//       console.log("backend controller", req.params);
+//       // business_number = String(req.user.local.number);
+//       Tabb.find({tabb_business_id: req.params.id})
+//         .populate('messages')
+//         .exec(function(err, result){
+//         res.json(result);
+//       })
+//     }

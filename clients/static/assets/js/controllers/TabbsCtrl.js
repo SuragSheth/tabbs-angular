@@ -1,9 +1,26 @@
-app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope", function ($scope, socket, tabbsFactory, $rootScope) {
+app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval", "$rootScope", function ($scope, socket, tabbsFactory, $interval, $rootScope) {
 
-    //destroy listeners
-    // $scope.$on('$destroy', function(event){
-    //     socket.removeAllListeners();
-    // })
+
+
+    var autoCounter = function(index, start, steps, delay) {
+        var numIterations = 2;
+        $scope.autoPending[index] = start;
+        $interval(function() {
+            if (++numIterations > steps) {
+                $scope.autoPending[index] = start;
+                numIterations = 0;
+            } else {
+                $scope.autoPending[index] = $scope.autoPending[index] + 1;
+            }
+        }, delay);
+    };
+
+    $scope.autoPending = [0, 0];
+    autoCounter(0, 1, 4, 1000);
+    autoCounter(1, 98, 4, 1000);
+
+
+
 
     $scope.selfIdUser = $rootScope.user.number;
     $scope.otherIdUser = +000;
@@ -28,12 +45,10 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             "idOther": $scope.selfIdUser,
             "idUser": $scope.otherIdUser
         };
-
         var current_tabs = _.pluck($scope.tabs, 'title');
         for (t in current_tabs){
             if (current_tabs[t] === tab.title){
                 insert_index = t;
-                console.log("first index set")
                 break
             };
         };
@@ -50,6 +65,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
 
     //get tabbs/messages after any broadcast
     socket.on("user_to_business", function(data){
+
         console.log("USER TO BUSINESS DATA:", data)
         //get last added message sent by user
 
@@ -61,17 +77,102 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             // data = data[0];
 
             console.log("CHECKKKKK", $scope.tabs.length == 0, data)
+
+        //get stored messages from DB based on incoming user number
+        tabbsFactory.all_tabb_messages($rootScope.user, function(data){
+            console.log("SOCKET.ON TABBS FAC GET MESSAGES=====", data)
+            var insert_index;
+            var index_set;
+            //checks if there are any tabbs
+
             if ($scope.tabs.length == 0){
                 $scope.tabs.push({
-                        title: data[0].tabb_user_id,
-                        content: data[0].tabb_user_id,
-                        tabb_id: data[0]._id,
+                    title: data[0].tabb_user_id,
+                    content: data[0].tabb_user_id,
+                    tabb_id: data[0]._id,
+                    chat:[]
+                })
+                // console.log("first index set")
+                insert_index = 0;
+            }
+            //loops through tabs in data.
+            for(var tab in data){
+                var current_tabs = _.pluck($scope.tabs, 'title');
+                console.log("current tabbs ======", current_tabs)
+                if (current_tabs){
+                    for ( t in current_tabs){
+                        console.log("Found, user id:", data[tab].tabb_user_id, "tabb id", current_tabs[t],  data[tab].tabb_user_id === current_tabs[t]);
+                        console.log("insert_index", t)
+                        if (current_tabs[t] === data[tab].tabb_user_id){
+                            insert_index = t;
+                            index_set = true;
+                            // console.log("first index set", insert_index)
+                        }
+                    }
+                }
+
+                if (index_set === false){
+                    $scope.tabs.push({
+                        title: data[tab].tabb_user_id,
+                        content: data[tab].tabb_user_id,
+                        tabb_id: data[tab]._id,
                         chat:[]
                     })
-                    console.log("first index set")
-                    insert_index = 0;
-            }
+                    insert_index = $scope.tabs.length-1;
+                 //   console.log("third index set sonnnnnnnn", insert_index)
+                }
 
+                    for(var message in data[tab].messages){
+                       console.log("message", message);
+                        var incoming = {
+                        "user": "",
+                        "avatar": "assets/images/avatar-1.jpg",
+                        "to": "",
+                        "date": exampleDate,
+                        "content": data[tab].messages[message].body
+                        }
+                        //message sent from business
+                        if(data[tab].messages[message].to === $rootScope.user.number){
+                            incoming.user = data[tab].messages[message].from;
+                            incoming.to = data[tab].messages[message].to;
+                            incoming.idUser = +000;
+                            incoming.idOther = $rootScope.user.number;
+                        }
+                        //message from business to user
+                        else{
+                            incoming.user = data[tab].messages[message].to;
+                            incoming.to = data[tab].messages[message].from
+                            incoming.idUser = $rootScope.user.number;
+                            incoming.idOther = +000;
+                        }
+                    // if the title(phone number) is not in the scope then create a new tab, if it is then
+                    // push the messsages into the chat array
+                    console.log("INSERT INDEX", insert_index)
+                    console.log("scope.tabs", $scope.tabs)
+                    $scope.tabs[insert_index].chat.push(incoming);
+                }
+            index_set = false;
+            }
+        })
+    });
+//get stored messages from DB based on incoming user number
+        tabbsFactory.all_tabb_messages($rootScope.user, function(data){
+
+            var insert_index;
+            var index_set;
+            //checks if there are any tabbs
+            console.log("CHECKKKKK", $scope.tabs.length == 0, data)
+            if ($scope.tabs.length == 0){
+                $scope.tabs.push({
+                    title: data[0].tabb_user_id,
+                    content: data[0].tabb_user_id,
+                    tabb_id: data[0]._id,
+                    chat:[]
+                })
+                console.log("first index set")
+                insert_index = 0;
+            }
+            //loops through tabs in data.
             for(var tab in data){
                 var current_tabs = _.pluck($scope.tabs, 'title');
                 if (current_tabs){
@@ -96,23 +197,27 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
                 }
 
                     for(var message in data[tab].messages){
-                       // console.log("message", data[tab].messages[message].body);
+                       console.log("message", data[tab].messages[message]);
                         var incoming = {
-                        "user": "Peter Clark",
+                        "user": "",
                         "avatar": "assets/images/avatar-1.jpg",
-                        "to": "Nicole Bell",
+                        "to": "",
                         "date": exampleDate,
                         "content": data[tab].messages[message].body
                         }
                         //message from user to business
-                        if($rootScope.user.number == data[tab].messages[message].to){
-                           incoming.idUser = $rootScope.user.number;
-                           incoming.idOther = +000;
+                        if(data[tab].messages[message].to === $rootScope.user.number){
+                            incoming.user = data[tab].messages[message].from;
+                            incoming.to = data[tab].messages[message].to;
+                            incoming.idUser = +000;
+                            incoming.idOther = $rootScope.user.number;
                         }
                         //message from business to user
                         else{
-                            incoming.idUser = +000;
-                            incoming.idOther = $rootScope.user.number;
+                            incoming.user = data[tab].messages[message].to;
+                            incoming.to = data[tab].messages[message].from
+                            incoming.idUser = $rootScope.user.number;
+                            incoming.idOther = +000;
                         }
                     // if the title(phone number) is not in the scope then create a new tab, if it is then
                     // push the messsages into the chat array
@@ -121,42 +226,50 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$rootScope
             index_set = false;
             }
         })
-    });
+
 
 
     //get messages when controller loads
-    tabbsFactory.all_tabb_messages($rootScope.user, function(data){
-        var insert_index;
-        for(var tab in data){
-            $scope.tabs.push({
-                title: data[tab].tabb_user_id,
-                content: data[tab].tabb_user_id,
-                tabb_id: data[tab]._id,
-                chat:[]
-            })
-            for(var message in data[tab].messages){
-                console.log("messages==============", data[tab].messages[message])
-                var incoming = {
-                "user": "Peter Clark",
-                "avatar": "assets/images/avatar-1.jpg",
-                "to": "Nicole Bell",
-                "date": exampleDate,
-                "content": data[tab].messages[message].body
-                }
-                //message from user to business
-                if($rootScope.user.number == data[tab].messages[message].to){
-                   incoming.idUser = $rootScope.user.number;
-                   incoming.idOther = +000;
-                }
-                //message from business to user
-                else{
-                    incoming.idUser = +000;
-                    incoming.idOther = $rootScope.user.number;
-                }
-            $scope.tabs[tab].chat.push(incoming);
-            }
-        }
-    })
+
+    // tabbsFactory.all_tabb_messages($rootScope.user, function(data){
+    //     var insert_index;
+    //     for(var tab in data){
+    //         $scope.tabs.push({
+    //             title: data[tab].tabb_user_id,
+    //             content: data[tab].tabb_user_id,
+    //             tabb_id: data[tab]._id,
+    //             chat:[]
+    //         })
+    //         // console.log("TABB ID", data[tab]._id)
+    //         // console.log("TABBBBB CONTENT", data[tab].tabb_user_id);
+    //         for(var message in data[tab].messages){
+    //             console.log("messages==============", data[tab].messages[message])
+    //             var incoming = {
+    //             "user": "",
+    //             "avatar": "assets/images/avatar-1.jpg",
+    //             "to": "",
+    //             "date": exampleDate,
+    //             "content": data[tab].messages[message].body
+    //             }
+    //             //message from user to business
+    //             if($rootScope.user.number == data[tab].messages[message].to){
+    //                 incoming.user = data[tab].messages[message].to;
+    //                 incoming.to = data[tab].messages[message].from;
+    //                 incoming.idUser = $rootScope.user.number;
+    //                 incoming.idOther = +000;
+    //             }
+    //             //message from business to user
+    //             else{
+    //                 incoming.user = data[tab].messages[message].from;
+    //                 incoming.to = data[tab].messages[message].to
+    //                 incoming.idUser = +000;
+    //                 incoming.idOther = $rootScope.user.number;
+    //             }
+    //         $scope.tabs[tab].chat.push(incoming);
+    //         }
+    //     }
+    // })
+
 }]);
 
 

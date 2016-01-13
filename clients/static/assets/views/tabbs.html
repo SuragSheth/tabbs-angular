@@ -18,6 +18,7 @@
             <h4 class="mainDescription" ng-show="!tabs.length">There Are No Tabbs Currently</h4>
                 <uib-tabset ng-hide="!tabs.length" class="tabbable">
                     <!-- Dynamic Tabbs-->
+                  
                     <uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
                         <div style="width:60%">
                             <div class="panel panel-white no-radius">
