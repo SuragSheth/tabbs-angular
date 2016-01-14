@@ -129,52 +129,52 @@ module.exports = (function(){
         }
       })
     },
-    //find tabb by business number and populate messages
     get_business_messages: function(req, res){
+      console.log("backend controller", req.params);
       // business_number = String(req.user.local.number);
       Tabb.find({tabb_business_id: req.params.id})
         .populate('messages')
-        .exec(function(err, results){
-          console.log("testing", results)
-           res.json(results)
-          // var lastMessagesForEachResult = [];
-
-
-          // if (results && results[0]) {
-          //   // console.log("========result", result)
-          //   console.log("HERE BEGIN OUR RESULTS");
-          //     for (result in results) {
-          //       //console.log("last message", results[result].messages[results[result].messages.length -1])
-          //
-
-          //     console.log("HERE END OUR RESULTS");
-          //       console.log(lastMessagesForEachResult);
-          // }
-
-          // res.json(lastMessagesForEachResult)
-
-      })
-    },
-    //find last added messaged for tabb
-    get_last_incoming_messages: function(req, res){
-      // business_number = String(req.user.local.number);
-      Tabb.find({tabb_business_id: req.params.id})
-        .populate('messages', null, {sort: {'created_at': -1}})
         .exec(function(err, result){
-          console.log("LAST INCOMING BACKEND", result);
         res.json(result);
       })
     }
+    //find tabb by business number and populate messages
+    // get_business_messages: function(req, res){
+    //   // business_number = String(req.user.local.number);
+    //   Tabb.find({tabb_business_id: req.params.id})
+    //     .populate('messages')
+    //     .exec(function(err, results){
+    //       console.log("testing", results)
+    //        res.json(results)
+    //       // var lastMessagesForEachResult = [];
+
+
+    //       // if (results && results[0]) {
+    //       //   // console.log("========result", result)
+    //       //   console.log("HERE BEGIN OUR RESULTS");
+    //       //     for (result in results) {
+    //       //       //console.log("last message", results[result].messages[results[result].messages.length -1])
+    //       //
+
+    //       //     console.log("HERE END OUR RESULTS");
+    //       //       console.log(lastMessagesForEachResult);
+    //       // }
+
+    //       // res.json(lastMessagesForEachResult)
+
+    //   })
+    // },
+    //find last added messaged for tabb
+    // get_last_incoming_messages: function(req, res){
+    //   // business_number = String(req.user.local.number);
+    //   Tabb.find({tabb_business_id: req.params.id})
+    //     .populate('messages', null, {sort: {'created_at': -1}})
+    //     .exec(function(err, result){
+    //       console.log("LAST INCOMING BACKEND", result);
+    //     res.json(result);
+    //   })
+    // }
   }
 })();
 
 
-// get_business_messages: function(req, res){
-//       console.log("backend controller", req.params);
-//       // business_number = String(req.user.local.number);
-//       Tabb.find({tabb_business_id: req.params.id})
-//         .populate('messages')
-//         .exec(function(err, result){
-//         res.json(result);
-//       })
-//     }

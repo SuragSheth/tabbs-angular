@@ -40,7 +40,7 @@ module.exports = function(app, passport, client, io) {
      app.post('/delete_employee', function(req, res){
         console.log("____________________", req.body)
         admin.delete_employee(req, res);
-        
+
     })
 
     app.get('/get_all_employees/:id', function(req, res){
@@ -71,9 +71,9 @@ module.exports = function(app, passport, client, io) {
        // console.log("TESTING SESSION", req.session)
 
         messages.incoming_message(req, res);
-        res.send("test");
+        // res.send("test");
         //emit message to angular controller
-        io.emit("user_to_business", {test: req.body});
+        io.emit("user_to_business", {message: req.body});
 
         console.log("get_message", req.body);
     })
