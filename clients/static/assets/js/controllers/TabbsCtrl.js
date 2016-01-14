@@ -17,6 +17,9 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
     autoCounter(0, 1, 4, 1000);
     autoCounter(1, 98, 4, 1000);
 
+
+    $scope.phone_number = $rootScope.user.number.slice(1,12);
+ 
     $scope.selfIdUser = $rootScope.user.number;
     $scope.otherIdUser = +000;
 
@@ -27,6 +30,10 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
     var exampleDate = new Date().setTime(new Date().getTime() - 240000 * 60);
 
     $scope.tabs = [];
+
+    // $scope.removeTabb = function (index){
+        
+    // }
 
     $scope.sendMessage = function (tab, message) {
         console.log("TABBB for send message", tab, "tabbb id", tab.tabb_id)
@@ -83,8 +90,8 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
             console.log("CHECKKKKK", $scope.tabs.length == 0, data)
             if ($scope.tabs.length == 0){
                 $scope.tabs.push({
-                    title: data[0].tabb_user_id,
-                    content: data[0].tabb_user_id,
+                    title: data[0].tabb_user_id.slice(1,12),
+                    content: data[0].tabb_user_id.slice(1,12),
                     tabb_id: data[0]._id,
                     chat:[]
                 })
@@ -106,8 +113,8 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
                 }
                 if (index_set === false){
                     $scope.tabs.push({
-                        title: data[tab].tabb_user_id,
-                        content: data[tab].tabb_user_id,
+                        title: data[tab].tabb_user_id.slice(1,12),
+                        content: data[tab].tabb_user_id.slice(1,12),
                         tabb_id: data[tab]._id,
                         chat:[]
                     })
@@ -176,3 +183,50 @@ app.factory('tabbsFactory', function($http){
     }
     return factory;
 })
+
+
+.filter('phonenumber', function() {
+    /* 
+    Format phonenumber as: c (xxx) xxx-xxxx
+        or as close as possible if phonenumber length is not 10
+        if c is not '1' (country code not USA), does not use country code
+    */
+
+    return function (number) {
+        /* 
+        @param {Number | String} number - Number that will be formatted as telephone number
+        Returns formatted number: (###) ###-####
+            if number.length < 4: ###
+            else if number.length < 7: (###) ###
+
+        Does not handle country codes that are not '1' (USA)
+        */
+        if (!number) { return ''; }
+
+        number = String(number);
+
+        // Will return formattedNumber. 
+        // If phonenumber isn't longer than an area code, just show number
+        var formattedNumber = number;
+
+        // if the first character is '1', strip it out and add it back
+        var c = (number[0] == '1') ? '1 ' : '';
+        number = number[0] == '1' ? number.slice(1) : number;
+
+        // # (###) ###-#### as c (area) front-end
+        var area = number.substring(0,3);
+        var front = number.substring(3, 6);
+        var end = number.substring(6, 10);
+
+        if (front) {
+            formattedNumber = (c + "(" + area + ") " + front);  
+        }
+        if (end) {
+            formattedNumber += ("-" + end);
+        }
+        return formattedNumber;
+    };
+});
+
+
+
