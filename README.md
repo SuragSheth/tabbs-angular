@@ -17,9 +17,9 @@ edit accounts, and analytics based on message response times. Frontend is fully 
 ### Setup: ###
 
 
--$ brew install node    # Install Node and NPM
--$ npm install -g bower # Install Bower
--$ npm install          # Install Node packages
+- $ brew install node    # Install Node and NPM
+- $ npm install -g bower # Install Bower
+- $ npm install          # Install Node packages
 - $ bower install        # Install Bower packages
 - Ngrok
 
