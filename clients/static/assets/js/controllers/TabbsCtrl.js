@@ -131,9 +131,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
                         incoming.to = data[tab].messages[message].to;
                         incoming.idUser = +000;
                         incoming.idOther = $rootScope.user.number;
-                    }
-                    //message from business to user
-                    else{
+                    } else{  //message from business to user
                         incoming.user = data[tab].messages[message].from;
                         incoming.to = data[tab].messages[message].to
                         incoming.idUser = $rootScope.user.number;
