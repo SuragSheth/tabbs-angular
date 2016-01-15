@@ -5,11 +5,11 @@ In addition, we built a dashboard to allow businesses to schedule events, conduc
 edit accounts, and analytics based on message response times. Frontend is fully responsive.
 
 ### Technology: ###
-- AngularJS v1.4.7
-- Node.JS
-- Javascript
-- MongoDB
-- Express
+* AngularJS v1.4.7
+* Node.JS
+* Javascript
+* MongoDB
+() Express
 
 ### API's: ###
 - Twilio
@@ -17,9 +17,9 @@ edit accounts, and analytics based on message response times. Frontend is fully 
 ### Setup: ###
 
 
-- $ brew install node    # Install Node and NPM
-- $ npm install -g bower # Install Bower
-- $ npm install          # Install Node packages
+-$ brew install node    # Install Node and NPM
+-$ npm install -g bower # Install Bower
+-$ npm install          # Install Node packages
 - $ bower install        # Install Bower packages
 - Ngrok
 
