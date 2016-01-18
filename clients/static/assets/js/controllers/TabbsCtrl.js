@@ -1,5 +1,28 @@
 app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval", "$rootScope", function ($scope, socket, tabbsFactory, $interval, $rootScope) {
 
+
+     $scope.timerRunning = true;
+            $scope.startTimer = function (){
+                $scope.$broadcast('timer-start');
+                $scope.timerRunning = true;
+            };
+            $scope.stopTimer = function (){
+                $scope.$broadcast('timer-stop');
+                $scope.timerRunning = false;
+            };
+            $scope.$on('timer-stopped', function (event, data){
+                console.log('Timer Stopped - data = ', data);
+            });
+
+
+
+
+
+
+
+
+
+
     var autoCounter = function(index, start, steps, delay) {
         var numIterations = 2;
         $scope.autoPending[index] = start;
@@ -19,7 +42,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
 
 
     $scope.phone_number = $rootScope.user.number.slice(1,12);
- 
+
     $scope.selfIdUser = $rootScope.user.number;
     $scope.otherIdUser = +000;
 
@@ -36,7 +59,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
     $scope.tabs = [];
 
     // $scope.removeTabb = function (index){
-        
+
     // }
 
     $scope.sendMessage = function (tab, message) {
@@ -85,6 +108,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
     tabbsFactory.all_tabb_messages($rootScope.user, function(data){
     console.log("Controller TABBS FAC GET MESSAGES=====", data)
         fill_tabs_and_messages(data);
+        $scope.test_time = data
     })
 
     var fill_tabs_and_messages = function(data){
@@ -183,14 +207,14 @@ app.factory('tabbsFactory', function($http){
 
 
 .filter('phonenumber', function() {
-    /* 
+    /*
     Format phonenumber as: c (xxx) xxx-xxxx
         or as close as possible if phonenumber length is not 10
         if c is not '1' (country code not USA), does not use country code
     */
 
     return function (number) {
-        /* 
+        /*
         @param {Number | String} number - Number that will be formatted as telephone number
         Returns formatted number: (###) ###-####
             if number.length < 4: ###
@@ -202,7 +226,7 @@ app.factory('tabbsFactory', function($http){
 
         number = String(number);
 
-        // Will return formattedNumber. 
+        // Will return formattedNumber.
         // If phonenumber isn't longer than an area code, just show number
         var formattedNumber = number;
 
@@ -216,7 +240,7 @@ app.factory('tabbsFactory', function($http){
         var end = number.substring(6, 10);
 
         if (front) {
-            formattedNumber = (c + "(" + area + ") " + front);  
+            formattedNumber = (c + "(" + area + ") " + front);
         }
         if (end) {
             formattedNumber += ("-" + end);

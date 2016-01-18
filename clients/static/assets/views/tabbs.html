@@ -4,6 +4,7 @@
 		<div class="col-sm-8">
 			<h1 class="mainTitle">TABBS - {{phone_number | phonenumber}}</h1>
 			<span class="mainDescription">Real-Time Messages From Your Customers
+            <timer interval="1000">{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
 		</div>
 	</div>
 </section>
@@ -17,7 +18,7 @@
             <h4 ng-show="!tabs.length">There Are No Tabbs Currently</h4>
                 <uib-tabset ng-hide="!tabs.length" class="tabbable">
                     <!-- Dynamic Tabbs-->
-                  
+
                     <uib-tab ng-repeat="tab in tabs" active="tab.active" disabled="tab.disabled">
 
 
@@ -51,7 +52,7 @@
                                     </div>
                                 </form>
                             </div>
-<!-- 
+<!--
                         </div>
  -->
 
@@ -63,6 +64,9 @@
 </div>
 
 </div>
+
+
+
 
 <!-- <uib-tab select="alertMe()">
 		<uib-tab-heading>
