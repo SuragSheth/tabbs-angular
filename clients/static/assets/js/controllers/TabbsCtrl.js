@@ -37,6 +37,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
 
     $scope.sendMessage = function (tab, message) {
         console.log("TABBB for send message", tab, "tabbb id", tab.tabb_id)
+        console.log("SELF AND OTHER CHECK:", $scope.selfIdUser, $scope.otherIdUser)
         var newMessage = {
             "tabb_id": tab.tabb_id,
             "to": tab.title,
@@ -54,7 +55,6 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
                 break
             };
         };
-
         $scope.tabs[insert_index].chat.push(newMessage);
         console.log("newmessage", newMessage)
         tabbsFactory.message_to_user($rootScope.user, newMessage, function(data){
@@ -63,11 +63,8 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
         $scope.business_to_user_message = '';
         tabbsFactory.all_tabb_messages($rootScope.user, function(data){
             fill_tabs_and_messages(data);
-
         })
     };
-
-     //EVERYTHING BELOW IS GOOD -----------------------------------------------------
 
     //get tabbs/messages after any broadcast
     socket.on("user_to_business", function(data){
@@ -80,7 +77,12 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
         })
     })
 
-    //EVERYTHING ABOVE IS GOOD -----------------------------------------------------
+    //get stored messages from DB based on incoming user number
+    tabbsFactory.all_tabb_messages($rootScope.user, function(data){
+    console.log("Controller TABBS FAC GET MESSAGES=====", data)
+        fill_tabs_and_messages(data);
+    })
+
     var fill_tabs_and_messages = function(data){
         $scope.tabs = [];
         console.log("Controller TABBS FAC GET MESSAGES=====", data)
@@ -136,11 +138,9 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
                         incoming.to = data[tab].messages[message].to;
                         incoming.idUser = +000;
                         incoming.idOther = $rootScope.user.number;
-                    }
-                    //message from business to user
-                    else{
-                        incoming.user = data[tab].messages[message].to;
-                        incoming.to = data[tab].messages[message].from
+                    } else{  //message from business to user
+                        incoming.user = data[tab].messages[message].from;
+                        incoming.to = data[tab].messages[message].to
                         incoming.idUser = $rootScope.user.number;
                         incoming.idOther = +000;
                     }
@@ -151,13 +151,6 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
             index_set = false;
             }
     };
-
-//get stored messages from DB based on incoming user number
-    tabbsFactory.all_tabb_messages($rootScope.user, function(data){
-    console.log("Controller TABBS FAC GET MESSAGES=====", data)
-        fill_tabs_and_messages(data);
-    })
-
 }]);
 
 app.factory('tabbsFactory', function($http){

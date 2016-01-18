@@ -25,8 +25,7 @@ module.exports = (function(){
           tabb.save(function(err){
             if(err){
               console.log("unable to save outgoing message")
-            }
-            else{
+            } else{
               client.sendMessage({
                 to: req.body.message.to,
                 from: req.body.message.from,
@@ -51,8 +50,7 @@ module.exports = (function(){
       Business.findOne({"local.number": req.body.To}, function(err, result){
         if(result == null){
           console.log("sorry, business does not exist");
-        }
-        else{
+        } else{
           //check if conversation tabb already exists
           Tabb.findOne({tabb_user_id: req.body.From, tabb_business_id: req.body.To}, function(err, tabb){
             if(tabb == null){ //tabb does not exist yet
@@ -63,8 +61,7 @@ module.exports = (function(){
               new_tabb.save(function(err, result){
                 if(err){
                   console.log("error trying to save new tabb");
-                }
-                else {
+                } else {
                   console.log("tabb saved successfully", result);
                   //save message and update tabb document by id
                   Tabb.findOne({_id: result._id}, function(err, tabb){
@@ -86,8 +83,7 @@ module.exports = (function(){
                       tabb.save(function(err){
                         if(err){
                           console.log("error saving message and updated tabb");
-                        }
-                        else {
+                        } else {
                           console.log("created initial tabb and saved first message");
                         }
                       })
@@ -95,9 +91,7 @@ module.exports = (function(){
                   })
                 }
               })
-            }
-            //tabb already exists. Just save message
-            else {
+            } else {  //tabb already exists. Just save message
               Tabb.findOne({tabb_user_id: req.body.From, tabb_business_id: req.body.To}, function(err, tabb){
                 //data from the message
                 var new_message = new Message ({
@@ -117,8 +111,7 @@ module.exports = (function(){
                   tabb.save(function(err){
                     if(err){
                       console.log("error saving message and updated tabb");
-                    }
-                    else {
+                    } else {
                       console.log("created new message");
                     }
                   })
@@ -163,17 +156,6 @@ module.exports = (function(){
     //       // res.json(lastMessagesForEachResult)
 
     //   })
-    // },
-    //find last added messaged for tabb
-    // get_last_incoming_messages: function(req, res){
-    //   // business_number = String(req.user.local.number);
-    //   Tabb.find({tabb_business_id: req.params.id})
-    //     .populate('messages', null, {sort: {'created_at': -1}})
-    //     .exec(function(err, result){
-    //       console.log("LAST INCOMING BACKEND", result);
-    //     res.json(result);
-    //   })
-    // }
   }
 })();
 
