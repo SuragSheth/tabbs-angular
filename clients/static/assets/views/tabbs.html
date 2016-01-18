@@ -2,10 +2,9 @@
 <section id="page-title">
 	<div class="row">
 		<div class="col-sm-8">
-			<h1 class="mainTitle">TABBS</h1>
+			<h1 class="mainTitle">TABBS - {{phone_number | phonenumber}}</h1>
 			<span class="mainDescription">Real-Time Messages From Your Customers
 		</div>
-		<div ncy-breadcrumb></div>
 	</div>
 </section>
 <!-- end: PAGE TITLE -->
@@ -15,17 +14,28 @@
     <div class="container-fluid container-fullw bg-white">
         <div class="row">
             <div class="col-md-12">
-            <h4 class="mainDescription" ng-show="!tabs.length">There Are No Tabbs Currently</h4>
+            <h4 ng-show="!tabs.length">There Are No Tabbs Currently</h4>
                 <uib-tabset ng-hide="!tabs.length" class="tabbable">
                     <!-- Dynamic Tabbs-->
+                  
+                    <uib-tab ng-repeat="tab in tabs" active="tab.active" disabled="tab.disabled">
 
-                    <uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
-                        <div style="width:60%">
+
+                         <uib-tab-heading>
+                            <small>{{tab.title | phonenumber}}</small><i class="fa fa-times" ng-click="removeTabb($index)"></i>
+                          </uib-tab-heading>
+
+
+                    <!--     <div style="width:60%"> -->
                             <div class="panel panel-white no-radius">
+
+
                                 <div class="panel-heading border-bottom">
-                                    <h4 class="panel-title">{{tab.content}}</h4>
+                                    <h4 class="panel-title">{{tab.content | phonenumber}}</h4>
                                     <h4 class="panel-title pull-right">Response Time: 4:23</h4>
                                 </div>
+
+
                                 <div class="panel-body no-padding">
                                     <div class="panel-scroll height-330" id="chatBox" scroll-glue perfect-scrollbar wheel-propagation="true" suppress-scroll-x="true">
                                         <clip-chat messages="tab.chat" id-self="selfIdUser" id-other="otherIdUser"></clip-chat>
@@ -41,7 +51,10 @@
                                     </div>
                                 </form>
                             </div>
+<!-- 
                         </div>
+ -->
+
                     </div>
             	</uib-tab>
             </uib-tabset>
