@@ -21,6 +21,7 @@ module.exports = (function(){
           _tabb: req.body.message.tabb_id
           })
         tabb.messages.push(new_message);
+        tabb.updated_at = new Date();
         new_message.save(function(err){
           tabb.save(function(err){
             if(err){
@@ -78,6 +79,7 @@ module.exports = (function(){
                     })
                     tabb.tabb_business_id = req.body.To;
                     tabb.messages.push(new_message);
+                    tabb.updated_at = new Date();
                     //save both updated tabb and new message
                     new_message.save(function(err){
                       tabb.save(function(err){
@@ -106,6 +108,7 @@ module.exports = (function(){
                 })
                 tabb.tabb_business_id = req.body.To;
                 tabb.messages.push(new_message);
+                tabb.updated_at = new Date();
                 //save both updated tabb and new message
                 new_message.save(function(err){
                   tabb.save(function(err){

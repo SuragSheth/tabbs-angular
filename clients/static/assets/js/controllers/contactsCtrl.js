@@ -1,10 +1,11 @@
 //Start: Add & Manage Employees =================================
 
-app.controller('contactsCtrl', ['$scope', 'ContactsFactory', '$location', '$rootScope', function($scope, ContactsFactory, $location, $rootScope){
-  ContactsFactory.getAllContacts($rootScope.user, function(data){
-    console.log(data);
+app.controller('contactsCtrl', ['$scope', 'ContactsFactory', '$location', '$rootScope', 'tabbsFactory', function($scope, ContactsFactory, $location, $rootScope, tabbsFactory){
+
+  tabbsFactory.all_tabb_messages($rootScope.user, function(data){
+    console.log("all messages in contacts controller", data)
     $scope.contacts = data;
-  });
+  })
 
 
 }])
