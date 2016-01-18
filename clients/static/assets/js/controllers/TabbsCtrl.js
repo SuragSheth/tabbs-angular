@@ -27,6 +27,10 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
         $scope.otherIdUser = value;
     };
 
+    $scope.removeTabb = function (index){
+        $scope.tabs.splice(index, 1);
+    }
+
     var exampleDate = new Date().setTime(new Date().getTime() - 240000 * 60);
 
     $scope.tabs = [];
