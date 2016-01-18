@@ -15,14 +15,6 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
             });
 
 
-
-
-
-
-
-
-
-
     var autoCounter = function(index, start, steps, delay) {
         var numIterations = 2;
         $scope.autoPending[index] = start;
