@@ -4,7 +4,6 @@
 		<div class="col-sm-8">
 			<h1 class="mainTitle">TABBS - {{phone_number | phonenumber}}</h1>
 			<span class="mainDescription">Real-Time Messages From Your Customers
-            <timer interval="1000">{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
 		</div>
 	</div>
 </section>
@@ -19,8 +18,7 @@
                 <uib-tabset ng-hide="!tabs.length" class="tabbable">
                     <!-- Dynamic Tabbs-->
 
-                    <uib-tab ng-repeat="tab in tabs" active="tab.active" disabled="tab.disabled">
-
+                    <uib-tab ng-repeat="tab in tabs  track by $id(tab)" active="tabs[$index].active">
 
                          <uib-tab-heading>
                             <small>{{tab.title | phonenumber}}</small><i class="fa fa-times" ng-click="removeTabb($index)"></i>
@@ -33,7 +31,7 @@
 
                                 <div class="panel-heading border-bottom">
                                     <h4 class="panel-title">{{tab.content | phonenumber}}</h4>
-                                    <h4 class="panel-title pull-right">Response Time: 4:23</h4>
+                                    <h4 class="panel-title pull-right">Response Time:  <timer interval="1000">{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer></h4>
                                 </div>
 
 
