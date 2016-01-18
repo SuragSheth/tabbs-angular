@@ -1,4 +1,4 @@
-app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval", "$rootScope", function ($scope, socket, tabbsFactory, $interval, $rootScope) {
+app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval", "$rootScope", "$filter", function ($scope, socket, tabbsFactory, $interval, $rootScope, $filter, $timeout) {
 
     var autoCounter = function(index, start, steps, delay) {
         var numIterations = 2;
@@ -100,7 +100,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
                     content: data[0].tabb_user_id.slice(1,12),
                     tabb_id: data[0]._id,
                     chat:[], 
-                    remaning_time: data[0].updated_at 
+                    remaning_time: setInterval(function(){$filter('date')(new Date(), "sss")} , 1)  
                 })
                 // console.log("first index set")
                 insert_index = 0;
@@ -124,7 +124,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
                         content: data[tab].tabb_user_id.slice(1,12),
                         tabb_id: data[tab]._id,
                         chat:[],
-                        remaning_time: data[tab].updated_at 
+                        remaning_time:  setInterval(function(){$filter('date')(new Date(), "sss")} , 1) 
                     })
                     insert_index = $scope.tabs.length-1;
                  //   console.log("third index set sonnnnnnnn", insert_index)

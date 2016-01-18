@@ -18,7 +18,7 @@
                 <uib-tabset ng-hide="!tabs.length" class="tabbable">
                     <!-- Dynamic Tabbs-->
                   
-                    <uib-tab ng-repeat="tab in tabs" active="tab.active" disabled="tab.disabled">
+                    <uib-tab ng-repeat="tab in tabs" active="tabs[$index].active">
 
 
                          <uib-tab-heading>
