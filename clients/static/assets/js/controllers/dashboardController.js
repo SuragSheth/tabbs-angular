@@ -19,6 +19,9 @@ app.controller('SparklineCtrl', ["$scope", function ($scope) {
 }]);
 
 
+
+
+
 app.factory('dashboardFactory', function($http){
     var factory = {};
 
