@@ -9,7 +9,7 @@ app.controller('UserCtrl', ["$scope", "flowFactory", function ($scope, flowFacto
     $scope.obj = new Flow();
 
     $scope.userInfo = {
-        firstName: 'Peter',
+        firstName: $,
         lastName: 'Clark',
         url: 'www.example.com',
         email: 'peter@example.com',
@@ -17,13 +17,8 @@ app.controller('UserCtrl', ["$scope", "flowFactory", function ($scope, flowFacto
         gender: 'male',
         zipCode: '12345',
         city: 'London (UK)',
-        avatar: 'assets/images/avatar-1-xl.jpg',
-        twitter: '',
-        github: '',
-        facebook: '',
-        linkedin: '',
-        google: '',
-        skype: 'peterclark82'
+   
+ 
     };
     if ($scope.userInfo.avatar == '') {
         $scope.noImage = true;
