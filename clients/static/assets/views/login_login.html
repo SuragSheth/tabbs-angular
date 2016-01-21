@@ -3,8 +3,8 @@
 		<div class="col-md-6 col-md-offset-3">
 		  <div class="m-b-lg">
 		    <div class="wrapper text-center">
-		     	<img style="text-align: center;" src="../assets/images/logo.png"/></br>
-e		    </div>
+		     	<img style="text-align: center;" width="400" height="300" src="../assets/images/tabbslogo.png"/></br>
+			    </div>
 		    <form name="form" class="form-validation">
 		      <div class="text-danger wrapper text-center" ng-show="authError">
 		          {{authError}}
@@ -14,11 +14,10 @@ e		    </div>
 		          <input type="text" class="form-control" name="email" placeholder="email" ng-model="business.email">
 		           <input type="password" class="form-control password" name="password" placeholder="Password" ng-model="business.password">
 		      </div>
-		      <button type="submit" class="btn btn-lg btn-light-red btn-block" ng-click="login_business(business)" ng-disabled='form.$invalid' style="margin-bottom: 10px;">Log In</button>
+		      <button type="submit" class="btn btn-lg btn-light-red btn-block" ng-click="login_business(business)" ng-disabled='form.$invalid' style="margin-bottom: 8px;">Log In</button>
+  		      <button type="submit" class="btn btn-lg btn-default btn-block" style="margin-bottom: 8px;">Do not have an account?</button>
+
 		      <div class="pull-right m-t m-b"><a ui-sref="access.forgotpwd">Forgot password?</a></div>
-		      <div class="line line-dashed"></div>
-		      <p class="text-center">Do not have an account?</p>
-		      <a ui-sref="access.signup" class="btn btn-lg btn-default btn-block">Do not have an account?</a>
 		    </form>
 		  </div>
 		</div>

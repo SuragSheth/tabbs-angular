@@ -5,7 +5,6 @@
 			<h1 class="mainTitle" translate="sidebar.nav.pages.USERPROFILE">USER PROFILE</h1>
 			<span class="mainDescription">Edit account information, add employees, track business activity.</span>
 		</div>
-		<div ncy-breadcrumb></div>
 	</div>
 </section>
 <!-- end: PAGE TITLE -->
@@ -15,133 +14,65 @@
 		<div class="col-md-12">
 			<!-- /// controller:  'UserCtrl' -  localtion: assets/js/controllers/userCtrl.js /// -->
 			<div ng-controller="UserCtrl">
-				<!-- start: USER TABSET -->
-				<uib-tabset class="tabbable">
-					<!-- start: TAB OVERVIEW -->
-					<uib-tab heading="Overview">
-								<div class="user-left">
-									<div class="center">
-										<h4>{{$rootScope.user.firstName}} {{$rootScope.user.lastName}}</h4>
-										<div flow-init="{singleFile:true}" flow-name="obj.flow" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
-										</div>
-										<hr>
-										<hr>
-									</div>
-									<table class="table table-condensed">
-										<thead>
-											<tr>
-												<th colspan="3">Contact Information</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Business Website</td>
-												<td>
-												<a href="#">
-													{{userInfo.url}}
-												</a></td>
-											</tr>
-											<tr>
-												<td>E-Mail</td>
-												<td>
-												<a href>
-													{{userInfo.email}}
-												</a></td>
-											</tr>
-											<tr>
-												<td>Cell Phone Number</td>
-												<td>{{userInfo.phone}}</td>
-											</tr>
-											<tr>
-												<td>Tabbs Phone Number</td>
-												<td>
-												<a href>
-													{{userInfo.skype}}
-												</a></td>
-											</tr>
-										</tbody>
-									</table>
-									<table class="table table-condensed">
-										<thead>
-											<tr>
-												<th colspan="3">General information</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Business Name</td>
-												<td>UI Designer</td>
-											</tr>
-											<tr>
-												<td>Last Logged In</td>
-												<td>56 min</td>
-											</tr>
-											<tr>
-												<td>Position</td>
-												<td>Senior Marketing Manager</td>
-											</tr>
-											<tr>
-												<td>Status</td>
-												<td><span class="label label-sm label-info">Administrator</span></td>
-											</tr>
-										</tbody>
-									</table>
-									<div class="text-right">
-										<a class="btn btn-primary btn-o btn-wide" href="#" ng-click="editActive = true">
-											Edit Account
-										</a>
-									</div>
-								</div>
-					
-					</uib-tab>
-					<!-- end: TAB OVERVIEW -->
-					<!-- start: TAB EDIT ACCOUNT -->
-					<uib-tab heading="Edit Account" active="editActive">
-						<form action="#" role="form" id="form">
-							<fieldset>
-								<legend>
-									Account Info
-								</legend>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">
-												First Name
-											</label>
-											<input type="text" placeholder="Enter your first name" class="form-control" name="firstname" ng-model="userInfo.firstName">
-										</div>
-										<div class="form-group">
-											<label class="control-label">
-												Last Name
-											</label>
-											<input type="text" placeholder="Enter your last name" class="form-control" name="lastname" ng-model="userInfo.lastName">
-										</div>
-										<div class="form-group">
-											<label class="control-label">
-												Email Address
-											</label>
-											<input type="email" placeholder="email address" class="form-control" name="email" ng-model="userInfo.email">
-										</div>
-										<div class="form-group">
-											<label class="control-label">
-												Phone
-											</label>
-											<input type="text" placeholder="phone number" class="form-control" name="phone" ng-model="userInfo.phone">
-										</div>
-										<div class="form-group">
-											<label class="control-label">
-												Url
-											</label>
-											<input type="text" placeholder="Enter Url" class="form-control" name="url" ng-model="userInfo.url">
-										</div>
-									</div>
-								</div>
-							</fieldset>
-						</form>
-					</uib-tab>
-					<!-- end: TAB EDIT ACCOUNT -->
-				</uib-tabset>
-				<!-- end: USER TABSET -->
+					<div class="user-left">
+						<div class="center">
+							<h2>{{business_name}}</h2>
+							<hr>
+						</div>
+						<table class="table table-condensed">
+							<thead>
+								<tr>
+									<th colspan="3">Contact Information</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Business Website</td>
+									<td>
+									<a href="#">
+										<input type="text" placeholder="www.my.tabbs.com">
+									</a></td>
+								</tr>
+								<tr>
+									<td>E-Mail</td>
+									<td>
+									<a href>
+										<input type="text" value="{{userInfo.email}}" placeholder="{{userInfo.email}}">
+									</a></td>
+								</tr>
+								<tr>
+									<td>Cell Phone Number</td>
+									<td>
+									<a href>
+										<input type="text" placeholder="1-510-557-3502">
+									</a></td>
+								</tr>
+								<tr>
+									<td>Tabbs Phone Number</td>
+									<td>
+									<a href>
+										{{userInfo.tabbs_number}}
+									</a></td>
+								</tr>
+								<tr>
+									<td>Account Type</td>
+									<td>
+									<a href>
+										<span class="label label-info">Owner</span><
+									</a></td>
+								</tr>
+								<tr>
+									<td>Plan</td>
+									<td><span class="label label-inverse">Trial Testing</span></td>
+								</tr>	
+							</tbody>
+						</table>
+						<div class="text-right">
+							<a class="btn btn-primary btn-o btn-wide" href="#" ng-click="editActive = true">
+								Save Changes
+							</a>
+						</div>
+					</div>
 			</div>
 		</div>
 	</div>

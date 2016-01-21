@@ -29,6 +29,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
         }, delay);
     };
 
+
     $scope.autoPending = [0, 0];
     autoCounter(0, 1, 4, 1000);
     autoCounter(1, 98, 4, 1000);
@@ -116,6 +117,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
                     title: data[0].tabb_user_id.slice(1,12),
                     content: data[0].tabb_user_id.slice(1,12),
                     tabb_id: data[0]._id,
+                    active: true,
                     chat:[], 
                     remaning_time: setInterval(function(){$filter('date')(new Date(), "sss")} , 1)  
                 })
@@ -140,6 +142,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
                         title: data[tab].tabb_user_id.slice(1,12),
                         content: data[tab].tabb_user_id.slice(1,12),
                         tabb_id: data[tab]._id,
+                        active: false,
                         chat:[],
                         remaning_time:  setInterval(function(){$filter('date')(new Date(), "sss")} , 1) 
                     })
@@ -174,6 +177,21 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
             index_set = false;
             }
     };
+
+    // need the index where at the last active was true;
+
+    $scope.tabs.active = function() {
+            return $scope.tabs.filter(function(tabs){
+                console.log("active tab nigga", tabs.active)
+              return tabs.active;
+            })[0];
+    }
+
+        
+    
+
+
+
 }]);
 
 app.factory('tabbsFactory', function($http){
