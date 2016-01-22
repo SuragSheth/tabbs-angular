@@ -29,32 +29,57 @@ module.exports = function(app, passport, client, io) {
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }))
+
+    // Need to finish
+    app.get('/logout', function(req, res){
+      req.logout();
+      res.redirect('/');
+    });
 // End: routes for businesses =========================
+
+
+
 
 // Start: routes for employees =========================
     app.post('/add_employee', function(req, res){
-        console.log("____________________", req.body)
         admin.add_employee(req, res);
     })
 
      app.post('/delete_employee', function(req, res){
-        console.log("____________________", req.body)
         admin.delete_employee(req, res);
-
     })
 
-    app.get('/get_all_employees/:id', function(req, res){
-        console.log("____________________", req.params);
-        admin.get_all_employees(req, res);
+    app.get('/get_all_employees/:id', isAuthenticated, function(req, res){
+        console.log("____________________", req.user);
+        admin.get_all_employees(req, res);        
     })
 
+
+    function isAuthenticated(req, res, next){
+        if (req.user && req.user != undefined) {
+                console.log("You Are Logged In", req.user)
+                return next();
+            } 
+    
+        console.log("You are not Logged In");rs  
+        res.redirect('/');        
+    }
+// End: routes for employees =========================
+
+
+
+
+
+// Start: routes for contacts =========================
     app.get('/get_all_contacts/:number', function(req, res){
-        console.log("____________________", req.params);
         admin.get_all_contacts(req, res);
     })
+// End: routes for contacts =========================
 
 
-// End: routes for employees =========================
+
+
+
 
 // Start: routes for sending and recieving messages ============================
 

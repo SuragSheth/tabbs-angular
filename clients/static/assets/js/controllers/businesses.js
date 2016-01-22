@@ -18,7 +18,8 @@ app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$root
         id: data.user._id,
         number: data.user.local.number,
         name: data.user.local.name,
-        email: data.user.local.email
+        email: data.user.local.email,
+        account_type: data.user.local.accounttype
       }
       console.log("rootscope of user logged in user", $rootScope.user);
       $location.path('/dashboard');
