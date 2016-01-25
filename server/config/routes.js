@@ -41,7 +41,7 @@ module.exports = function(app, passport, client, io) {
     // Need to finish
     app.get('/logout', function(req, res){
       req.logout();
-      res.redirect('/');
+      res.status(200).json({status: 'Logged Out!'});
     });
 // End: routes for businesses =========================
 

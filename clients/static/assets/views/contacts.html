@@ -28,7 +28,7 @@
 						<tr ng-repeat="contact in contacts">
 							<td>
 							<a href="#">{{contact.tabb_user_id}}</a></td>
-							<td> - </td>
+							<td>$ {{contact.messages.length * 0.0075}}</td>
 							<td>{{contact.messages.length}}</td>
 							<td>{{contact.created_at | date : 'dd/MM/yyyy'}}</td>
 							<td>{{contact.updated_at | date : 'dd/MM/yyyy'}}</td>

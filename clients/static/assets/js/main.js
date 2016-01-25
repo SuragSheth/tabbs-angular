@@ -1,6 +1,6 @@
 var app = angular.module('tabbs_app', ['clip-two']);
 app.run(['$rootScope', '$state', '$stateParams',
-function ($rootScope, $state, $stateParams) {
+function ($rootScope, $state, $stateParams, $location, $route, AuthService) {
 
     // Attach Fastclick for eliminating the 300ms delay between a physical tap and the firing of a click event on mobile browsers
     FastClick.attach(document.body);
@@ -9,19 +9,28 @@ function ($rootScope, $state, $stateParams) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    // if (AuthService.isLoggedIn() === false) {
+    //   $location.path('/login');
+    // }
+        console.log("state is transitionaing")
+    });
+ 
+
     // GLOBAL APP SCOPE
     // set below basic information
     $rootScope.app = {
         name: 'Tabbs', // name of your project
         author: 'Steven Lam & Surag Sheth', // author's name or company name
         description: 'Real-time messaging for businesses & consumers', // brief description
-        version: '0.1', // current version
+        version: '0.2', // current version
         year: ((new Date()).getFullYear()), // automatic current year (for copyright information)
         isMobile: (function () {// true if the browser is a mobile device
             var check = false;
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                 check = true;
             };
+            console.log("ON MOBILE", check);
             return check;
         })(),
         layout: {
@@ -33,37 +42,18 @@ function ($rootScope, $state, $stateParams) {
             logo: 'assets/images/logo.png', // relative path of the project logo
         }
     };
+
     $rootScope.user = {
 
     };
 }]);
-// translate config
-app.config(['$translateProvider',
-function ($translateProvider) {
 
-    // prefix and suffix information  is required to specify a pattern
-    // You can simply use the static-files loader with this pattern:
-    $translateProvider.useStaticFilesLoader({
-        prefix: 'assets/i18n/',
-        suffix: '.json'
-    });
-
-    // Since you've now registered more then one translation table, angular-translate has to know which one to use.
-    // This is where preferredLanguage(langKey) comes in.
-    $translateProvider.preferredLanguage('en');
-
-    // Store the language in the local storage
-    $translateProvider.useLocalStorage();
-
-    // Enable sanitize
-    $translateProvider.useSanitizeValueStrategy('sanitize');
-
-}]);
 // Angular-Loading-Bar
 // configuration
 app.config(['cfpLoadingBarProvider',
 function (cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeBar = true;
     cfpLoadingBarProvider.includeSpinner = false;
+
 
 }]);

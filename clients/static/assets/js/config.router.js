@@ -78,7 +78,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     .state('app.keywords', {
         url: '/keywords',
         templateUrl: "assets/views/keywords.html",
-        controller: 'keywordsCtrl',
+        controller: 'ngTableCtrl6'
     })
 
     

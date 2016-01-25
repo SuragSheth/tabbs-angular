@@ -21,17 +21,16 @@
                     <uib-tab ng-repeat="tab in tabs  track by $id(tab)" active="tab.active">
 
                          <uib-tab-heading>
-                            <small>{{tab.title | phonenumber}}</small><i class="fa fa-times" ng-click="removeTabb($index)"></i>
+                            <small>{{tab.title | phonenumber}}</small><i class="fa fa-times pull-right" style="margin-left:20px; margin-bottom: 20px;" ng-click="removeTabb($index)"></i>
                           </uib-tab-heading>
 
                     <div class="row">
-                        <div class="col-md-8 col-lg-8">
+                        <div class="col-sm-12 col-md-12 col-lg-8">
                             <div class="panel panel-white no-radius">
 
 
                                 <div class="panel-heading border-bottom">
                                     <h4 class="panel-title">{{active()}} {{tab.content | phonenumber}}</h4>
-                                    <h4 class="panel-title pull-right">Response Time:  <timer interval="1000">{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer></h4>
                                 </div>
 
 
@@ -45,7 +44,7 @@
                                         <div class="message-inner"><a href="#" class="link icon-only"><i class="fa fa-camera"></i></a>
                                             <div class="message-area">
                                                 <input placeholder="Message" ng-model="business_to_user_message"/>
-                                            </div><a translate="offsidebar.chat.SEND" href="#" class="link ng-scope" ng-click="sendMessage(tab, business_to_user_message)">Send</a>
+                                            </div><a href="#" class="link ng-scope" ng-click="sendMessage(tab, business_to_user_message)">Send</a>
                                         </div>
                                     </div>
                                 </form>
@@ -53,23 +52,34 @@
                          </div>
 
 
-            <div class="col-md-4 col-lg-4 pull-right">
+            <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-4 pull-right">
                 <div class="panel panel-transparent">
                     <div class="panel-heading">
-                        <h4 class="panel-title">Options</h4>
+                        <h4 class="panel-title"><timer interval="1000">{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer></h4>
                     </div>
                     <div class="panel-body">
-                        <v-accordion class="vAccordion--default" control="firstAccordionControl">
-                            <v-pane ng-repeat="pane in panes" expanded="$last">
+                        <v-accordion class="vAccordion--default">
+                            <v-pane>
                                 <v-pane-header>
-                                    <h5>{{ pane.header }}</h5>
+                                    <h5>Quick Responce</h5>
+                                </v-pane-header>
+                                <v-pane-content>
+                                </v-pane-content>
+                            </v-pane>
+                            <v-pane>
+                                <v-pane-header>
+                                    <h5>Info</h5>
                                 </v-pane-header>
                                 <v-pane-content>
                                     <p>
-                                        {{ pane.content }}
+                                      Response Time:  <timer interval="1000">{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
                                     </p>
                                 </v-pane-content>
                             </v-pane>
+                              <a class="btn btn-lg btn-block btn-light-orange" href="#">
+                            <i class="fa fa-calendar"></i>  Add To Calander</a>
+                            <a class="btn btn-lg btn-block btn-danger" href="#">
+                            <i class="fa fa-ban"></i>  Block Number</a>
                         </v-accordion>
                     </div>
                 </div>
