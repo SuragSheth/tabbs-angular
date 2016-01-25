@@ -25,7 +25,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     // APPLICATION ROUTES
     // -----------------------------------
     // For any unmatched url, redirect to /app/dashboard
-    $urlRouterProvider.otherwise("/app/dashboard");
+    $urlRouterProvider.otherwise("/404");
     //
     // Set up the states
     $stateProvider.state('app', {
@@ -113,18 +113,15 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 
 
 
+    .state('404', {
+        url: '/404',
+        templateUrl: "assets/views/utility_404.html",
+    })
 
-
-    // .state('error', {
-    //     url: '/error',
-    //     template: '<div ui-view class="fade-in-up"></div>'
-    // }).state('error.404', {
-    //     url: '/404',
-    //     templateUrl: "assets/views/utility_404.html",
-    // }).state('error.500', {
-    //     url: '/500',
-    //     templateUrl: "assets/views/utility_500.html",
-    // })
+    .state('error.500', {
+        url: '/500',
+        templateUrl: "assets/views/utility_500.html",
+    })
 
 
 

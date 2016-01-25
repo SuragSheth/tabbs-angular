@@ -8,7 +8,7 @@ app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$root
         name: data.local.name,
         email: data.local.email
       }
-      $location.path('/dashboard');
+      $location.path('/app/dashboard');
     })
   }
    $scope.login_business = function(business_info){
@@ -22,7 +22,7 @@ app.controller('businessCtrl', ['$scope', 'businessFactory', '$location', '$root
         account_type: data.user.local.accounttype
       }
       console.log("rootscope of user logged in user", $rootScope.user);
-      $location.path('/dashboard');
+      $location.path('/app/dashboard');
     })
   }
 
