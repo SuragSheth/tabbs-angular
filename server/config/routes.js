@@ -7,9 +7,17 @@ var twilio      = require('twilio')
 
 module.exports = function(app, passport, client, io) {
     io.sockets.on('connection', function (socket) {
-        console.log("WE ARE USING SOCKETS!");
-        console.log(socket.id);
-        //all the socket code goes in here!
+    console.log("Sockets Connected! Socket Id: ", socket.id);
+
+
+    function isAuthenticated(req, res, next){
+        if (req.user && req.user != undefined) {
+                console.log("You Are Logged In", req.user)
+                return next();
+            }
+        console.log("You are not Logged In");rs  
+        res.redirect('/');        
+    }
 
 
 // Start: routes for businesses =========================
@@ -53,17 +61,6 @@ module.exports = function(app, passport, client, io) {
         console.log("____________________", req.user);
         admin.get_all_employees(req, res);        
     })
-
-
-    function isAuthenticated(req, res, next){
-        if (req.user && req.user != undefined) {
-                console.log("You Are Logged In", req.user)
-                return next();
-            } 
-    
-        console.log("You are not Logged In");rs  
-        res.redirect('/');        
-    }
 // End: routes for employees =========================
 
 

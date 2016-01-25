@@ -24,8 +24,8 @@
                             <small>{{tab.title | phonenumber}}</small><i class="fa fa-times" ng-click="removeTabb($index)"></i>
                           </uib-tab-heading>
 
-
-                    <!--     <div style="width:60%"> -->
+                    <div class="row">
+                        <div class="col-md-8 col-lg-8">
                             <div class="panel panel-white no-radius">
 
 
@@ -50,9 +50,43 @@
                                     </div>
                                 </form>
                             </div>
-<!--
-                        </div>
- -->
+                         </div>
+
+
+            <div class="col-md-4 col-lg-4 pull-right">
+                <div class="panel panel-transparent">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Options</h4>
+                    </div>
+                    <div class="panel-body">
+                        <v-accordion class="vAccordion--default" control="firstAccordionControl">
+                            <v-pane ng-repeat="pane in panes" expanded="$last">
+                                <v-pane-header>
+                                    <h5>{{ pane.header }}</h5>
+                                </v-pane-header>
+                                <v-pane-content>
+                                    <p>
+                                        {{ pane.content }}
+                                    </p>
+                                </v-pane-content>
+                            </v-pane>
+                        </v-accordion>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+                           
+
+ 
 
                     </div>
             	</uib-tab>

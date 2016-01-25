@@ -145,7 +145,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     }).state('login.lockscreen', {
         url: '/lock',
         templateUrl: "assets/views/login_lock_screen.html"
-    }).state('login.forgot', {
+    }).state('forgot', {
         url: '/forgot',
         templateUrl: "assets/views/login_forgot.html"
     }).state('signup_wizard', {

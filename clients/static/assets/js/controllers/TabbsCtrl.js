@@ -29,6 +29,31 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
         }, delay);
     };
 
+    $scope.firstAccordionControl = {
+            onExpand: function (expandedPaneIndex) {
+                console.log('expanded:', expandedPaneIndex);
+            },
+            onCollapse: function (collapsedPaneIndex) {
+                console.log('collapsed:', collapsedPaneIndex);
+            }
+        };
+
+        $scope.panes = [{
+            header: 'Quick Responce',
+            content: 'Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim. Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum adipiscing wisi.'
+        }, {
+            header: 'Info',
+            content: 'Aliquam erat ac ipsum. Integer aliquam purus. Quisque lorem tortor fringilla sed, vestibulum id, eleifend justo vel bibendum sapien massa ac turpis faucibus orci luctus non.',
+
+            subpanes: [{
+                header: 'Subpane 1',
+                content: 'Lorem ipsum dolor sit amet enim.'
+            }, {
+                header: 'Subpane 2',
+                content: 'Curabitur et ligula. Ut molestie a, ultricies porta urna. Quisque lorem tortor fringilla sed, vestibulum id.'
+            }]
+        }];
+
 
     $scope.autoPending = [0, 0];
     autoCounter(0, 1, 4, 1000);

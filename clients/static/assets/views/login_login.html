@@ -11,13 +11,13 @@
 		      </div>
 		      <div class="list-group list-group-sm">
 		     
-		          <input type="text" class="form-control" name="email" placeholder="email" ng-model="business.email">
-		           <input type="password" class="form-control password" name="password" placeholder="Password" ng-model="business.password">
+		          <input type="text" id="loginPages" class="form-control" name="email" placeholder="email" ng-model="business.email">
+		           <input type="password" id="loginPages" class="form-control password" name="password" placeholder="Password" ng-model="business.password">
 		      </div>
 		      <button type="submit" class="btn btn-lg btn-light-red btn-block" ng-click="login_business(business)" ng-disabled='form.$invalid' style="margin-bottom: 8px;">Log In</button>
-  		      <button type="submit" class="btn btn-lg btn-default btn-block" style="margin-bottom: 8px;">Do not have an account?</button>
+  		      <button class="btn btn-lg btn-default btn-block" ui-sref="signup" style="margin-bottom: 8px;">Do not have an account?</button>
 
-		      <div class="pull-right m-t m-b"><a ui-sref="access.forgotpwd">Forgot password?</a></div>
+		      <div class="pull-right m-t m-b"><a ui-sref="forgot">Forgot password?</a></div>
 		    </form>
 		  </div>
 		</div>

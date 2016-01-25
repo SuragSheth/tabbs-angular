@@ -54,6 +54,10 @@ html, body {
   width: 100%;
 }
 
+#loginPages {
+  margin-bottom: 10px;
+}
+
 html {
   font-size: 100%;
 }
