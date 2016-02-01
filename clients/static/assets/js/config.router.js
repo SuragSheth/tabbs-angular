@@ -75,6 +75,14 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 
     })
 
+    .state('app.keywords', {
+        url: '/keywords',
+        templateUrl: "assets/views/keywords.html",
+        controller: 'keywordsCtrl',
+    })
+
+    
+
     .state('app.settings', {
         url: '/settings',
         template: '<div ui-view class="fade-in-up"></div>',

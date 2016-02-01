@@ -1,4 +1,6 @@
 angular.module('app').controller('AppCtrl', function($scope, $ocLazyLoad) {
+  $myyStyle={'background-color':'blue'};
+
   $scope.$on('ocLazyLoad.moduleLoaded', function(e, params) {
     console.log('event module loaded', params);
   });

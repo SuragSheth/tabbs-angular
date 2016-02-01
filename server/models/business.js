@@ -6,6 +6,8 @@ var BusinessSchema = new mongoose.Schema({
   local: {
     name: String,
     email: String,
+    personal_number: String,
+    business_website: String,
     number: String,
     password: String,
     accounttype: String,

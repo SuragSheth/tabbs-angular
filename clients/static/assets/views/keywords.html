@@ -1,0 +1,40 @@
+<div class="container-fluid container-fullw">
+	<div class="row">
+		<div class="col-md-12">
+			<h5 class="over-title margin-bottom-15">Inline <span class="text-bold">edit example</span></h5>
+			<!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+			<div ng-controller="ngTableCtrl6">
+				<div class="row margin-bottom-10">
+					<div class="col-md-12">
+						<button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">
+							Clear sorting
+						</button>
+					</div>
+				</div>
+				<strong>Sorting:</strong> {{tableParams.sorting()|json}}
+				<div class="table-responsive">
+					<table ng-table="tableParams" class="table">
+						<tbody ng-repeat="p in $data">
+							<tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+								<td class="rowTd" data-title="'ID'"          sortable="'id'">{{p.id}}</td>
+								<td class="rowTd" data-title="'Firstname'"   sortable="'fn'">{{p.fn}}</td>
+								<td class="rowTd" data-title="'Lastname'"    sortable="'ln'">{{p.ln}}</td>
+								<td class="rowTd" data-title="'Description'" sortable="'dc'">{{p.dc}}</td>
+								<td class="rowTd" data-title="'Email'"       sortable="'em'">{{p.em}}</td>
+								<td class="rowTd" data-title="'Phone'"       sortable="'ph'">{{p.ph}}</td>
+								<td class="rowTd" >
+								<div class="pull-right margin-right-10">
+									<input type=button class="btn btn-primary btn-o btn-sm" id="editRowBtn{{p.id}}" value="edit"
+									ng-click="setEditId(p.id)">
+								</div></td>
+							</tr>
+							<tr ng-show="editId===p.id" ng-if="editId===p.id">
+								<td colspan="7" ng-include src="'assets/views/editRow.html'"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
