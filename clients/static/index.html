@@ -41,6 +41,9 @@
 				$(document).ready(function(){
 					//trigger the connection event in server.
 					var socket = io.connect();
+					if (socket){
+						console.log(socket)
+					}
 				})
 		</script>
 		<!-- Fastclick -->

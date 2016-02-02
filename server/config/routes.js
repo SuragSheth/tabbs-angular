@@ -1,7 +1,7 @@
 var admin       = require('../controllers/admin.js');
 var businesses  = require('../controllers/businesses.js');
 var messages    = require('../controllers/messages.js');
-var twilio      = require('twilio')
+var twilio      = require('twilio');
 
 
 
@@ -11,12 +11,12 @@ module.exports = function(app, passport, client, io) {
 
 
     function isAuthenticated(req, res, next){
-        if (req.user && req.user != undefined) {
-                console.log("You Are Logged In", req.user)
+        if (req.user && req.user !== undefined) {
+                console.log("You Are Logged In", req.user);
                 return next();
             }
-        console.log("You are not Logged In");rs  
-        res.redirect('/');        
+        console.log("You are not Logged In");
+        res.redirect('/#/404');
     }
 
 
@@ -25,18 +25,18 @@ module.exports = function(app, passport, client, io) {
        // console.log("routes succesful add:", req.user)
         req.session.socket_id = socket.id;
         res.json({session: req.session, user: req.user});
-    })
+    });
     app.post('/business/new', passport.authenticate('local-signup', {
         successRedirect : '/dashboard', // redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
-    }))
+    }));
 
     app.post('/business/login', passport.authenticate('local-login', {
         successRedirect : '/dashboard', // redirect to the secure profile section
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
-    }))
+    }));
 
     // Need to finish
     app.get('/logout', function(req, res){
@@ -51,16 +51,16 @@ module.exports = function(app, passport, client, io) {
 // Start: routes for employees =========================
     app.post('/add_employee', function(req, res){
         admin.add_employee(req, res);
-    })
+    });
 
      app.post('/delete_employee', function(req, res){
         admin.delete_employee(req, res);
-    })
+    });
 
     app.get('/get_all_employees/:id', isAuthenticated, function(req, res){
         console.log("____________________", req.user);
-        admin.get_all_employees(req, res);        
-    })
+        admin.get_all_employees(req, res);
+    });
 // End: routes for employees =========================
 
 
@@ -70,7 +70,7 @@ module.exports = function(app, passport, client, io) {
 // Start: routes for contacts =========================
     app.get('/get_all_contacts/:number', function(req, res){
         admin.get_all_contacts(req, res);
-    })
+    });
 // End: routes for contacts =========================
 
 
@@ -84,7 +84,7 @@ module.exports = function(app, passport, client, io) {
     app.post('/send_message_to_user', function(req, res){
         console.log("routes for send message to user:", req.body);
         messages.outgoing_message(req, res, client);
-    })
+    });
 
     //incoming text from customer
     app.post('/get_message', function(req, res, next){
@@ -98,16 +98,16 @@ module.exports = function(app, passport, client, io) {
         io.emit("user_to_business", {message: req.body});
 
         console.log("get_message", req.body);
-    })
+    });
 
     app.get('/business_tabbs/:id', function(req, res){
         // console.log("IN ROUTES", req.params);
         messages.get_business_messages(req, res);
-    })
+    });
     app.get('/last_incoming_message/:id', function(req, res){
         messages.get_last_incoming_messages(req, res);
-    })
+    });
 
-    })
-}
+  });
+};
 // End: routes for sending and recieving messages ============================

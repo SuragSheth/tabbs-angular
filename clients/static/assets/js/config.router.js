@@ -81,7 +81,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
         controller: 'ngTableCtrl6'
     })
 
-    
+
 
     .state('app.settings', {
         url: '/settings',

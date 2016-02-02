@@ -14,13 +14,11 @@ edit accounts, and analytics based on message response times. Frontend is fully 
 ### API's: ###
 - Twilio
 
-### Setup: ###
-
-
+<!-- ### Setup: ###
 - $ brew install node    # Install Node and NPM
 - $ npm install -g bower # Install Bower
 - $ npm install          # Install Node packages
 - $ bower install        # Install Bower packages
-- Ngrok
+- Ngrok -->
 
 Created by: Steven Lam & Surag Sheth

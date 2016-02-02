@@ -1,10 +1,10 @@
 {
-  "name": "ClipTwo Frontend",
-  "version": "2.0.0",
+  "name": "Tabbs",
+  "version": "0.2",
   "authors": [
-    "ClipTheme"
+    "SuragSheth & StevenLam"
   ],
-  "description": "Bootstrap Multi-Purpose Template",
+  "description": "",
   "keywords": [
     "jQuery",
     "bootstrap",
@@ -21,8 +21,6 @@
     "animation",
     "web"
   ],
-  "license": "Envato REGULAR LICENSE",
-  "homepage": "http://themeforest.net/item/cliptwo-bootstrap-admin-template-with-angularjs/10290688",
   "private": true,
   "ignore": [
     "**/.*",

@@ -40,18 +40,10 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
 
         $scope.panes = [{
             header: 'Quick Responce',
-            content: 'Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim. Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum adipiscing wisi.'
+            quickResponces: []
         }, {
             header: 'Info',
             content: 'Aliquam erat ac ipsum. Integer aliquam purus. Quisque lorem tortor fringilla sed, vestibulum id, eleifend justo vel bibendum sapien massa ac turpis faucibus orci luctus non.',
-
-            subpanes: [{
-                header: 'Subpane 1',
-                content: 'Lorem ipsum dolor sit amet enim.'
-            }, {
-                header: 'Subpane 2',
-                content: 'Curabitur et ligula. Ut molestie a, ultricies porta urna. Quisque lorem tortor fringilla sed, vestibulum id.'
-            }]
         }];
 
 
@@ -143,8 +135,8 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
                     content: data[0].tabb_user_id.slice(1,12),
                     tabb_id: data[0]._id,
                     active: true,
-                    chat:[], 
-                    remaning_time: setInterval(function(){$filter('date')(new Date(), "sss")} , 1)  
+                    chat:[],
+                    remaning_time: setInterval(function(){$filter('date')(new Date(), "sss")} , 1)
                 })
                 // console.log("first index set")
                 insert_index = 0;
@@ -169,7 +161,7 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
                         tabb_id: data[tab]._id,
                         active: false,
                         chat:[],
-                        remaning_time:  setInterval(function(){$filter('date')(new Date(), "sss")} , 1) 
+                        remaning_time:  setInterval(function(){$filter('date')(new Date(), "sss")} , 1)
                     })
                     insert_index = $scope.tabs.length-1;
                  //   console.log("third index set sonnnnnnnn", insert_index)
@@ -212,8 +204,8 @@ app.controller('TabbsChatCtrl', ["$scope", "socket", "tabbsFactory", "$interval"
             })[0];
     }
 
-        
-    
+
+
 
 
 
@@ -286,6 +278,3 @@ app.factory('tabbsFactory', function($http){
         return formattedNumber;
     };
 });
-
-
-

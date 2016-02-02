@@ -1,5 +1,5 @@
 'use strict';
-/** 
+/**
   * controller for angular-aside
   * Off canvas side menu to use with ui-bootstrap. Extends ui-bootstrap's $uibModal provider.
 */

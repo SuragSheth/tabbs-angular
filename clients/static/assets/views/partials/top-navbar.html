@@ -49,29 +49,26 @@
 					</div>
 				</li>
 				<li class="view-all">
-					<a href="#" translate="topbar.messages.SEEALL"> See All </a>
+					<a href="#"> See All </a>
 				</li>
 			</ul>
 		</li>
 		<!-- end: MESSAGES DROPDOWN -->
 		<!-- start: USER OPTIONS DROPDOWN -->
-		<li class="dropdown current-user" uib-dropdown on-toggle="toggled(open)">
+		<li class="dropdown current-user" ng-controller="businessCtrl" uib-dropdown on-toggle="toggled(open)">
 			<a href class="dropdown-toggle" uib-dropdown-toggle> <img src="assets/images/avatar-1.jpg" alt="{{user.name}}"> <span class="username">{{user.name}} <i class="ti-angle-down"></i></i></span> </a>
 			<ul class="dropdown-menu dropdown-dark">
 				<li>
-					<a ui-sref="app.pages.user" translate="topbar.user.PROFILE"> My Profile </a>
+					<a ui-sref="app.pages.user"> My Profile </a>
 				</li>
 				<li>
-					<a ui-sref="app.pages.calendar" translate="topbar.user.CALENDAR"> My Calendar </a>
+					<a ui-sref="app.pages.calendar"> My Calendar </a>
 				</li>
 				<li>
-					<a ui-sref="app.pages.messages" translate="topbar.user.MESSAGES"> My Messages (3) </a>
+					<a ui-sref="app.pages.messages"> My Messages</a>
 				</li>
 				<li>
-					<a ui-sref="login.lockscreen" translate="topbar.user.LOCKSCREEN"> Lock Screen </a>
-				</li>
-				<li>
-					<a ui-sref="login.signin" translate="topbar.user.LOGOUT"> Log Out </a>
+					<a ng-click="logOutUser()"> Log Out </a>
 				</li>
 			</ul>
 		</li>

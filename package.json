@@ -1,7 +1,7 @@
 {
-  "name": "ClipTwo",
-  "version": "2.1.0",
-  "description": "AngularJs Bootstrap Admin Template",
+  "name": "Tabbs",
+  "version": "0.2",
+  "description": "SuragSheth & StevenLam",
   "scripts": {
     "start": "node node_modules/http-server/bin/http-server -o"
   },
