@@ -37,7 +37,7 @@
     "express-session": "~1.0.0",
     "html": "0.0.10",
     "method-override": "~1.0.0",
-    "mongoose": "^4.3.1",
+    "mongoose": "^5.7.7",
     "morgan": "~1.0.0",
     "passport": "~0.1.17",
     "passport-facebook": "~1.0.2",
